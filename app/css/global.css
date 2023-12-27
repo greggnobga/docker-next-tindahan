@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/** Gradient. */
+.gotham {
+    @apply bg-gradient-to-t from-slate-800 via-slate-900 to-gray-950;
+}
+
+.silver {
+    @apply bg-gradient-to-r from-gray-100 to-gray-300;
+}
