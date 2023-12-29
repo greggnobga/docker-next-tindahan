@@ -1,5 +1,5 @@
 /** CSS. */
-import './css/global.css';
+import '../css/global.css';
 
 /** Font. */
 import { Montserrat } from 'next/font/google';
@@ -14,9 +14,9 @@ export const metadata = {
 };
 
 /** Components. */
-import Nav from './components/ui/nav';
-import Hero from './components/ui/hero';
-import Footer from './components/ui/footer';
+import Nav from '../components/ui/nav';
+import Hero from '../components/ui/hero';
+import Footer from '../components/ui/footer';
 
 /** Default export. */
 export default function RootLayout({ children }) {
