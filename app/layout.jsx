@@ -15,7 +15,6 @@ export const metadata = {
 
 /** Components. */
 import Nav from '../components/ui/nav';
-import Hero from '../components/ui/hero';
 import Footer from '../components/ui/footer';
 
 /** Default export. */
@@ -32,10 +31,7 @@ export default function RootLayout({ children }) {
                 <header className='m-4 py-4  bg-orange-700 rounded-2xl'>
                     <Nav />
                 </header>
-                <main className='m-4 h-m-screen'>
-                    <Hero />
-                    {children}
-                </main>
+                <main className='m-4 h-m-screen'>{children}</main>
                 <footer>
                     <Footer />
                 </footer>
