@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <>
             <Hero />
-            <section className='p-2 flex flex-col min-h-screen gap-2'>
+            <section className='min-h-screen p-2 flex flex-col gap-2'>
                 <Container title='Flash Sale' section='sale' />
                 <Container title='Just For You' section='regular' />
                 <Container title='Hot Deals' section='hot' />

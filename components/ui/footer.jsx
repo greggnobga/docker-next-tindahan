@@ -70,7 +70,7 @@ export default function Footer() {
                         </span>
                     </Link>
                 </div>
-                <div className='p-2 font-thin text-sm w-full h-[25vh] sm:=h-full'>
+                <div className='p-2 font-thin text-sm w-full'>
                     <h1 className='uppercase'>
                         <Sprite id='payment' />
                         Payment Methods

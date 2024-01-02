@@ -4,7 +4,7 @@ import Link from 'next/link';
 /** Export default. */
 export default function ProductItems({ items }) {
     return (
-        <div className='flex-grow w-full sm:w-3/12 md:w-2/12 h-6/12'>
+        <div className='flex-grow w-full sm:w-3/12 md:w-2/12'>
             <Link href='/products/usb-bootable-disk'>
                 <div className='group flex flex-col h-full shadow-sm bg-slate-100 bg-opacity-70 hover:bg-slate-200 cursor-pointer'>
                     <div className='h-52 flex flex-col justify-center items-center bg-amber-500'>
