@@ -34,9 +34,6 @@ export default function RootLayout({ children }) {
                         <Link href='/support'>
                             <span className='p-2 cursor-pointer hover:text-amber-500'>Support</span>
                         </Link>
-                        <Link href='/feedback'>
-                            <span className='p-2 cursor-pointer hover:text-amber-500'>Feedback</span>
-                        </Link>
                     </aside>
                     <nav className='m-4 py-4  bg-orange-700 rounded-2xl'>
                         <Nav />
