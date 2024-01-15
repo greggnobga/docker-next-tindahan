@@ -58,9 +58,7 @@ export default function Cart() {
                 <p className='p-2 text-right font-light'>Sale Tax - 12.00 </p>
                 <p className='p-2 text-right font-light'>Shipment - 100.00 </p>
                 <p className='p-2 text-right'>Grand Total - 612.00</p>
-                <button
-                    type='button'
-                    className='p-2 font-semibold rounded-lg border border-transparent bg-amber-500 text-white hover:bg-amber-600 disabled:opacity-50 disabled:pointer-events-none'>
+                <button type='button' className='button-primary'>
                     Checkout
                 </button>
             </div>

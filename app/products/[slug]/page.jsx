@@ -25,9 +25,7 @@ export default function ProductDetail() {
                 </div>
                 <div className='pt-2 w-full h-fit sm:h-1/6'>
                     <div className='flex flex-col place-items-end'>
-                        <button
-                            type='button'
-                            className='p-2 font-semibold rounded-lg border border-transparent bg-amber-500 text-white hover:bg-amber-600 disabled:opacity-50 disabled:pointer-events-none'>
+                        <button type='button' className='button-primary'>
                             Add Cart
                         </button>
                     </div>
