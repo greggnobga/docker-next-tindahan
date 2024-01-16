@@ -21,12 +21,12 @@ import Notifications from '../../components/ui/notifications';
 export default function Support() {
     /** Map html element to validate hook. */
     const {
-        value: name,
-        hasError: nameHasError,
-        isValid: nameIsValid,
-        valueChangeHandler: nameChangeHandler,
-        inputBlurHandler: nameBlurHandler,
-        resetHandler: nameInputReset,
+        value: fullname,
+        hasError: fullnameHasError,
+        isValid: fullnameIsValid,
+        valueChangeHandler: fullnameChangeHandler,
+        inputBlurHandler: fullnameBlurHandler,
+        resetHandler: fullnameInputReset,
     } = useValidator((value) => value.trim() !== '' && value.match(/^[ A-Za-z0-9!@#$%^&*()_+]*$/));
 
     const {
@@ -57,14 +57,14 @@ export default function Support() {
     } = useValidator((value) => value.trim() !== '' && value.match(/^[ A-Za-z0-9.'?!,@$#\-_]*$/));
 
     /** Change class logic if valid or otherwise. */
-    const nameInputClasses = nameHasError ? 'input-error' : 'input-success';
+    const fullnameInputClasses = fullnameHasError ? 'input-error' : 'input-success';
     const emailInputClasses = emailHasError ? 'input-error' : 'input-success';
     const orderInputClasses = orderHasError ? 'input-error' : 'input-success';
     const messageInputClasses = messageHasError ? 'input-error' : 'input-success';
 
     /** Set overall form validity. */
     let formIsValid = false;
-    if (nameIsValid && emailIsValid && orderIsValid && messageIsValid) {
+    if (fullnameIsValid && emailIsValid && orderIsValid && messageIsValid) {
         formIsValid = true;
     }
 
@@ -76,20 +76,20 @@ export default function Support() {
         e.preventDefault();
 
         /** Change blur state. */
-        nameBlurHandler(true);
+        fullnameBlurHandler(true);
         emailBlurHandler(true);
         orderBlurHandler(true);
         messageBlurHandler(true);
 
         /** Check if there is invalid input. */
-        if (!emailIsValid && !nameIsValid && !orderIsValid && !messageIsValid) return;
+        if (!emailIsValid && !fullnameIsValid && !orderIsValid && !messageIsValid) return;
 
         /** Dispatch actions. */
-        // dispatch(sendMessage({ name, email, order, message }));
-        console.log(name, email, order, message);
+        // dispatch(sendMessage({ fullname, email, order, message }));
+        console.log(fullname, email, order, message);
 
         /** Reset input. */
-        nameInputReset();
+        fullnameInputReset();
         emailInputReset();
         orderInputReset();
         messageInputReset();
@@ -137,18 +137,18 @@ export default function Support() {
                             Full Name
                         </label>
                         <input
-                            className={nameInputClasses}
-                            id='name'
-                            name='name'
+                            className={fullnameInputClasses}
+                            id='fullname'
+                            name='fullname'
                             type='text'
-                            value={name}
-                            onChange={nameChangeHandler}
-                            onBlur={nameBlurHandler}
+                            value={fullname}
+                            onChange={fullnameChangeHandler}
+                            onBlur={fullnameBlurHandler}
                             autoComplete='off'
                             placeholder=''
                             required
                         />
-                        {nameHasError ? <p className='input-message'>Please enter a valid full name.</p> : ''}
+                        {fullnameHasError ? <p className='input-message'>Please enter a valid full name.</p> : ''}
                     </div>
                     <div>
                         <label htmlFor='email' className='block mb-2 text-sm font-light text-gray-900'>

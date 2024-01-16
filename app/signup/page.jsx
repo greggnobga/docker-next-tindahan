@@ -58,12 +58,12 @@ export default function Signup() {
     } = useValidator((value) => value.trim() !== '' && value.match(/^[0-9]*$/));
 
     const {
-        value: username,
-        hasError: usernameHasError,
-        isValid: usernameIsValid,
-        valueChangeHandler: usernameChangeHandler,
-        inputBlurHandler: usernameBlurHandler,
-        resetHandler: usernameInputReset,
+        value: gender,
+        hasError: genderHasError,
+        isValid: genderIsValid,
+        valueChangeHandler: genderChangeHandler,
+        inputBlurHandler: genderBlurHandler,
+        resetHandler: genderInputReset,
     } = useValidator((value) => value.trim() !== '' && value.match(/^[ A-Za-z0-9!@#$%^&*()_+]*$/));
 
     const {
@@ -80,12 +80,12 @@ export default function Signup() {
     const lastnameInputClasses = lastnameHasError ? 'input-error' : 'input-success';
     const emailInputClasses = emailHasError ? 'input-error' : 'input-success';
     const mobileInputClasses = mobileHasError ? 'input-error' : 'input-success';
-    const usernameInputClasses = usernameHasError ? 'input-error' : 'input-success';
+    const genderInputClasses = genderHasError ? 'input-error' : 'input-success';
     const passwordInputClasses = passwordHasError ? 'input-error' : 'input-success';
 
     /** Set overall form validity. */
     let formIsValid = false;
-    if (firstnameIsValid && lastnameIsValid && emailIsValid && mobileIsValid && usernameIsValid && passwordIsValid) {
+    if (firstnameIsValid && lastnameIsValid && emailIsValid && mobileIsValid && genderIsValid && passwordIsValid) {
         formIsValid = true;
     }
 
@@ -102,24 +102,24 @@ export default function Signup() {
         lastnameBlurHandler(true);
         emailBlurHandler(true);
         mobileBlurHandler(true);
-        usernameBlurHandler(true);
+        genderBlurHandler(true);
         passwordBlurHandler(true);
 
         /** Check if there is invalid input. */
-        if (!firstnameIsValid && !lastnameIsValid && !emailIsValid && !mobileIsValid && !usernameIsValid && !passwordIsValid) {
+        if (!firstnameIsValid && !lastnameIsValid && !emailIsValid && !mobileIsValid && !genderIsValid && !passwordIsValid) {
             return;
         }
 
         /** Dispatch action. */
         // dispatch(userLogin({ email, password }));
-        console.log(firstname, lastname, email, mobile, username, password);
+        console.log(firstname, lastname, email, mobile, gender, password);
 
         /** Reset input. */
         firstnameInputReset();
         lastnameInputReset();
         emailInputReset();
         mobileInputReset();
-        usernameInputReset();
+        genderInputReset();
         passwordInputReset();
     }
 
@@ -221,7 +221,10 @@ export default function Signup() {
                             className={mobileInputClasses}
                             id='mobile'
                             name='mobile'
-                            type='number'
+                            type='tel'
+                            size='12'
+                            minLength='11'
+                            maxLength='12'
                             value={mobile}
                             onChange={mobileChangeHandler}
                             onBlur={mobileBlurHandler}
@@ -232,22 +235,26 @@ export default function Signup() {
                         {mobileHasError ? <p className='input-message'>Please enter a valid mobile phone number.</p> : ''}
                     </div>
                     <div>
-                        <label htmlFor='username' className='block mb-2 text-sm font-light text-gray-900'>
-                            Username
+                        <label htmlFor='gender' className='block mb-2 text-sm font-light text-gray-900'>
+                            Gender
                         </label>
-                        <input
-                            className={usernameInputClasses}
-                            id='username'
-                            name='username'
+                        <select
+                            id='gender'
+                            className={`input-select appearance-none bg-no-repeat ${genderInputClasses}`}
+                            id='gender'
+                            name='gender'
                             type='text'
-                            value={username}
-                            onChange={usernameChangeHandler}
-                            onBlur={usernameBlurHandler}
+                            value={gender}
+                            onChange={genderChangeHandler}
+                            onBlur={genderBlurHandler}
                             autoComplete='off'
                             placeholder=''
-                            required
-                        />
-                        {usernameHasError ? <p className='input-message'>Please enter a valid user name.</p> : ''}
+                            required>
+                            <option defaultValue>Choose your gender</option>
+                            <option value='Male'>Male</option>
+                            <option value='Female'>Female</option>
+                        </select>
+                        {genderHasError ? <p className='input-message'>Please enter a valid user name.</p> : ''}
                     </div>
                     <div>
                         <label htmlFor='password' className='block mb-2 text-sm font-light text-gray-900'>
