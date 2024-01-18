@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import User from './models/user-model.js';
 import Product from './models/product-model.js';
 import Order from './models/order-model.js';
+import Support from './models/support-model.js';
 
 /** Data. */
 import users from './data/user-data.js';
@@ -24,13 +25,15 @@ const importData = async () => {
         await User.deleteMany();
         await Product.deleteMany();
         await Order.deleteMany();
+        await Support.deleteMany();
 
         /** Import collection. */
         await User.insertMany(users);
 
+        /** Get admin user. */
         const admin = await User.find({ admin: true });
 
-        /** Check if admin is not null and iterate product array. */
+        /** Check if admin is not null and add _user to product object. */
         if (admin) {
             const updatedProducts = products.map((product) => {
                 return { _user: admin[0]._id, ...product };
@@ -59,6 +62,7 @@ const destroyData = async () => {
         await User.deleteMany();
         await Product.deleteMany();
         await Order.deleteMany();
+        await Support.deleteMany();
 
         /** Log and exit. */
         console.log('Data destroyed.');

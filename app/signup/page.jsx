@@ -75,6 +75,15 @@ export default function Signup() {
         resetHandler: passwordInputReset,
     } = useValidator((value) => value.trim() !== '' && value.match(/^[ A-Za-z0-9!@#$%^&*()_+]*$/));
 
+    const {
+        value: confirmpassword,
+        hasError: confirmpasswordHasError,
+        isValid: confirmpasswordIsValid,
+        valueChangeHandler: confirmpasswordChangeHandler,
+        inputBlurHandler: confirmpasswordBlurHandler,
+        resetHandler: confirmpasswordInputReset,
+    } = useValidator((value) => value.trim() !== '' && value.match(/^[ A-Za-z0-9!@#$%^&*()_+]*$/));
+
     /** Change class logic if valid or otherwise. */
     const firstnameInputClasses = firstnameHasError ? 'input-error' : 'input-success';
     const lastnameInputClasses = lastnameHasError ? 'input-error' : 'input-success';
@@ -82,10 +91,11 @@ export default function Signup() {
     const mobileInputClasses = mobileHasError ? 'input-error' : 'input-success';
     const genderInputClasses = genderHasError ? 'input-error' : 'input-success';
     const passwordInputClasses = passwordHasError ? 'input-error' : 'input-success';
+    const confirmpasswordInputClasses = confirmpasswordHasError ? 'input-error' : 'input-success';
 
     /** Set overall form validity. */
     let formIsValid = false;
-    if (firstnameIsValid && lastnameIsValid && emailIsValid && mobileIsValid && genderIsValid && passwordIsValid) {
+    if (firstnameIsValid && lastnameIsValid && emailIsValid && mobileIsValid && genderIsValid && confirmpasswordIsValid && passwordIsValid) {
         formIsValid = true;
     }
 
@@ -104,15 +114,16 @@ export default function Signup() {
         mobileBlurHandler(true);
         genderBlurHandler(true);
         passwordBlurHandler(true);
+        confirmpasswordBlurHandler(true);
 
         /** Check if there is invalid input. */
-        if (!firstnameIsValid && !lastnameIsValid && !emailIsValid && !mobileIsValid && !genderIsValid && !passwordIsValid) {
+        if (!firstnameIsValid && !lastnameIsValid && !emailIsValid && !mobileIsValid && !genderIsValid && !confirmpasswordIsValid && !passwordIsValid) {
             return;
         }
 
         /** Dispatch action. */
         // dispatch(userLogin({ email, password }));
-        console.log(firstname, lastname, email, mobile, gender, password);
+        console.log(firstname, lastname, email, mobile, gender, confirmpassword, password);
 
         /** Reset input. */
         firstnameInputReset();
@@ -121,6 +132,7 @@ export default function Signup() {
         mobileInputReset();
         genderInputReset();
         passwordInputReset();
+        conrfirmpasswordInputReset();
     }
 
     /** Use selector. */
@@ -274,16 +286,41 @@ export default function Signup() {
                         />
                         {passwordHasError ? <p className='input-message'>Please enter a valid password.</p> : ''}
                     </div>
-                    <p className='text-xs font-thin'>
-                        Already have an account? Proceed to{' '}
-                        <Link href='/login' className='text-amber-500'>
-                            login
-                        </Link>{' '}
-                        page
-                    </p>
-                    <button type='submit' disabled={!formIsValid} className='button-primary'>
-                        Submit
-                    </button>
+                    <div>
+                        <label htmlFor='confirmpassword' className='block mb-2 text-sm font-light text-gray-900'>
+                            Confirm Password
+                        </label>
+                        <input
+                            className={confirmpasswordInputClasses}
+                            id='confirmpassword'
+                            name='confirmpassword'
+                            type='password'
+                            value={confirmpassword}
+                            onChange={confirmpasswordChangeHandler}
+                            onBlur={confirmpasswordBlurHandler}
+                            autoComplete='off'
+                            placeholder=''
+                            required
+                        />
+                        {confirmpasswordHasError ? <p className='input-message'>Please enter a valid confirm password.</p> : ''}
+                    </div>
+                    <div className='md:col-span-2'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center'>
+                            <div className='w-full'>
+                                <button type='submit' disabled={!formIsValid} className='button-primary'>
+                                    Submit
+                                </button>
+                            </div>
+
+                            <p className='text-xs font-thin'>
+                                Already have an account? Proceed to{' '}
+                                <Link href='/login' className='text-amber-500'>
+                                    login
+                                </Link>{' '}
+                                page
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

@@ -44,12 +44,6 @@ const userSchema = mongoose.Schema(
 
 /** Define model using user schema. */
 const User = mongoose.models.User || mongoose.model('User', userSchema);
-// const User = mongoose.model('User', userSchema);
-
-/** Define match password method. */
-userSchema.methods.matchPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
-};
 
 /** Export. */
 export default User;

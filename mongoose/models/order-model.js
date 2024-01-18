@@ -92,7 +92,6 @@ const orderSchema = mongoose.Schema(
 
 /** Define model using user schema. */
 const Order = mongoose.models.Order || mongoose.model('Order', orderSchema);
-// const Order = mongoose.model('Order', orderSchema);
 
 /** Export. */
 export default Order;

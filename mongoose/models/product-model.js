@@ -84,7 +84,6 @@ const productSchema = mongoose.Schema(
 
 /** Define model using user schema. */
 const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
-// const Product = mongoose.model('Product', productSchema);
 
 /** Export. */
 export default Product;
