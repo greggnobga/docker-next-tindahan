@@ -1,7 +1,7 @@
 'use client';
 
 /** React. */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /** Vendor. */
 import Link from 'next/link';
@@ -102,6 +102,52 @@ export default function Signup() {
     /** Use dispatch. */
     const dispatch = useDispatch();
 
+    /** Use selector. */
+    const userAuth = useSelector((state) => state.userAuth);
+    const { logged } = userAuth;
+
+    const toastMessage = useSelector((state) => state.toastMessage);
+    const { status: responseStatus, message: responseMessage } = toastMessage;
+
+    /** Use router. */
+    const router = useRouter();
+
+    /** Check if password match and length. */
+    const [passwordMatched, setPasswordMatched] = useState(false);
+    const [passwordLength, setpasswordLength] = useState(false);
+
+    /** Use effect. */
+    useEffect(() => {
+        /** Check if password length is greater than 10. */
+        if (password.length != 0 && password.length < 10) {
+            setpasswordLength(true);
+        } else {
+            setpasswordLength(false);
+        }
+
+        /** Check if password and confirm match. */
+        if (password !== confirmpassword) {
+            setPasswordMatched(true);
+        } else {
+            setPasswordMatched(false);
+        }
+
+        /** Check if token is set. */
+        if (logged) {
+            router.push('/dashboard');
+        }
+
+        /** Check if response has value. */
+        if (responseMessage) {
+            const timer = setTimeout(() => {
+                /** Reset message. */
+                dispatch(resetToast());
+            }, 5000);
+            /** Clear running timer. */
+            return () => clearTimeout(timer);
+        }
+    }, [dispatch, logged, responseMessage, password, confirmpassword]);
+
     /** Submit hanndler. */
     function submitHandler(e) {
         /** Prevent browser default behaviour */
@@ -132,39 +178,10 @@ export default function Signup() {
         mobileInputReset();
         genderInputReset();
         passwordInputReset();
-        conrfirmpasswordInputReset();
+        confirmpasswordInputReset();
     }
 
-    /** Use selector. */
-    const userAuth = useSelector((state) => state.userAuth);
-    const { logged } = userAuth;
-
-    const toastMessage = useSelector((state) => state.toastMessage);
-    const { status: responseStatus, message: responseMessage } = toastMessage;
-
-    /** Use router. */
-    const router = useRouter();
-
-    /** Use effect. */
-    useEffect(() => {
-        /** Check if token is set. */
-        if (logged) {
-            router.push('/dashboard');
-        }
-
-        /** Check if response has value. */
-        if (responseMessage) {
-            const timer = setTimeout(() => {
-                /** Reset message. */
-                dispatch(resetToast());
-            }, 5000);
-            /** Clear running timer. */
-            return () => clearTimeout(timer);
-        }
-    }, [dispatch, logged, responseMessage]);
-
     /** Return something. */
-
     return (
         <div className='min-h-screen'>
             <h1 className='pb-2 text-center'>Signup</h1>
@@ -284,7 +301,11 @@ export default function Signup() {
                             placeholder=''
                             required
                         />
-                        {passwordHasError ? <p className='input-message'>Please enter a valid password.</p> : ''}
+                        {passwordHasError ? (
+                            <p className='input-message'>Please enter a valid password.</p>
+                        ) : (
+                            passwordLength && <p className='input-message'>Password must be 10 characters or more.</p>
+                        )}
                     </div>
                     <div>
                         <label htmlFor='confirmpassword' className='block mb-2 text-sm font-light text-gray-900'>
@@ -302,7 +323,11 @@ export default function Signup() {
                             placeholder=''
                             required
                         />
-                        {confirmpasswordHasError ? <p className='input-message'>Please enter a valid confirm password.</p> : ''}
+                        {confirmpasswordHasError ? (
+                            <p className='input-message'>Please enter a valid confirm password.</p>
+                        ) : (
+                            passwordMatched && <p className='input-message'>Password and confirm password do not match.</p>
+                        )}
                     </div>
                     <div className='md:col-span-2'>
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-2 place-items-center'>

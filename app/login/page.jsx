@@ -67,8 +67,7 @@ export default function Login() {
         }
 
         /** Dispatch action. */
-        // dispatch(userLogin({ email, password }));
-        console.log(email, password);
+        dispatch(userLogin({ email, password }));
 
         /** Reset input. */
         emailInputReset();
@@ -107,7 +106,7 @@ export default function Login() {
     return (
         <div className='min-h-screen'>
             <h1 className='pb-2 text-center'>Login</h1>
-
+            {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <form onSubmit={submitHandler} method='POST' className='bg-slate-200 p-2 rounded'>
                 <div className='grid gap-6 mb-6 md:grid-cols-2'>
                     <div>

@@ -8,7 +8,7 @@ export function userAuth(state = {}, action) {
         case USER_LOGIN_SUCCESS:
             return { ...action.payload };
         case USER_LOGIN_FAILURE:
-            return { error: action.payload };
+            return { error: action.payload, logged: false };
         default:
             return state;
     }

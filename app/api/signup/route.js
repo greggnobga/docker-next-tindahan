@@ -4,7 +4,8 @@ import { NextResponse } from 'next/server';
 
 /** Library. */
 import Database from '../../../lib/mongo';
-import { hashPassword } from '../../../lib/password';
+import { Sanitizer } from '../../../lib/sanitizer';
+import { bcryptHash } from '../../../lib/bcrypt';
 import { generateToken } from '../../../lib/token';
 
 /** Model. */
@@ -15,54 +16,58 @@ Database();
 
 export async function POST(request) {
     /** Await the post data. */
-    const { firstname, lastname, email, mobile, gender, password } = await request.json();
+    const data = await request.json();
 
-    /** Find user in database. */
-    const user = await User.findOne({ email });
+    /** Sanitize post data. */
+    const filtered = await Sanitizer(data);
 
-    console.log(firstname, lastname, email, mobile, gender, password);
-
-    /** Check if not found. */
-    if (!user) {
-        /** Return user not found message. */
-        return NextResponse.json({ message: 'The account has been successfully created.', status: 302, logged: true });
-
-        // /** Compare entered password against hashed password. */
-        // const compare = await comparePassword({ enteredPassword: password, hashedPassword: user.password });
-
-        // /** Check if password matched. */
-        // if (compare) {
-        //     /** Return user related data and set cookie in the jar. */
-        //     return NextResponse.json(
-        //         {
-        //             email: user.email,
-        //             firstname: user.firstname,
-        //             lastname: user.lastname,
-        //             mobile: user.mobile,
-        //             gender: user.gender,
-        //             admin: user.admin,
-        //             message: user.firstname + ', we are glad you are back and hope you will have a good time with us.',
-        //             status: 200,
-        //             logged: true,
-        //         },
-        //         {
-        //             headers: {
-        //                 'Set-Cookie': cookie.serialize('token', await generateToken({ id: user._id, admin: user.admin }), {
-        //                     httpOnly: true,
-        //                     secure: process.env.APP_ENV !== 'development',
-        //                     MaxAge: 60 * 60,
-        //                     sameSite: 'strict',
-        //                     path: '/',
-        //                 }),
-        //             },
-        //         },
-        //     );
-        // } else {
-        //     /** Return user not found message. */
-        //     return NextResponse.json({ message: 'The account has been successfully created.', status: 302, logged: false });
-        // }
+    /** If sanitization has error. */
+    if (filtered.error) {
+        return NextResponse.json({ message: filtered.message });
     } else {
-        /** Return user found message. */
-        return NextResponse.json({ message: 'The person associated with the email address has already registered.', status: 302, logged: false });
+        /** Find user in database. */
+        const user = await User.findOne({ email: filtered.email });
+
+        /** Check if not found. */
+        if (!user) {
+            /** Hash password. */
+            const password = await bcryptHash({ entered: filtered.password });
+
+            /** Add to database record. */
+            try {
+                /** Prepare data. */
+                const result = new User({ ...filtered, password: password });
+
+                /** Save user. */
+                await result.save();
+
+                /** Return user related data and set cookie in the jar. */
+                return NextResponse.json(
+                    {
+                        ...filtered,
+                        message: filtered.firstname + ', your account has been successfully created.',
+                        status: 200,
+                        logged: true,
+                    },
+                    {
+                        headers: {
+                            'Set-Cookie': cookie.serialize('token', await generateToken({ id: result._id, admin: result.admin }), {
+                                httpOnly: true,
+                                secure: process.env.APP_ENV !== 'development',
+                                MaxAge: 60 * 60,
+                                sameSite: 'strict',
+                                path: '/',
+                            }),
+                        },
+                    },
+                );
+            } catch (error) {
+                /** Return error message. */
+                return NextResponse.json({ message: 'The server is currently busy, so you cannot create an account.', status: 500 });
+            }
+        } else {
+            /** Return user found message. */
+            return NextResponse.json({ message: 'The person associated with the email address has already registered.', status: 302, logged: false });
+        }
     }
 }

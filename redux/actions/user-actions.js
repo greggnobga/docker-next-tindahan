@@ -24,7 +24,7 @@ export const userLogin = (params) => async (dispatch, getState) => {
             /** Dispatch success. */
             dispatch({
                 type: USER_LOGIN_SUCCESS,
-                payload: { email: data.email, name: data.name, admin: data.admin, message: data.message, status: data.status, logged: data.logged },
+                payload: { ...data },
             });
 
             /** Dispatch toast. */
@@ -66,9 +66,6 @@ export const userLogout = (params) => async (dispatch, getState) => {
 
     /** Remove state in local storage. */
     localStorage.removeItem('userAuth');
-    localStorage.removeItem('messageList');
-    localStorage.removeItem('projectList');
-    localStorage.removeItem('projectFeatured');
 
     /** Dispatch request. */
     dispatch({ type: USER_LOGIN_REQUEST });

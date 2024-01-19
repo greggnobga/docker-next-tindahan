@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 /** Library. */
 import Database from '../../../lib/mongo';
-import { comparePassword } from '../../../lib/password';
+import { bcryptCompare } from '../../../lib/bcrypt';
 import { generateToken } from '../../../lib/token';
 
 /** Model. */
@@ -23,16 +23,17 @@ export async function POST(request) {
     /** Check if found. */
     if (user) {
         /** Compare entered password against hashed password. */
-        const compare = await comparePassword({ enteredPassword: password, hashedPassword: user.password });
+        const compare = await bcryptCompare({ entered: password, hashed: user.password });
 
         /** Check if password matched. */
         if (compare) {
             /** Return user related data and set cookie in the jar. */
             return NextResponse.json(
                 {
-                    email: user.email,
+                    id: user._id,
                     firstname: user.firstname,
                     lastname: user.lastname,
+                    email: user.email,
                     mobile: user.mobile,
                     gender: user.gender,
                     admin: user.admin,

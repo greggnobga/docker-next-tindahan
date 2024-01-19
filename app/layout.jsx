@@ -20,6 +20,7 @@ export const metadata = {
 };
 
 /** Components. */
+import Menu from '../components/ui/menu';
 import Nav from '../components/ui/nav';
 import Footer from '../components/ui/footer';
 
@@ -31,15 +32,7 @@ export default function RootLayout({ children }) {
                 <StoreProvider>
                     <header>
                         <aside className='m-4 pr-2 text-[.50rem] uppercase text-right'>
-                            <Link href='/login'>
-                                <span className='p-2 cursor-pointer hover:text-amber-500'>Login</span>
-                            </Link>
-                            <Link href='/signup'>
-                                <span className='p-2 cursor-pointer hover:text-amber-500'>Signup</span>
-                            </Link>
-                            <Link href='/support'>
-                                <span className='p-2 cursor-pointer hover:text-amber-500'>Support</span>
-                            </Link>
+                            <Menu />
                         </aside>
                         <nav className='m-4 py-4  bg-orange-700 rounded-2xl'>
                             <Nav />

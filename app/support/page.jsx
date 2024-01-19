@@ -96,9 +96,6 @@ export default function Support() {
     }
 
     /** Use selector. */
-    const userAuth = useSelector((state) => state.userAuth);
-    const { logged } = userAuth;
-
     const toastMessage = useSelector((state) => state.toastMessage);
     const { status: responseStatus, message: responseMessage } = toastMessage;
 
@@ -107,11 +104,6 @@ export default function Support() {
 
     /** Use effect. */
     useEffect(() => {
-        /** If logged push to dashboard. */
-        if (logged) {
-            router.push('/dashboard');
-        }
-
         /** Check if response has value. */
         if (responseMessage) {
             /** Timer clean up function. */
@@ -123,7 +115,7 @@ export default function Support() {
             /** Clear running timer. */
             return () => clearTimeout(timer);
         }
-    }, [dispatch, logged, responseMessage]);
+    }, [dispatch, responseMessage]);
 
     /** Return something. */
     return (
