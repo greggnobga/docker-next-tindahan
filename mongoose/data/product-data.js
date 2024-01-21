@@ -9,6 +9,7 @@ dotenv.config();
 const products = [
     {
         name: 'Fedora USB Bootable Disk',
+        slug: 'fedora-usb-bootable-disk',
         image: '/img/placeholder.png',
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
@@ -22,6 +23,7 @@ const products = [
     },
     {
         name: 'HP T620 Thin Client',
+        slug: 'hp-t620-thin-client',
         image: '/img/placeholder.png',
         description:
             'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.',
@@ -35,6 +37,7 @@ const products = [
     },
     {
         name: 'Windows USB Bootable Disk',
+        slug: 'windows-usb-bootable-disk',
         image: '/img/placeholder.png',
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
@@ -48,6 +51,7 @@ const products = [
     },
     {
         name: 'Ledger Nano S Final',
+        slug: 'ledger-nano-s-final',
         image: '/img/placeholder.png',
         description:
             'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.',

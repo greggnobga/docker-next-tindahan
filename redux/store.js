@@ -5,27 +5,29 @@ import { thunk } from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 /** Reducer. */
-import { userAuth } from './reducers/user-reducers';
+import { loginUser, signupUser } from './reducers/user-reducers';
 import { toastMessage } from './reducers/toast-reducers';
 
 /** Combine reducer. */
 const reducer = combineReducers({
-    userAuth: userAuth,
+    loginUser: loginUser,
+    signupUser: signupUser,
     toastMessage: toastMessage,
 });
 
 /** Define variables. */
-let userAuthFromStorage;
+let loginUserFromStorage;
 
 /** Only run when window is set. */
 if (typeof window !== 'undefined') {
     /** Get state from local storage. */
-    userAuthFromStorage = localStorage.getItem('userAuth') ? JSON.parse(localStorage.getItem('userAuth')) : {};
+    loginUserFromStorage = localStorage.getItem('loginUser') ? JSON.parse(localStorage.getItem('loginUser')) : {};
 }
 
 /** Define initial state. */
 const initialState = {
-    userAuth: userAuthFromStorage,
+    loginUser: loginUserFromStorage,
+    signupUser: {},
     toastMessage: {},
 };
 

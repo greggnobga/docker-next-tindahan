@@ -75,8 +75,8 @@ export default function Login() {
     }
 
     /** Use selector. */
-    const userAuth = useSelector((state) => state.userAuth);
-    const { logged } = userAuth;
+    const loginUser = useSelector((state) => state.loginUser);
+    const { logged } = loginUser;
 
     const toastMessage = useSelector((state) => state.toastMessage);
     const { status: responseStatus, message: responseMessage } = toastMessage;

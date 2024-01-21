@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 /** Action. */
-import { userLogin } from '../../redux/actions/user-actions';
+import { userSignup } from '../../redux/actions/user-actions';
 import { resetToast } from '../../redux/actions/toast-actions';
 
 /** Hook. */
@@ -103,8 +103,8 @@ export default function Signup() {
     const dispatch = useDispatch();
 
     /** Use selector. */
-    const userAuth = useSelector((state) => state.userAuth);
-    const { logged } = userAuth;
+    const loginUser = useSelector((state) => state.loginUser);
+    const { logged } = loginUser;
 
     const toastMessage = useSelector((state) => state.toastMessage);
     const { status: responseStatus, message: responseMessage } = toastMessage;
@@ -168,8 +168,7 @@ export default function Signup() {
         }
 
         /** Dispatch action. */
-        // dispatch(userLogin({ email, password }));
-        console.log(firstname, lastname, email, mobile, gender, confirmpassword, password);
+        dispatch(userSignup({ firstname, lastname, email, mobile, gender, password }));
 
         /** Reset input. */
         firstnameInputReset();
@@ -185,7 +184,7 @@ export default function Signup() {
     return (
         <div className='min-h-screen'>
             <h1 className='pb-2 text-center'>Signup</h1>
-
+            {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <form onSubmit={submitHandler} method='POST' className='bg-slate-200 p-2 rounded'>
                 <div className='grid gap-6 mb-6 md:grid-cols-2'>
                     <div>

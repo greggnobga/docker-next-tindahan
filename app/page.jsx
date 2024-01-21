@@ -1,9 +1,9 @@
 import Image from 'next/image';
 
 /** Components. */
-import Sprite from '../components/ui/sprite';
 import Hero from '../components/ui/hero';
 import Container from '../components/ui/container';
+import Sprite from '../components/ui/sprite';
 
 /** Default export. */
 export default function Home() {

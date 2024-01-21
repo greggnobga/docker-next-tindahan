@@ -1,5 +1,6 @@
 /** Vendor. */
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
 /** Store. */
 import StoreProvider from '../redux/store-provider';
@@ -20,9 +21,10 @@ export const metadata = {
 };
 
 /** Components. */
-import Menu from '../components/ui/menu';
 import Nav from '../components/ui/nav';
 import Footer from '../components/ui/footer';
+
+const Menu = dynamic(() => import('../components/ui/menu'), { ssr: false });
 
 /** Default export. */
 export default function RootLayout({ children }) {
@@ -31,7 +33,7 @@ export default function RootLayout({ children }) {
             <body className={`silver ${montserrat.className} text-slate-800 leading-5`}>
                 <StoreProvider>
                     <header>
-                        <aside className='m-4 pr-2 text-[.50rem] uppercase text-right'>
+                        <aside className='m-4 pr-2 text-[.50rem] uppercase text-right' suppressHydrationWarning>
                             <Menu />
                         </aside>
                         <nav className='m-4 py-4  bg-orange-700 rounded-2xl'>

@@ -10,8 +10,8 @@ import { userLogout } from '../../redux/actions/user-actions.js';
 /** Default export. */
 export default function Menu() {
     /** Use selector. */
-    const userAuth = useSelector((state) => state.userAuth);
-    const { logged } = userAuth;
+    const loginUser = useSelector((state) => state.loginUser);
+    const { logged } = loginUser;
 
     /** Use dispatch. */
     const dispatch = useDispatch();

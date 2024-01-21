@@ -10,6 +10,7 @@ const users = [
     {
         firstname: 'Reijo',
         lastname: 'N',
+        slug: 'reijo-n',
         email: 'reijo@buntod.com',
         mobile: '00000000000',
         gender: 'male',
@@ -19,6 +20,7 @@ const users = [
     {
         firstname: 'Orion',
         lastname: 'N',
+        slug: 'orion-n',
         email: 'orion@buntod.com',
         mobile: '00000000000',
         gender: 'male',

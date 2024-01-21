@@ -33,10 +33,15 @@ export async function POST(request) {
             /** Hash password. */
             const password = await bcryptHash({ entered: filtered.password });
 
+            /** Create slug. */
+            const first = filtered.firstname ? filtered.firstname : 'firstname';
+            const last = filtered.lastname ? filtered.lastname : 'lastname';
+            const slug = first.toLowerCase() + '-' + last.toLowerCase();
+
             /** Add to database record. */
             try {
                 /** Prepare data. */
-                const result = new User({ ...filtered, password: password });
+                const result = new User({ ...filtered, password: password, slug: slug });
 
                 /** Save user. */
                 await result.save();
@@ -45,6 +50,7 @@ export async function POST(request) {
                 return NextResponse.json(
                     {
                         ...filtered,
+                        slug: slug,
                         message: filtered.firstname + ', your account has been successfully created.',
                         status: 200,
                         logged: true,
@@ -63,7 +69,7 @@ export async function POST(request) {
                 );
             } catch (error) {
                 /** Return error message. */
-                return NextResponse.json({ message: 'The server is currently busy, so you cannot create an account.', status: 500 });
+                return NextResponse.json({ message: 'Check the thrown error for more detailed information about what went wrong.', status: 500 });
             }
         } else {
             /** Return user found message. */
