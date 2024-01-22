@@ -15,11 +15,7 @@ export async function GET(request) {
     /** Fetch all messages record. */
     try {
         /** Check for existing record. */
-        const products = await Product.find({})
-            .select('_id _user name slug image brand category condition description rating reviews reviewcount currentprice stockcount previousprice')
-            .limit(25)
-            .sort({ createdAt: -1 })
-            .exec();
+        const products = await Product.find({}).select('_id name slug image price discount').limit(25).sort({ createdAt: -1 }).exec();
 
         /** Prevent user from sending multiple message. */
         if (products) {

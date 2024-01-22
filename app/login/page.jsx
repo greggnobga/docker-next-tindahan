@@ -15,9 +15,6 @@ import { resetToast } from '../../redux/actions/toast-actions';
 /** Hook. */
 import useValidator from '../../hooks/use-validator';
 
-/** Component. */
-import Notifications from '../../components/ui/notifications';
-
 /** Default export. */
 export default function Login() {
     /** Map html element to validate hook. */
@@ -78,9 +75,6 @@ export default function Login() {
     const loginUser = useSelector((state) => state.loginUser);
     const { logged } = loginUser;
 
-    const toastMessage = useSelector((state) => state.toastMessage);
-    const { status: responseStatus, message: responseMessage } = toastMessage;
-
     /** Use router. */
     const router = useRouter();
 
@@ -90,23 +84,13 @@ export default function Login() {
         if (logged) {
             router.push('/dashboard');
         }
-
-        /** Check if response has value. */
-        if (responseMessage) {
-            const timer = setTimeout(() => {
-                /** Reset message. */
-                dispatch(resetToast());
-            }, 5000);
-            /** Clear running timer. */
-            return () => clearTimeout(timer);
-        }
-    }, [dispatch, logged, responseMessage]);
+    }, [dispatch, logged]);
 
     /** Return something. */
     return (
         <div className='min-h-screen'>
             <h1 className='pb-2 text-center'>Login</h1>
-            {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
+
             <form onSubmit={submitHandler} method='POST' className='bg-slate-200 p-2 rounded'>
                 <div className='grid gap-6 mb-6 md:grid-cols-2'>
                     <div>

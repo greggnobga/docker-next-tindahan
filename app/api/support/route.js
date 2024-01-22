@@ -12,6 +12,28 @@ import Support from '../../../mongoose/models/support-model';
 /** Connect MongonDB. */
 Database();
 
+/** GET. */
+export async function GET(request) {
+    /** Fetch all messages record. */
+    try {
+        /** Check for existing record. */
+        const messages = await Support.find({}).select('_id _order fullname email message').limit(25).sort({ createdAt: -1 }).exec();
+
+        /** Prevent user from sending multiple message. */
+        if (messages) {
+            /** Return message list. */
+            return NextResponse.json(messages);
+        } else {
+            /** Return warning message. */
+            return NextResponse.json({ message: 'No messages so far.', status: 200 });
+        }
+    } catch (error) {
+        /** Return error message. */
+        return NextResponse.json({ message: 'Unable to fetched messages!', status: 500 });
+    }
+}
+
+/** POST. */
 export async function POST(request) {
     /** Await the post data. */
     const data = await request.json();
@@ -32,7 +54,6 @@ export async function POST(request) {
             return NextResponse.json({
                 message: 'You already sent a request for this order ID; please wait for our representative response regarding the matter.',
                 status: 302,
-                logged: false,
             });
         } else {
             /** Add to database record. */

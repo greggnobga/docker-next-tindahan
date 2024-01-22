@@ -1,14 +1,14 @@
 'use client';
 
 /** React. */
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 /* Vendor. */
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 /** Action. */
-// import { sendMessage } from '../../redux/actions/message-actions';
+import { sendSupport } from '../../redux/actions/support-actions';
 import { resetToast } from '../../redux/actions/toast-actions';
 
 /** Hook. */
@@ -85,8 +85,7 @@ export default function Support() {
         if (!emailIsValid && !fullnameIsValid && !orderIsValid && !messageIsValid) return;
 
         /** Dispatch actions. */
-        // dispatch(sendMessage({ fullname, email, order, message }));
-        console.log(fullname, email, order, message);
+        dispatch(sendSupport({ fullname, email, order, message }));
 
         /** Reset input. */
         fullnameInputReset();
@@ -102,8 +101,18 @@ export default function Support() {
     /** Use router. */
     const router = useRouter();
 
+    /** Check if password match and length. */
+    const [orderLength, setOrderLength] = useState(false);
+
     /** Use effect. */
     useEffect(() => {
+        /** Check if password length is greater than 10. */
+        if (order.length != 0 && order.length < 24) {
+            setOrderLength(true);
+        } else {
+            setOrderLength(false);
+        }
+
         /** Check if response has value. */
         if (responseMessage) {
             /** Timer clean up function. */
@@ -115,13 +124,13 @@ export default function Support() {
             /** Clear running timer. */
             return () => clearTimeout(timer);
         }
-    }, [dispatch, responseMessage]);
+    }, [dispatch, order, responseMessage]);
 
     /** Return something. */
     return (
         <div className='min-h-screen'>
             <h1 className='pb-2 text-center'>Support</h1>
-
+            {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <form onSubmit={submitHandler} method='POST' className='bg-slate-200 p-2 rounded'>
                 <div className='grid gap-6 mb-6 md:grid-cols-2'>
                     <div>
@@ -176,7 +185,11 @@ export default function Support() {
                             placeholder=''
                             required
                         />
-                        {orderHasError ? <p className='input-message'>Please enter a valid order id.</p> : ''}
+                        {orderHasError ? (
+                            <p className='input-message'>Please enter a valid order id.</p>
+                        ) : (
+                            orderLength && <p className='input-message'>Order ID must be 24 characters or more.</p>
+                        )}
                     </div>
 
                     <div className='md:col-span-2'>
