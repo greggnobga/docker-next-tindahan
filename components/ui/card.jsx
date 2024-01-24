@@ -1,4 +1,4 @@
-/** Vendot. */
+/** Vendor. */
 import Link from 'next/link';
 
 /** Export default. */

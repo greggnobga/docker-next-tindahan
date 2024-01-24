@@ -4,9 +4,9 @@ import { TOAST_MESSAGE, TOAST_RESET } from '../constants/toast-constants';
 export function toastMessage(state = {}, action) {
     switch (action.type) {
         case TOAST_RESET:
-            return {};
+            return { loading: true };
         case TOAST_MESSAGE:
-            return { ...action.payload };
+            return { loading: false, ...action.payload };
 
         default:
             return state;

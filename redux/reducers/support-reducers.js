@@ -4,11 +4,11 @@ import { SUPPORT_REQUEST, SUPPORT_SUCCESS, SUPPORT_FAILURE } from '../constants/
 export function supportSend(state = {}, action) {
     switch (action.type) {
         case SUPPORT_REQUEST:
-            return {};
+            return { loading: true };
         case SUPPORT_SUCCESS:
-            return { ...action.payload };
+            return { loading: false, ...action.payload };
         case SUPPORT_FAILURE:
-            return { error: action.payload };
+            return { laoding: false, error: action.payload };
         default:
             return state;
     }

@@ -21,22 +21,16 @@ const reducer = combineReducers({
 
 /** Define variables. */
 let loginUserFromStorage;
-let listProductFromStorage;
 
 /** Only run when window is set. */
 if (typeof window !== 'undefined') {
     /** Get state from local storage. */
-    loginUserFromStorage = localStorage.getItem('loginUser') ? JSON.parse(localStorage.getItem('loginUser')) : {};
-    listProductFromStorage = localStorage.getItem('listProduct') ? JSON.parse(localStorage.getItem('listProduct')) : {};
+    loginUserFromStorage = localStorage.getItem('loginUser') ? JSON.parse(localStorage.getItem('loginUser')) : [];
 }
 
 /** Define initial state. */
 const initialState = {
-    toastMessage: {},
-    supportSend: {},
-    signupUser: {},
     loginUser: loginUserFromStorage,
-    listProduct: listProductFromStorage,
 };
 
 /** Middleware. */

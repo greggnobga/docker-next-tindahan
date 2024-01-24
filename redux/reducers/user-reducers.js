@@ -4,11 +4,11 @@ import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE, USER_SIGNUP
 export function loginUser(state = {}, action) {
     switch (action.type) {
         case USER_LOGIN_REQUEST:
-            return { logged: false };
+            return { logged: true };
         case USER_LOGIN_SUCCESS:
-            return { ...action.payload };
+            return { loadin: false, ...action.payload };
         case USER_LOGIN_FAILURE:
-            return { error: action.payload, logged: false };
+            return { loading: false, error: action.payload, logged: false };
         default:
             return state;
     }
@@ -18,11 +18,11 @@ export function loginUser(state = {}, action) {
 export function signupUser(state = {}, action) {
     switch (action.type) {
         case USER_SIGNUP_REQUEST:
-            return { logged: false };
+            return { logged: true, logged: false };
         case USER_SIGNUP_SUCCESS:
-            return { ...action.payload };
+            return { logged: false, ...action.payload };
         case USER_SIGNUP_FAILURE:
-            return { error: action.payload, logged: false };
+            return { logged: false, error: action.payload, logged: false };
         default:
             return state;
     }

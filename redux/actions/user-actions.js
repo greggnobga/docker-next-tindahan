@@ -67,7 +67,6 @@ export const userLogout = (params) => async (dispatch, getState) => {
 
     /** Remove state in local storage. */
     localStorage.removeItem('loginUser');
-    localStorage.removeItem('signupUser');
 
     /** Dispatch request. */
     dispatch({ type: USER_LOGIN_REQUEST });
