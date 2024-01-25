@@ -1,11 +1,29 @@
+'use client';
+
+/** React. */
+import { useState } from 'react';
+
 /** Vendor. */
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 /** Component. */
 import Sprite from './sprite';
 
 /** Default export. */
 export default function Nav() {
+    /** Use state. */
+    const [keyword, setKeyword] = useState('');
+
+    /** Use router. */
+    const router = useRouter();
+
+    /** Search Handler */
+    const searchHandler = (keyword) => {
+        /** Push to search page. */
+        router.push(`/search?term=${keyword}&page=${1}`);
+    };
+
     /** Return something. */
     return (
         <ul className='w-full flex flex-row justify-between text-slate-200'>
@@ -13,7 +31,15 @@ export default function Nav() {
                 <Link className='mx-4 w-1/12 sm:w-2/12 md:4/12 text-gray-200' href='/'>
                     <Sprite id='store' /> <span className='hidden sm:inline-block text-xs sm:text-sm md:text-lg font-medium'>Tindahan</span>
                 </Link>
-                <input type='text' className='py-2 px-2 w-full block border-gray-200 rounded-lg text-sm focus:border-slate-500 focus:outline-none' placeholder='Search' />
+                <input
+                    type='text'
+                    className='py-2 px-2 w-full  border-gray-200 rounded-lg text-sm focus:border-slate-500 focus:outline-none text-gray-500'
+                    placeholder='Search product...'
+                    onChange={(e) => setKeyword(e.target.value)}
+                />
+                <button type='button' className='pl-2 pt-2' onClick={() => searchHandler(keyword)}>
+                    <Sprite id='search' width='w-8' height='h-8' />
+                </button>
             </li>
             <li className='flex flex-row place-items-center mr-4 text-slate-200'>
                 <div className='mx-2 mt-1'>

@@ -8,7 +8,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { toastMessage } from './reducers/toast-reducers';
 import { supportSend } from './reducers/support-reducers';
 import { signupUser, loginUser } from './reducers/user-reducers';
-import { listProduct } from './reducers/product-reducers';
+import { listProduct, searchProduct } from './reducers/product-reducers';
 
 /** Combine reducer. */
 const reducer = combineReducers({
@@ -17,6 +17,7 @@ const reducer = combineReducers({
     signupUser: signupUser,
     loginUser: loginUser,
     listProduct: listProduct,
+    searchProduct: searchProduct,
 });
 
 /** Define variables. */

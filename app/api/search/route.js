@@ -12,17 +12,30 @@ Database();
 
 /** GET. */
 export async function GET(request) {
-    /** Fetch all messages record. */
+    /** Search products with provide keyword. */
     try {
+        /** Get search query. */
+        const term = request.nextUrl.searchParams.get(['term']) || '';
+
+        /** Prepare keyword. */
+        const keyword = term
+            ? {
+                  name: {
+                      $regex: term,
+                      $options: 'i',
+                  },
+              }
+            : {};
+
         /** Pagination. */
-        const pageSize = 4;
+        const pageSize = 1;
         const pageNumber = Number(request.nextUrl.searchParams.get(['page']) || 1);
 
         /** Count existing products. */
-        const count = await Product.countDocuments({});
+        const count = await Product.countDocuments({ ...keyword });
 
-        /** Fetch existing record. */
-        const products = await Product.find({})
+        /** Do the search. */
+        const products = await Product.find({ ...keyword })
             .select('_id name slug image price discount')
             .limit(pageSize)
             .sort({ createdAt: -1 })
@@ -35,10 +48,10 @@ export async function GET(request) {
             return NextResponse.json({ products, page: pageNumber, pages: Math.ceil(count / pageSize) });
         } else {
             /** Return warning message. */
-            return NextResponse.json({ message: 'No products so far.', status: 200 });
+            return NextResponse.json({ message: 'No result found.', status: 200 });
         }
     } catch (error) {
         /** Return error message. */
-        return NextResponse.json({ message: 'Unable to fetched products!', status: 500 });
+        return NextResponse.json({ message: 'Unable to searched product!', status: 500 });
     }
 }

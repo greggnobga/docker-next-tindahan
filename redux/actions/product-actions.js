@@ -1,4 +1,11 @@
-import { PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAILURE } from '../constants/product-constants';
+import {
+    PRODUCT_LIST_REQUEST,
+    PRODUCT_LIST_SUCCESS,
+    PRODUCT_LIST_FAILURE,
+    PRODUCT_SEARCH_REQUEST,
+    PRODUCT_SEARCH_SUCCESS,
+    PRODUCT_SEARCH_FAILURE,
+} from '../constants/product-constants';
 
 /** Product list. */
 export const productList = (pageNumber) => async (dispatch, getState) => {
@@ -25,6 +32,36 @@ export const productList = (pageNumber) => async (dispatch, getState) => {
         /** Dispatch failure. */
         dispatch({
             type: PRODUCT_LIST_FAILURE,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+        });
+    }
+};
+
+/** Product list. */
+export const productSearch = (keyword, pageNumber) => async (dispatch, getState) => {
+    /** Initiate try catch block. */
+    try {
+        /** Dispatch request. */
+        dispatch({ type: PRODUCT_SEARCH_REQUEST });
+        /** Make api request. */
+        const response = await fetch(`/api/search?term=${keyword}&page=${pageNumber || 1}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            cache: 'no-store',
+        });
+        /** Wait for the response. */
+        const data = await response.json();
+
+        console.log(data);
+
+        /** Dispatch success. */
+        dispatch({ type: PRODUCT_SEARCH_SUCCESS, payload: { ...data } });
+    } catch (error) {
+        /** Dispatch failure. */
+        dispatch({
+            type: PRODUCT_SEARCH_FAILURE,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message,
         });
     }

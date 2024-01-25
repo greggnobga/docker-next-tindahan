@@ -16,6 +16,7 @@ export const userLogin = (params) => async (dispatch, getState) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(params),
+            cache: 'no-store',
         });
 
         /** Wait for the response. */
@@ -60,6 +61,7 @@ export const userLogout = (params) => async (dispatch, getState) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(params),
+        cache: 'no-store',
     });
 
     /** Wait for the response. */
@@ -88,6 +90,7 @@ export const userSignup = (params) => async (dispatch, getState) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(params),
+            cache: 'no-store',
         });
 
         /** Wait for the response. */

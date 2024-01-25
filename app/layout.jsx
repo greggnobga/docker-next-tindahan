@@ -21,10 +21,9 @@ export const metadata = {
 };
 
 /** Components. */
-import Nav from '../components/ui/nav';
 import Footer from '../components/ui/footer';
-
 const Menu = dynamic(() => import('../components/ui/menu'), { ssr: false });
+const Nav = dynamic(() => import('../components/ui/nav'), { ssr: false });
 
 /** Default export. */
 export default function RootLayout({ children }) {
@@ -36,7 +35,7 @@ export default function RootLayout({ children }) {
                         <aside className='m-4 pr-2 text-[.50rem] uppercase text-right' suppressHydrationWarning>
                             <Menu />
                         </aside>
-                        <nav className='m-4 py-4  bg-orange-700 rounded-2xl'>
+                        <nav className='m-4 py-4 bg-orange-700 rounded-2xl'>
                             <Nav />
                         </nav>
                     </header>

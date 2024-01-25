@@ -4,20 +4,26 @@
 import { useEffect } from 'react';
 
 /** Vendor. */
+import { useSearchParams } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
 /** Action. */
-import { productList } from '../../redux/actions/product-actions';
+import { productSearch } from '../../redux/actions/product-actions';
 
 /** Component.  */
 import Loader from '../ui/loader';
 import Paginate from '../ui/paginate';
 import ProductCard from './product-card';
 
-export default function ProductItems() {
+export default function ProductSearch() {
+    /** Use search params. */
+    const searchParams = useSearchParams();
+    const keyword = searchParams.get('term');
+    const pageNumber = searchParams.get('page');
+
     /** Use selector. */
-    const listProduct = useSelector((state) => state.listProduct);
-    const { products, pages, page } = listProduct;
+    const searchProduct = useSelector((state) => state.searchProduct);
+    const { products, pages, page } = searchProduct;
 
     /** Use dispatch. */
     const dispatch = useDispatch();
@@ -25,13 +31,13 @@ export default function ProductItems() {
     /** Use effect. */
     useEffect(() => {
         /** Fetch featured projects. */
-        dispatch(productList());
-    }, [dispatch]);
+        dispatch(productSearch(keyword, pageNumber));
+    }, [dispatch, keyword]);
 
     /** Pagination handler. */
-    const paginationHandler = (x) => {
+    const paginationHandler = (pageNumber) => {
         /** Dispatch action when pagination has been clicked. */
-        dispatch(productList(x));
+        dispatch(productSearch(keyword, pageNumber));
     };
 
     /** Return something. */
@@ -49,7 +55,7 @@ export default function ProductItems() {
                 )}
             </div>
             <div className='w-full'>
-                <Paginate pages={pages} handler={paginationHandler} page={page} type='products' />
+                <Paginate pages={pages} handler={paginationHandler} page={page} type='search' keyword={keyword} />
             </div>
         </>
     );

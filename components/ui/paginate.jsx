@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Sprite from './sprite';
 
 /** Export default. */
-export default function Paginate({ page, pages, handler }) {
+export default function Paginate({ page, pages, handler, type, keyword }) {
     /** if pages is equl to one, return nothing. */
     if (pages === 1) {
         return;
@@ -31,7 +31,7 @@ export default function Paginate({ page, pages, handler }) {
                 {[...Array(pages).keys()].map((x) => {
                     return (
                         <Link
-                            href={`/products?page=${x + 1}`}
+                            href={type === 'search' ? `/${type}?term=${keyword}&page=${x + 1}` : `/${type}?page=${x + 1}`}
                             key={x + 1}
                             type='button'
                             className={`min-h-[38px] min-w-[38px] flex justify-center items-center py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-300 disabled:opacity-50 disabled:pointer-events-none ${
