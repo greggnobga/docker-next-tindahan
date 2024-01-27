@@ -28,7 +28,7 @@ export async function GET(request) {
             : {};
 
         /** Pagination. */
-        const pageSize = 1;
+        const pageSize = 5;
         const pageNumber = Number(request.nextUrl.searchParams.get(['page']) || 1);
 
         /** Count existing products. */

@@ -46,6 +46,10 @@ const productSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        section: {
+            type: Array,
+            required: true,
+        },
         condition: {
             type: String,
             required: true,

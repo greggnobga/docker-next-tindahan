@@ -15,7 +15,6 @@ export const sendSupport = (params) => async (dispatch, getState) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(params),
-            cache: 'no-store',
         });
 
         /** Wait for the response. */

@@ -16,7 +16,6 @@ export const userLogin = (params) => async (dispatch, getState) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(params),
-            cache: 'no-store',
         });
 
         /** Wait for the response. */
@@ -61,7 +60,6 @@ export const userLogout = (params) => async (dispatch, getState) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(params),
-        cache: 'no-store',
     });
 
     /** Wait for the response. */
@@ -69,6 +67,11 @@ export const userLogout = (params) => async (dispatch, getState) => {
 
     /** Remove state in local storage. */
     localStorage.removeItem('loginUser');
+    localStorage.removeItem('flashProduct');
+    localStorage.removeItem('justProduct');
+    localStorage.removeItem('hotProduct');
+    localStorage.removeItem('ourProduct');
+    localStorage.removeItem('recommendProduct');
 
     /** Dispatch request. */
     dispatch({ type: USER_LOGIN_REQUEST });
@@ -90,7 +93,6 @@ export const userSignup = (params) => async (dispatch, getState) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(params),
-            cache: 'no-store',
         });
 
         /** Wait for the response. */

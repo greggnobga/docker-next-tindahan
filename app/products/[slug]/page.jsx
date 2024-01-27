@@ -1,5 +1,8 @@
+/** Vendor. */
+import dynamic from 'next/dynamic';
+
 /** Components. */
-import Container from '../../../components/ui/container';
+const ProductRecommend = dynamic(() => import('../../../components/product/product-recommend'), { ssr: false });
 
 /** Default export. */
 export default function ProductDetail() {
@@ -31,7 +34,7 @@ export default function ProductDetail() {
                     </div>
                 </div>
             </div>
-            <Container title='Recommendation' section='recommendation' />
+            <ProductRecommend />
         </section>
     );
 }

@@ -4,41 +4,36 @@
 import { useEffect } from 'react';
 
 /** Vendor. */
+import { useSearchParams } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
 /** Action. */
-import { productList } from '../../redux/actions/product-actions';
+import { productHot } from '../../redux/actions/product-actions';
 
 /** Component.  */
 import Loader from '../ui/loader';
-import Paginate from '../ui/paginate';
 import ProductCard from './product-card';
 
-export default function ProductItems() {
+export default function ProductHot() {
     /** Use selector. */
-    const listProduct = useSelector((state) => state.listProduct);
-    const { products, pages, page } = listProduct;
+    const hotProduct = useSelector((state) => state.hotProduct);
+    const { products } = hotProduct;
 
     /** Use dispatch. */
     const dispatch = useDispatch();
 
     /** Use effect. */
     useEffect(() => {
-        /** Fetch featured projects. */
+        /** Fetch hot products. */
         if (!products) {
-            dispatch(productList());
+            dispatch(productHot());
         }
     }, [dispatch]);
 
-    /** Pagination handler. */
-    const paginationHandler = (x) => {
-        /** Dispatch action when pagination has been clicked. */
-        dispatch(productList(x));
-    };
-
     /** Return something. */
     return (
-        <>
+        <div className='pt-2 w-full'>
+            <h1 className='pb-2'>Hot Deals</h1>
             <div className='flex flex-col flex-wrap sm:flex-row gap-2 place-items-center'>
                 {products ? (
                     products.map((product, id) => {
@@ -50,9 +45,6 @@ export default function ProductItems() {
                     </div>
                 )}
             </div>
-            <div className='w-full'>
-                <Paginate pages={pages} handler={paginationHandler} page={page} type='products' />
-            </div>
-        </>
+        </div>
     );
 }
