@@ -16,7 +16,7 @@ export async function GET(request, { params }) {
 
     /** Fetch product details. */
     const product = await Product.findOne({ slug: slug })
-        .select('_id _user name slug image brand category condition description rating reviews reviewcount currentprice stockcount previousprice')
+        .select('_id _user name slug image description brand category condition section price discount stockcount rating reviewcount')
         .exec();
 
     /** Check if product found. */

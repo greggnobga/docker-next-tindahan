@@ -36,7 +36,7 @@ export async function GET(request) {
 
         /** Do the search. */
         const products = await Product.find({ ...keyword })
-            .select('_id name slug image price discount')
+            .select('_id name slug image price discount rating reviewcount stockcount')
             .limit(pageSize)
             .sort({ createdAt: -1 })
             .skip(pageSize * (pageNumber - 1))

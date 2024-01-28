@@ -67,8 +67,6 @@ export const productSearch = (keyword, pageNumber) => async (dispatch, getState)
         /** Wait for the response. */
         const data = await response.json();
 
-        console.log(data);
-
         /** Dispatch success. */
         dispatch({ type: PRODUCT_SEARCH_SUCCESS, payload: { ...data } });
     } catch (error) {

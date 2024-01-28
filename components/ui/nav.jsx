@@ -29,7 +29,7 @@ export default function Nav() {
         <ul className='w-full flex flex-row justify-between text-slate-200'>
             <li className='flex flex-row place-items-center w-full sm:w-9/12'>
                 <Link className='mx-4 w-1/12 sm:w-2/12 md:4/12 text-gray-200' href='/'>
-                    <Sprite id='store' /> <span className='hidden sm:inline-block text-xs sm:text-sm md:text-lg font-medium'>Tindahan</span>
+                    <Sprite id='store' /> <span className='hidden text-xs sm:inline-block sm:text-sm md:text-lg font-medium'>Tindahan</span>
                 </Link>
                 <input
                     type='text'

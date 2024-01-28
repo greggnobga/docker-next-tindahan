@@ -23,7 +23,7 @@ export async function POST(request) {
 
         /** Fetch existing record. */
         const products = await Product.find({ section: { $all: filtered.deals } })
-            .select('_id name slug image price discount')
+            .select('_id name slug image price discount rating reviewcount stockcount')
             .limit(5)
             .sort({ createdAt: -1 })
             .exec();
