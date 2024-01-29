@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
 /** Action. */
-import { productSearch } from '../../redux/actions/product-actions';
+import { searchProduct } from '../../redux/actions/product-actions';
 
 /** Component.  */
 import Loader from '../ui/loader';
@@ -22,8 +22,8 @@ export default function ProductSearch() {
     const pageNumber = searchParams.get('page');
 
     /** Use selector. */
-    const searchProduct = useSelector((state) => state.searchProduct);
-    const { products, pages, page } = searchProduct;
+    const productSearch = useSelector((state) => state.productSearch);
+    const { products, pages, page } = productSearch;
 
     /** Use dispatch. */
     const dispatch = useDispatch();
@@ -31,13 +31,13 @@ export default function ProductSearch() {
     /** Use effect. */
     useEffect(() => {
         /** Fetch featured projects. */
-        dispatch(productSearch(keyword, pageNumber));
+        dispatch(searchProduct(keyword, pageNumber));
     }, [dispatch, keyword]);
 
     /** Pagination handler. */
     const paginationHandler = (pageNumber) => {
         /** Dispatch action when pagination has been clicked. */
-        dispatch(productSearch(keyword, pageNumber));
+        dispatch(searchProduct(keyword, pageNumber));
     };
 
     /** Return something. */

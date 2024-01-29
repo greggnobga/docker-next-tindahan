@@ -16,11 +16,11 @@ import Notifications from '../../components/ui/notifications';
 /** Default export. */
 export default function Dashboard() {
     /** Use selector. */
-    const loginUser = useSelector((state) => state.loginUser);
-    const { logged } = loginUser;
+    const userLogin = useSelector((state) => state.userLogin);
+    const { logged } = userLogin;
 
-    const toastMessage = useSelector((state) => state.toastMessage);
-    const { status: responseStatus, message: responseMessage } = toastMessage;
+    const toast = useSelector((state) => state.toast);
+    const { status: responseStatus, message: responseMessage } = toast;
 
     /** Use dispatch. */
     const dispatch = useDispatch();

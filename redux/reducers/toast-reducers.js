@@ -1,7 +1,7 @@
 import { TOAST_MESSAGE, TOAST_RESET } from '../constants/toast-constants';
 
 /** Toast reducer. */
-export function toastMessage(state = {}, action) {
+export function toastReducer(state = {}, action) {
     switch (action.type) {
         case TOAST_RESET:
             return { loading: true };

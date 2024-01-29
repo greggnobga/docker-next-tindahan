@@ -9,8 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 /** Action. */
-import { userLogin } from '../../redux/actions/user-actions';
-import { resetToast } from '../../redux/actions/toast-actions';
+import { loginUser } from '../../redux/actions/user-actions';
 
 /** Hook. */
 import useValidator from '../../hooks/use-validator';
@@ -64,7 +63,7 @@ export default function Login() {
         }
 
         /** Dispatch action. */
-        dispatch(userLogin({ email, password }));
+        dispatch(loginUser({ email, password }));
 
         /** Reset input. */
         emailInputReset();
@@ -72,8 +71,8 @@ export default function Login() {
     }
 
     /** Use selector. */
-    const loginUser = useSelector((state) => state.loginUser);
-    const { logged } = loginUser;
+    const userLogin = useSelector((state) => state.userLogin);
+    const { logged } = userLogin;
 
     /** Use router. */
     const router = useRouter();

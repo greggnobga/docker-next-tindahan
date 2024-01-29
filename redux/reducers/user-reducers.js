@@ -1,7 +1,7 @@
 import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS, USER_SIGNUP_FAILURE } from '../constants/user-constants';
 
 /** Login reducer. */
-export function loginUser(state = {}, action) {
+export function userLoginReducer(state = {}, action) {
     switch (action.type) {
         case USER_LOGIN_REQUEST:
             return { loading: true };
@@ -15,7 +15,7 @@ export function loginUser(state = {}, action) {
 }
 
 /** Signup reducer. */
-export function signupUser(state = {}, action) {
+export function userSignupReducer(state = {}, action) {
     switch (action.type) {
         case USER_SIGNUP_REQUEST:
             return { loading: true };

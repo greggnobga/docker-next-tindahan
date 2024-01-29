@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 
 /** Components. */
 import Rating from '../../../components/ui/rating';
+const Cart = dynamic(() => import('../../../components/ui/cart'), { ssr: false });
 const ProductRecommend = dynamic(() => import('../../../components/product/product-recommend'), { ssr: false });
 
 /** Get project details for server side rendering. */
@@ -39,11 +40,11 @@ export default async function ProductDetail({ params }) {
     /** Return something. */
     return (
         <section className='min-h-screen p-2 flex flex-col sm:flex-row flex-wrap gap-4'>
-            <div className='w-full sm:w-2/12 flex-grow'>
+            <div className='w-full h-full sm:w-2/12 flex-grow'>
                 <img className='w-full h-full object-fill' src={details.image} alt='Placeholder' />
             </div>
             <div className='w-full sm:w-8/12 flex-grow'>
-                <div className='py-2 w-full h-4/12 md:h-2/6'>
+                <div className='py-2 w-full h-4/12 md:h-4/12'>
                     <p className='pb-2 text-md font-medium'>{details.name}</p>
                     <p className='text-sm font-medium'>
                         <span className='text-lg'>&#x20B1; {calculateDiscount(details.price, details.discount)}</span>{' '}
@@ -56,16 +57,10 @@ export default async function ProductDetail({ params }) {
                         <Rating value={details.rating} text={`${details.reviewcount} ${details.reviewcount > 1 ? 'reviews' : 'review'}`} />
                     </p>
                 </div>
-                <div className='py-2 w-full h-4/12 md:h-3/6'>
+                <div className='py-2 w-full h-4/12 md:h-6/12'>
                     <p className='text-sm font-light'>{details.description}</p>
                 </div>
-                <div className='py-2 w-full h-2/12 md:h-1/6'>
-                    <div className='flex flex-col place-items-end'>
-                        <button type='button' className='button-primary'>
-                            Add Cart
-                        </button>
-                    </div>
-                </div>
+                <Cart id={details._id} image={details.image} name={details.name} price={details.price} stocks={details.stockcount} slug={details.slug} />
             </div>
             <ProductRecommend />
         </section>

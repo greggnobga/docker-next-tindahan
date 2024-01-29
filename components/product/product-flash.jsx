@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
 /** Action. */
-import { productFlash } from '../../redux/actions/product-actions';
+import { flashProduct } from '../../redux/actions/product-actions';
 
 /** Component.  */
 import Loader from '../ui/loader';
@@ -16,8 +16,8 @@ import ProductCard from './product-card';
 
 export default function ProductFlash() {
     /** Use selector. */
-    const flashProduct = useSelector((state) => state.flashProduct);
-    const { products } = flashProduct;
+    const productFlash = useSelector((state) => state.productFlash);
+    const { products } = productFlash;
 
     /** Use dispatch. */
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function ProductFlash() {
     useEffect(() => {
         /** Fetch flash products. */
         if (!products) {
-            dispatch(productFlash());
+            dispatch(flashProduct());
         }
     }, [dispatch]);
 

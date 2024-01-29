@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
 /** Action. */
-import { productHot } from '../../redux/actions/product-actions';
+import { hotProduct } from '../../redux/actions/product-actions';
 
 /** Component.  */
 import Loader from '../ui/loader';
@@ -16,8 +16,8 @@ import ProductCard from './product-card';
 
 export default function ProductHot() {
     /** Use selector. */
-    const hotProduct = useSelector((state) => state.hotProduct);
-    const { products } = hotProduct;
+    const productHot = useSelector((state) => state.productHot);
+    const { products } = productHot;
 
     /** Use dispatch. */
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function ProductHot() {
     useEffect(() => {
         /** Fetch hot products. */
         if (!products) {
-            dispatch(productHot());
+            dispatch(hotProduct());
         }
     }, [dispatch]);
 

@@ -3,7 +3,7 @@ import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE, USER_SIGNUP
 
 import { TOAST_MESSAGE } from '../constants/toast-constants';
 
-export const userLogin = (params) => async (dispatch, getState) => {
+export const loginUser = (params) => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -35,7 +35,7 @@ export const userLogin = (params) => async (dispatch, getState) => {
             });
 
             /** Save access token to local storage. */
-            localStorage.setItem('loginUser', JSON.stringify(data));
+            localStorage.setItem('userLogin', JSON.stringify(data));
         } else {
             /** Dispatch toast. */
             dispatch({
@@ -52,7 +52,7 @@ export const userLogin = (params) => async (dispatch, getState) => {
     }
 };
 
-export const userLogout = (params) => async (dispatch, getState) => {
+export const logoutUser = (params) => async (dispatch, getState) => {
     /** Make api request. */
     const response = await fetch('/api/logout', {
         method: 'POST',
@@ -66,12 +66,12 @@ export const userLogout = (params) => async (dispatch, getState) => {
     const data = await response.json();
 
     /** Remove state in local storage. */
-    localStorage.removeItem('loginUser');
-    localStorage.removeItem('flashProduct');
-    localStorage.removeItem('justProduct');
-    localStorage.removeItem('hotProduct');
-    localStorage.removeItem('ourProduct');
-    localStorage.removeItem('recommendProduct');
+    localStorage.removeItem('userLogin');
+    localStorage.removeItem('productFlash');
+    localStorage.removeItem('productJust');
+    localStorage.removeItem('productHot');
+    localStorage.removeItem('productOur');
+    localStorage.removeItem('productRecommended');
 
     /** Dispatch request. */
     dispatch({ type: USER_LOGIN_REQUEST });
@@ -80,7 +80,7 @@ export const userLogout = (params) => async (dispatch, getState) => {
     dispatch({ type: TOAST_MESSAGE, payload: { message: data.message, status: data.status } });
 };
 
-export const userSignup = (params) => async (dispatch, getState) => {
+export const signupUser = (params) => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -117,7 +117,7 @@ export const userSignup = (params) => async (dispatch, getState) => {
             });
 
             /** Save access token to local storage. */
-            localStorage.setItem('loginUser', JSON.stringify(data));
+            localStorage.setItem('userLogin', JSON.stringify(data));
         } else {
             /** Dispatch toast. */
             dispatch({

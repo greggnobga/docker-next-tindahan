@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 /** Action. */
-import { userSignup } from '../../redux/actions/user-actions';
+import { signupUser } from '../../redux/actions/user-actions';
 import { resetToast } from '../../redux/actions/toast-actions';
 
 /** Hook. */
@@ -103,11 +103,11 @@ export default function Signup() {
     const dispatch = useDispatch();
 
     /** Use selector. */
-    const loginUser = useSelector((state) => state.loginUser);
-    const { logged } = loginUser;
+    const userLogin = useSelector((state) => state.userLogin);
+    const { logged } = userLogin;
 
-    const toastMessage = useSelector((state) => state.toastMessage);
-    const { status: responseStatus, message: responseMessage } = toastMessage;
+    const toast = useSelector((state) => state.toast);
+    const { status: responseStatus, message: responseMessage } = toast;
 
     /** Use router. */
     const router = useRouter();
@@ -168,7 +168,7 @@ export default function Signup() {
         }
 
         /** Dispatch action. */
-        dispatch(userSignup({ firstname, lastname, email, mobile, gender, password }));
+        dispatch(signupUser({ firstname, lastname, email, mobile, gender, password }));
 
         /** Reset input. */
         firstnameInputReset();

@@ -5,20 +5,20 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 
 /** Action. */
-import { userLogout } from '../../redux/actions/user-actions.js';
+import { logoutUser } from '../../redux/actions/user-actions.js';
 
 /** Default export. */
 export default function Menu() {
     /** Use selector. */
-    const loginUser = useSelector((state) => state.loginUser);
-    const { logged } = loginUser;
+    const userLogin = useSelector((state) => state.userLogin);
+    const { logged } = userLogin;
 
     /** Use dispatch. */
     const dispatch = useDispatch();
 
     /** Logout handler. */
     function logoutHandler() {
-        dispatch(userLogout());
+        dispatch(logoutUser());
     }
 
     /** Return something. */

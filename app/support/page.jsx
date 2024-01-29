@@ -95,8 +95,8 @@ export default function Support() {
     }
 
     /** Use selector. */
-    const toastMessage = useSelector((state) => state.toastMessage);
-    const { status: responseStatus, message: responseMessage } = toastMessage;
+    const toast = useSelector((state) => state.toast);
+    const { status: responseStatus, message: responseMessage } = toast;
 
     /** Use router. */
     const router = useRouter();

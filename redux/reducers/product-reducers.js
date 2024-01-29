@@ -17,13 +17,13 @@ import {
     PRODUCT_OUR_REQUEST,
     PRODUCT_OUR_SUCCESS,
     PRODUCT_OUR_FAILURE,
-    PRODUCT_RECOMMEND_REQUEST,
-    PRODUCT_RECOMMEND_SUCCESS,
-    PRODUCT_RECOMMEND_FAILURE,
+    PRODUCT_RECOMMENDED_REQUEST,
+    PRODUCT_RECOMMENDED_SUCCESS,
+    PRODUCT_RECOMMENDED_FAILURE,
 } from '../constants/product-constants';
 
 /** Product list reducer. */
-export function listProduct(state = {}, action) {
+export function productListReducer(state = {}, action) {
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
             return { loading: true };
@@ -37,7 +37,7 @@ export function listProduct(state = {}, action) {
 }
 
 /** Product search reducer. */
-export function searchProduct(state = {}, action) {
+export function productSearchReducer(state = {}, action) {
     switch (action.type) {
         case PRODUCT_SEARCH_REQUEST:
             return { loading: true };
@@ -51,7 +51,7 @@ export function searchProduct(state = {}, action) {
 }
 
 /** Product flash reducer. */
-export function flashProduct(state = {}, action) {
+export function productFlashReducer(state = {}, action) {
     switch (action.type) {
         case PRODUCT_FLASH_REQUEST:
             return { loading: true };
@@ -65,7 +65,7 @@ export function flashProduct(state = {}, action) {
 }
 
 /** Product just for you reducer. */
-export function justProduct(state = {}, action) {
+export function productJustReducer(state = {}, action) {
     switch (action.type) {
         case PRODUCT_JUST_REQUEST:
             return { loading: true };
@@ -79,7 +79,7 @@ export function justProduct(state = {}, action) {
 }
 
 /** Product hot deals reducer. */
-export function hotProduct(state = {}, action) {
+export function productHotReducer(state = {}, action) {
     switch (action.type) {
         case PRODUCT_HOT_REQUEST:
             return { loading: true };
@@ -93,7 +93,7 @@ export function hotProduct(state = {}, action) {
 }
 
 /** Product our picks reducer. */
-export function ourProduct(state = {}, action) {
+export function productOurReducer(state = {}, action) {
     switch (action.type) {
         case PRODUCT_OUR_REQUEST:
             return { loading: true };
@@ -107,13 +107,13 @@ export function ourProduct(state = {}, action) {
 }
 
 /** Product recommendation reducer. */
-export function recommendProduct(state = {}, action) {
+export function productRecommendedReducer(state = {}, action) {
     switch (action.type) {
-        case PRODUCT_RECOMMEND_REQUEST:
+        case PRODUCT_RECOMMENDED_REQUEST:
             return { loading: true };
-        case PRODUCT_RECOMMEND_SUCCESS:
+        case PRODUCT_RECOMMENDED_SUCCESS:
             return { loading: false, ...action.payload };
-        case PRODUCT_RECOMMEND_FAILURE:
+        case PRODUCT_RECOMMENDED_FAILURE:
             return { loading: false, error: action.payload };
         default:
             return state;

@@ -5,53 +5,66 @@ import { thunk } from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 /** Reducer. */
-import { toastMessage } from './reducers/toast-reducers';
-import { supportSend } from './reducers/support-reducers';
-import { signupUser, loginUser } from './reducers/user-reducers';
-import { listProduct, searchProduct, flashProduct, justProduct, hotProduct, ourProduct, recommendProduct } from './reducers/product-reducers';
+import { toastReducer } from './reducers/toast-reducers';
+import { supportSendReducer } from './reducers/support-reducers';
+import { userSignupReducer, userLoginReducer } from './reducers/user-reducers';
+import {
+    productListReducer,
+    productSearchReducer,
+    productFlashReducer,
+    productJustReducer,
+    productHotReducer,
+    productOurReducer,
+    productRecommendedReducer,
+} from './reducers/product-reducers';
+import { cartReducer } from './reducers/cart-reducers';
 
 /** Combine reducer. */
 const reducer = combineReducers({
-    toastMessage: toastMessage,
-    supportSend: supportSend,
-    signupUser: signupUser,
-    loginUser: loginUser,
-    listProduct: listProduct,
-    searchProduct: searchProduct,
-    flashProduct: flashProduct,
-    justProduct: justProduct,
-    hotProduct: hotProduct,
-    ourProduct: ourProduct,
-    recommendProduct: recommendProduct,
+    toast: toastReducer,
+    supportSend: supportSendReducer,
+    userSignup: userSignupReducer,
+    userLogin: userLoginReducer,
+    productList: productListReducer,
+    productSearch: productSearchReducer,
+    productFlash: productFlashReducer,
+    productJust: productJustReducer,
+    productHot: productHotReducer,
+    productOur: productOurReducer,
+    productRecommended: productRecommendedReducer,
+    cart: cartReducer,
 });
 
 /** Define variables. */
-let loginUserFromStorage;
-let flashProductFromStorage;
-let justProductFromStorage;
-let hotProductFromStorage;
-let ourProductFromStorage;
-let recommendProductFromStorage;
+let userLoginFromStorage;
+let productFlashFromStorage;
+let productJustFromStorage;
+let productHotFromStorage;
+let productOurFromStorage;
+let productRecommendedFromStorage;
+let cartFromStorage;
 
 /** Only run when window is set. */
 if (typeof window !== 'undefined') {
     /** Get state from local storage. */
-    loginUserFromStorage = localStorage.getItem('loginUser') ? JSON.parse(localStorage.getItem('loginUser')) : [];
-    flashProductFromStorage = localStorage.getItem('flashProduct') ? JSON.parse(localStorage.getItem('flashProduct')) : [];
-    justProductFromStorage = localStorage.getItem('justProduct') ? JSON.parse(localStorage.getItem('justProduct')) : [];
-    hotProductFromStorage = localStorage.getItem('hotProduct') ? JSON.parse(localStorage.getItem('hotProduct')) : [];
-    ourProductFromStorage = localStorage.getItem('ourProduct') ? JSON.parse(localStorage.getItem('ourProduct')) : [];
-    recommendProductFromStorage = localStorage.getItem('recommendProduct') ? JSON.parse(localStorage.getItem('recommendProduct')) : [];
+    userLoginFromStorage = localStorage.getItem('userLogin') ? JSON.parse(localStorage.getItem('userLogin')) : [];
+    productFlashFromStorage = localStorage.getItem('productFlash') ? JSON.parse(localStorage.getItem('productFlash')) : [];
+    productJustFromStorage = localStorage.getItem('productJust') ? JSON.parse(localStorage.getItem('productJust')) : [];
+    productHotFromStorage = localStorage.getItem('productHot') ? JSON.parse(localStorage.getItem('productHot')) : [];
+    productOurFromStorage = localStorage.getItem('productOur') ? JSON.parse(localStorage.getItem('productOur')) : [];
+    productRecommendedFromStorage = localStorage.getItem('productRecommended') ? JSON.parse(localStorage.getItem('productRecommended')) : [];
+    cartFromStorage = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
 }
 
 /** Define initial state. */
 const initialState = {
-    loginUser: loginUserFromStorage,
-    flashProduct: flashProductFromStorage,
-    justProduct: justProductFromStorage,
-    hotProduct: hotProductFromStorage,
-    ourProduct: ourProductFromStorage,
-    recommendProduct: recommendProductFromStorage,
+    userLogin: userLoginFromStorage,
+    productFlash: productFlashFromStorage,
+    productJust: productJustFromStorage,
+    productHot: productHotFromStorage,
+    productOur: productOurFromStorage,
+    productRecommended: productRecommendedFromStorage,
+    cart: cartFromStorage,
 };
 
 /** Middleware. */

@@ -17,13 +17,13 @@ import {
     PRODUCT_OUR_REQUEST,
     PRODUCT_OUR_SUCCESS,
     PRODUCT_OUR_FAILURE,
-    PRODUCT_RECOMMEND_REQUEST,
-    PRODUCT_RECOMMEND_SUCCESS,
-    PRODUCT_RECOMMEND_FAILURE,
+    PRODUCT_RECOMMENDED_REQUEST,
+    PRODUCT_RECOMMENDED_SUCCESS,
+    PRODUCT_RECOMMENDED_FAILURE,
 } from '../constants/product-constants';
 
 /** Product list action.*/
-export const productList = (pageNumber) => async (dispatch, getState) => {
+export const listProduct = (pageNumber) => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -52,7 +52,7 @@ export const productList = (pageNumber) => async (dispatch, getState) => {
 };
 
 /** Product search action. */
-export const productSearch = (keyword, pageNumber) => async (dispatch, getState) => {
+export const searchProduct = (keyword, pageNumber) => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -79,7 +79,7 @@ export const productSearch = (keyword, pageNumber) => async (dispatch, getState)
 };
 
 /** Product flash action. */
-export const productFlash = () => async (dispatch, getState) => {
+export const flashProduct = () => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -101,7 +101,7 @@ export const productFlash = () => async (dispatch, getState) => {
         dispatch({ type: PRODUCT_FLASH_SUCCESS, payload: { ...data } });
 
         /** Save access token to local storage. */
-        localStorage.setItem('flashProduct', JSON.stringify(data));
+        localStorage.setItem('productFlash', JSON.stringify(data));
     } catch (error) {
         /** Dispatch failure. */
         dispatch({
@@ -112,7 +112,7 @@ export const productFlash = () => async (dispatch, getState) => {
 };
 
 /** Product just for you action. */
-export const productJust = () => async (dispatch, getState) => {
+export const justProduct = () => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -134,7 +134,7 @@ export const productJust = () => async (dispatch, getState) => {
         dispatch({ type: PRODUCT_JUST_SUCCESS, payload: { ...data } });
 
         /** Save access token to local storage. */
-        localStorage.setItem('justProduct', JSON.stringify(data));
+        localStorage.setItem('productJust', JSON.stringify(data));
     } catch (error) {
         /** Dispatch failure. */
         dispatch({
@@ -145,7 +145,7 @@ export const productJust = () => async (dispatch, getState) => {
 };
 
 /** Product hot deals action. */
-export const productHot = () => async (dispatch, getState) => {
+export const hotProduct = () => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -167,7 +167,7 @@ export const productHot = () => async (dispatch, getState) => {
         dispatch({ type: PRODUCT_HOT_SUCCESS, payload: { ...data } });
 
         /** Save access token to local storage. */
-        localStorage.setItem('hotProduct', JSON.stringify(data));
+        localStorage.setItem('productHot', JSON.stringify(data));
     } catch (error) {
         /** Dispatch failure. */
         dispatch({
@@ -178,7 +178,7 @@ export const productHot = () => async (dispatch, getState) => {
 };
 
 /** Product our picks action. */
-export const productOur = () => async (dispatch, getState) => {
+export const ourProduct = () => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -200,7 +200,7 @@ export const productOur = () => async (dispatch, getState) => {
         dispatch({ type: PRODUCT_OUR_SUCCESS, payload: { ...data } });
 
         /** Save access token to local storage. */
-        localStorage.setItem('ourProduct', JSON.stringify(data));
+        localStorage.setItem('productOur', JSON.stringify(data));
     } catch (error) {
         /** Dispatch failure. */
         dispatch({
@@ -211,11 +211,11 @@ export const productOur = () => async (dispatch, getState) => {
 };
 
 /** Product recommendation action. */
-export const productRecommend = () => async (dispatch, getState) => {
+export const recommendedProduct = () => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
-        dispatch({ type: PRODUCT_RECOMMEND_REQUEST });
+        dispatch({ type: PRODUCT_RECOMMENDED_REQUEST });
 
         /** Make api request. */
         const response = await fetch('/api/product/deals', {
@@ -230,14 +230,14 @@ export const productRecommend = () => async (dispatch, getState) => {
         const data = await response.json();
 
         /** Dispatch success. */
-        dispatch({ type: PRODUCT_RECOMMEND_SUCCESS, payload: { ...data } });
+        dispatch({ type: PRODUCT_RECOMMENDED_SUCCESS, payload: { ...data } });
 
         /** Save access token to local storage. */
-        localStorage.setItem('recommendProduct', JSON.stringify(data));
+        localStorage.setItem('productRecommended', JSON.stringify(data));
     } catch (error) {
         /** Dispatch failure. */
         dispatch({
-            type: PRODUCT_RECOMMEND_FAILURE,
+            type: PRODUCT_RECOMMENDED_FAILURE,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message,
         });
     }

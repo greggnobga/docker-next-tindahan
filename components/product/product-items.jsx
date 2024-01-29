@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 /** Action. */
-import { productList } from '../../redux/actions/product-actions';
+import { listProduct } from '../../redux/actions/product-actions';
 
 /** Component.  */
 import Loader from '../ui/loader';
@@ -16,8 +16,8 @@ import ProductCard from './product-card';
 
 export default function ProductItems() {
     /** Use selector. */
-    const listProduct = useSelector((state) => state.listProduct);
-    const { products, pages, page } = listProduct;
+    const productList = useSelector((state) => state.productList);
+    const { products, pages, page } = productList;
 
     /** Use dispatch. */
     const dispatch = useDispatch();
@@ -26,14 +26,14 @@ export default function ProductItems() {
     useEffect(() => {
         /** Fetch featured projects. */
         if (!products) {
-            dispatch(productList());
+            dispatch(listProduct());
         }
     }, [dispatch]);
 
     /** Pagination handler. */
     const paginationHandler = (x) => {
         /** Dispatch action when pagination has been clicked. */
-        dispatch(productList(x));
+        dispatch(listProduct(x));
     };
 
     /** Return something. */
