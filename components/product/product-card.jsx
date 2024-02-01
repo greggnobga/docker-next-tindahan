@@ -1,25 +1,14 @@
 /** Vendor. */
 import Link from 'next/link';
 
+/** Library. */
+import { calculateDiscount } from '../../lib/calculate';
+
 /** Components. */
 import Rating from '../ui/rating';
 
 /** Export default. */
 export default function ProductCard({ item }) {
-    /** Calculate discount. */
-    const calculateDiscount = (price, discount) => {
-        /** If either price or discount less than zero return price. */
-        if (price < 0 || discount < 0) {
-            return price;
-        }
-
-        /** Calculate discounted price. */
-        const discountedPrice = price - (price * discount) / 100;
-
-        /** Return something. */
-        return discountedPrice.toFixed(2);
-    };
-
     /** Return something. */
     return (
         <div className='flex-grow w-full h-fit sm:w-3/12 md:w-2/12'>
@@ -31,7 +20,7 @@ export default function ProductCard({ item }) {
                     <div className='p-2 md:p-4'>
                         <p className='pb-2 text-sm font-light text-amber-600'>{item.name}</p>
                         <p className='pb-2 text-sm font-medium'>
-                            <span className='text-lg'>&#x20B1; {calculateDiscount(item.price, item.discount)}</span>{' '}
+                            <span className='text-lg'>&#x20B1; {calculateDiscount({ price: item.price, discount: item.discount })}</span>{' '}
                             <span className='text-xs font-thin text-red-900'>-{item.discount}%</span>
                         </p>
                         <p className='pb-2 text-xs font-thin text-slate-700 mr-1'>

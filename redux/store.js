@@ -2,6 +2,7 @@
 
 /** Vendor. */
 import { thunk } from 'redux-thunk';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 /** Reducer. */
@@ -42,7 +43,7 @@ let productJustFromStorage;
 let productHotFromStorage;
 let productOurFromStorage;
 let productRecommendedFromStorage;
-let cartFromStorage;
+let cartItemsFromStorage;
 
 /** Only run when window is set. */
 if (typeof window !== 'undefined') {
@@ -53,7 +54,7 @@ if (typeof window !== 'undefined') {
     productHotFromStorage = localStorage.getItem('productHot') ? JSON.parse(localStorage.getItem('productHot')) : [];
     productOurFromStorage = localStorage.getItem('productOur') ? JSON.parse(localStorage.getItem('productOur')) : [];
     productRecommendedFromStorage = localStorage.getItem('productRecommended') ? JSON.parse(localStorage.getItem('productRecommended')) : [];
-    cartFromStorage = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+    cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
 }
 
 /** Define initial state. */
@@ -64,14 +65,14 @@ const initialState = {
     productHot: productHotFromStorage,
     productOur: productOurFromStorage,
     productRecommended: productRecommendedFromStorage,
-    cart: cartFromStorage,
+    cart: { cartItems: cartItemsFromStorage },
 };
 
 /** Middleware. */
 const middleware = [thunk];
 
 /** Store. */
-const store = createStore(reducer, initialState, applyMiddleware(...middleware));
+const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)));
 
 /** Export. */
 export default store;

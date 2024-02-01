@@ -6,6 +6,7 @@ import { useState } from 'react';
 /** Vendor. */
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
 /** Component. */
 import Sprite from './sprite';
@@ -14,6 +15,10 @@ import Sprite from './sprite';
 export default function Nav() {
     /** Use state. */
     const [keyword, setKeyword] = useState('');
+
+    /** Use selector. */
+    const cart = useSelector((state) => state.cart);
+    const { cartItems } = cart;
 
     /** Use router. */
     const router = useRouter();
@@ -50,7 +55,9 @@ export default function Nav() {
                 <div className='relative cursor-pointer'>
                     <Link className='text-gray-200' href='/cart'>
                         <Sprite id='cart' />
-                        <span className='absolute -right-1 -top-2 rounded-full bg-red-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-xs leading-tight text-center'>3</span>
+                        <span className='absolute -right-1 -top-2 rounded-full bg-red-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-xs leading-tight text-center'>
+                            {cartItems ? cartItems.length : 0}
+                        </span>
                     </Link>
                 </div>
             </li>

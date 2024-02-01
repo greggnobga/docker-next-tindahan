@@ -2,18 +2,35 @@
 
 /** React. */
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+
+/** Vendor. */
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+
+/** Actions. */
+import { addCart } from '../../redux/actions/cart-actions';
 
 /** Components. */
-import Sprite from './sprite';
+import Sprite from '../ui/sprite';
 
-export default function Cart({ id, image, name, price, stocks, slug }) {
+export default function ProductStock({ stocks, slug }) {
     /** Use state. */
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
-    /** Use selector. */
-    const userLogin = useSelector((state) => state.userLogin);
-    const { _id: userid } = userLogin;
+    /** Use dispatch. */
+    const dispatch = useDispatch();
+
+    /** Use router. */
+    const router = useRouter();
+
+    /** Add cart handler. */
+    const addCartHandler = (slug, quantity) => {
+        /** Dispatch atction. */
+        dispatch(addCart(slug, quantity));
+
+        /** Router push. */
+        router.push('/cart');
+    };
 
     /** Return something. */
     return (
@@ -38,7 +55,7 @@ export default function Cart({ id, image, name, price, stocks, slug }) {
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 py-2'>
                 <p className=' pt-2 md:text-right text-sm font-thin border-b border-slate-200 py-2'></p>
-                <button type='button' className='button-primary' disabled={stocks === 0}>
+                <button type='button' className='button-primary' disabled={stocks === 0} onClick={() => addCartHandler(slug, quantity)}>
                     Add To Cart
                 </button>
             </div>

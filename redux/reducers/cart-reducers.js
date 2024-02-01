@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cart-constants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE } from '../constants/cart-constants';
 
 /** Add cart item. */
 export function cartReducer(state = { cartItems: [] }, action) {
@@ -8,17 +8,19 @@ export function cartReducer(state = { cartItems: [] }, action) {
             const item = action.payload;
 
             /** Find product in the state. */
-            const exit = state.cartItems.find((x) => x._id === item._id);
+            const exist = state.cartItems.find((x) => x.product === item.product);
 
             /** Conditional block. */
             if (exist) {
                 return {
                     ...state,
-                    cartItems: state.cartItems.map((x) => (x._id === item._id ? item : x)),
+                    cartItems: state.cartItems.map((x) => (x.product === item.product ? item : x)),
                 };
             } else {
-                return { ...state, cartItems: [...state, item] };
+                return { ...state, cartItems: [...state.cartItems, item] };
             }
+        case CART_FAILURE:
+            return { error: action.payload };
 
         default:
             return state;
