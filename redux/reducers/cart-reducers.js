@@ -19,6 +19,11 @@ export function cartReducer(state = { cartItems: [] }, action) {
             } else {
                 return { ...state, cartItems: [...state.cartItems, item] };
             }
+        case CART_REMOVE_ITEM:
+            return {
+                ...state,
+                cartItems: state.cartItems.filter((x) => x.product !== action.payload.product),
+            };
         case CART_FAILURE:
             return { error: action.payload };
 

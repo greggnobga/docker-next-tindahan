@@ -33,17 +33,19 @@ export default function Nav() {
     return (
         <ul className='w-full flex flex-row justify-between text-slate-200'>
             <li className='flex flex-row place-items-center w-full sm:w-9/12'>
-                <Link className='mx-4 w-1/12 sm:w-2/12 md:4/12 text-gray-200' href='/'>
-                    <Sprite id='store' /> <span className='hidden text-xs sm:inline-block sm:text-sm md:text-lg font-medium'>Tindahan</span>
+                <Link className='mx-4 w-1/12 sm:w-2/12 md:4/12 text-gray-200 relative' href='/'>
+                    <Sprite id='store' /> <span className='hidden absolute pl-1 md:inline-block sm:text-md md:text-lg font-medium'>Tindahan</span>
                 </Link>
                 <input
                     type='text'
-                    className='py-2 px-2 w-full  border-gray-200 rounded-lg text-sm focus:border-slate-500 focus:outline-none text-gray-500'
+                    className='py-2 px-2 w-6/12 sm:w-full  border-gray-200 rounded-lg text-sm focus:border-slate-500 focus:outline-none text-gray-500'
                     placeholder='Search product...'
                     onChange={(e) => setKeyword(e.target.value)}
                 />
-                <button type='button' className='pl-2 pt-2' onClick={() => searchHandler(keyword)}>
-                    <Sprite id='search' width='w-8' height='h-8' />
+                <button type='button' className='pl-2 pt-2 relative' onClick={() => searchHandler(keyword)}>
+                    <span className='absolute -top-3'>
+                        <Sprite id='search' width='w-8' height='h-8' />
+                    </span>
                 </button>
             </li>
             <li className='flex flex-row place-items-center mr-4 text-slate-200'>
