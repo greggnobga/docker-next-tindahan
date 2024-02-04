@@ -4,8 +4,8 @@
 import { useEffect } from 'react';
 
 /** Vendor. */
-import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import { useDispatch, useSelector } from 'react-redux';
 
 /** Action. */
 import { resetToast } from '../../redux/actions/toast-actions';
@@ -17,7 +17,7 @@ import Notifications from '../../components/ui/notifications';
 export default function Dashboard() {
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
-    const { logged } = userLogin;
+    const { logged, admin } = userLogin;
 
     const toast = useSelector((state) => state.toast);
     const { status: responseStatus, message: responseMessage } = toast;
@@ -30,9 +30,14 @@ export default function Dashboard() {
 
     /** Use effect. */
     useEffect(() => {
-        /** Check if token is set. */
+        /** Check if logged. */
         if (!logged) {
             router.push('/login');
+        }
+
+        /** Check if admin. */
+        if (!admin) {
+            router.push('/profile');
         }
 
         /** Check if response has value. */
@@ -44,7 +49,7 @@ export default function Dashboard() {
             /** Clear running timer. */
             return () => clearTimeout(timer);
         }
-    }, [dispatch, logged, responseMessage]);
+    }, [dispatch, logged, admin, responseMessage]);
 
     /** Return something. */
     return (

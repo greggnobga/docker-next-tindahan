@@ -10,6 +10,7 @@ const users = [
     {
         firstname: 'Reijo',
         lastname: 'N',
+        image: '/img/profile-reijo.png',
         slug: 'reijo-n',
         email: 'reijo@buntod.com',
         mobile: '00000000000',
@@ -20,10 +21,21 @@ const users = [
     {
         firstname: 'Orion',
         lastname: 'N',
+        image: '/img/profile-male.png',
         slug: 'orion-n',
         email: 'orion@buntod.com',
         mobile: '00000000000',
-        gender: 'male',
+        gender: 'female',
+        password: bcrypt.hashSync(process.env.SEEDER_PASSWORD, 12),
+    },
+    {
+        firstname: 'Mao Mao',
+        lastname: 'The Cat',
+        image: '/img/profile-female.png',
+        slug: 'mao-mao-the-cat',
+        email: 'mao@buntod.com',
+        mobile: '00000000000',
+        gender: 'female',
         password: bcrypt.hashSync(process.env.SEEDER_PASSWORD, 12),
     },
 ];

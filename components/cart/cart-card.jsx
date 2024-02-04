@@ -64,18 +64,18 @@ export default function CartItems({ stocks, slug }) {
                                     <div className='grid w-full h-20'>
                                         <img className='w-full h-full object-cover' src={item.image} alt={item.name} />
                                     </div>
-                                    <div className='grid grid-cols-6 w-full h-auto'>
+                                    <div className='grid grid-cols-6 w-full h-auto gap-4'>
                                         <p className='p-2 font-normal col-span-2 border-b border-white-200'>Name</p>
                                         <p className='p-2 col-span-4'>{item.name}</p>
                                     </div>
-                                    <div className='grid grid-cols-6 w-full h-auto'>
+                                    <div className='grid grid-cols-6 w-full h-auto gap-4'>
                                         <p className='p-2 font-normal col-span-2 border-b border-white-200'>Price</p>
                                         <p className='p-2 col-span-4'>{calculateDiscount({ price: item.price, discount: item.discount })}</p>
                                     </div>
-                                    <div className='grid grid-cols-6 w-full h-auto'>
+                                    <div className='grid grid-cols-6 w-full h-auto gap-4'>
                                         <p className='p-2 font-normal col-span-2 border-b border-white-200'>Quantity</p>
                                         <select
-                                            className='p-2 col-span-4 input-select appearance-none rounded bg-no-repeat'
+                                            className='p-2 col-span-3 input-select appearance-none rounded bg-no-repeat border border-gray-300'
                                             defaultValue={item.quantity}
                                             onChange={(e) => dispatch(addCart(item.slug, Number(e.target.value)))}>
                                             {item.stockcount > 0 ? (
@@ -91,11 +91,11 @@ export default function CartItems({ stocks, slug }) {
                                             )}
                                         </select>
                                     </div>
-                                    <div className='grid grid-cols-6 w-full h-auto'>
+                                    <div className='grid grid-cols-6 w-full h-auto gap-4'>
                                         <p className='p-2 font-normal col-span-2 border-b border-white-200'>Subtotal</p>
                                         <p className='p-2 col-span-4'> {calculateSubTotal({ price: item.price, discount: item.discount, quantity: item.quantity })}</p>
                                     </div>
-                                    <div className='grid grid-cols-6 w-full h-auto'>
+                                    <div className='grid grid-cols-6 w-full h-auto gap-4'>
                                         <p className='p-2 col-span-6 text-center text-red-500 cursor-pointer' onClick={() => removeCartHandler(item.product)}>
                                             <Sprite id='delete' />
                                             Delete
@@ -104,27 +104,30 @@ export default function CartItems({ stocks, slug }) {
                                 </div>
                             ) : (
                                 <div className='flex flex-row flex-wrap flex-grow place-items-center'>
-                                    <p className='p-2 sm:w-1/12'>
+                                    <p className='sm:w-1/12'>
                                         <img className='object-contain w-16 h-16 text-center sm:text-left' src={item.image} alt={item.name} />
                                     </p>
-                                    <p className='p-2 font-normal text-center sm:text-left sm:w-3/12'>{item.name}</p>
-                                    <p className='p-2 text-center sm:text-left sm:w-2/12'>{calculateDiscount({ price: item.price, discount: item.discount })}</p>
-                                    <select
-                                        className='p-2 text-center sm:text-left sm:w-2/12 input-select appearance-none rounded bg-no-repeat'
-                                        defaultValue={item.quantity}
-                                        onChange={(e) => dispatch(addCart(item.slug, Number(e.target.value)))}>
-                                        {item.stockcount > 0 ? (
-                                            [...Array(item.stockcount).keys()].map((x) => {
-                                                return (
-                                                    <option key={x + 1} value={x + 1}>
-                                                        {x + 1}
-                                                    </option>
-                                                );
-                                            })
-                                        ) : (
-                                            <option>{item.quantity}</option>
-                                        )}
-                                    </select>
+                                    <p className='font-normal text-center sm:text-left sm:w-3/12'>{item.name}</p>
+                                    <p className='text-center sm:text-left sm:w-2/12'>{calculateDiscount({ price: item.price, discount: item.discount })}</p>
+                                    <div className='text-center sm:text-left sm:w-2/12'>
+                                        <select
+                                            className='p-2 w-9/12 input-select appearance-none rounded bg-no-repeat border border-gray-300'
+                                            defaultValue={item.quantity}
+                                            onChange={(e) => dispatch(addCart(item.slug, Number(e.target.value)))}>
+                                            {item.stockcount > 0 ? (
+                                                [...Array(item.stockcount).keys()].map((x) => {
+                                                    return (
+                                                        <option key={x + 1} value={x + 1}>
+                                                            {x + 1}
+                                                        </option>
+                                                    );
+                                                })
+                                            ) : (
+                                                <option>{item.quantity}</option>
+                                            )}
+                                        </select>
+                                    </div>
+
                                     <p className='p-2 font-normal text-center sm:text-left sm:w-2/12'>
                                         {calculateSubTotal({ price: item.price, discount: item.discount, quantity: item.quantity })}
                                     </p>
@@ -143,12 +146,22 @@ export default function CartItems({ stocks, slug }) {
             {cartItems.length > 0 ? (
                 <div className='flex flex-col flex-wrap justify-end'>
                     <p className='p-2 text-right font-light'>
-                        Subtotal (<span className='font-normal'> {cartItems.reduce((acc, item) => acc + item.quantity, 0)} </span>) items
+                        Subtotal (<span className='font-bold'>{cartItems.reduce((acc, item) => acc + item.quantity, 0)}</span>) items
                     </p>
-                    <p className='p-2 text-right font-bold'>
-                        &#x20B1; {cartItems.reduce((acc, item) => acc + item.quantity * (item.price - (item.price * item.discount) / 100), 0).toFixed(2)}
+                    <p className='p-2 text-right font-thin'>
+                        The amount due is{' '}
+                        <span className='font-bold'>
+                            &#x20B1;
+                            {Number(
+                                cartItems
+                                    .reduce((acc, item) => acc + item.quantity * (item.price - (item.price * item.discount) / 100), 0)
+                                    .toFixed(2)
+                                    .toLocaleString(),
+                            ).toLocaleString()}
+                        </span>
+                        ; shipping and taxes are not yet calculated.
                     </p>
-                    <button type='button' className='button-primary'>
+                    <button type='button' className='mt-2 button-primary'>
                         Proceed To Checkout
                     </button>
                 </div>

@@ -81,7 +81,7 @@ export default function Login() {
     useEffect(() => {
         /** Check if token is set. */
         if (logged) {
-            router.push('/dashboard');
+            router.push('/profile');
         }
     }, [dispatch, logged]);
 

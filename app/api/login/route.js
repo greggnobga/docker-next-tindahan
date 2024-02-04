@@ -33,6 +33,7 @@ export async function POST(request) {
                     id: user._id,
                     firstname: user.firstname,
                     lastname: user.lastname,
+                    image: user.image,
                     slug: user.slug,
                     email: user.email,
                     mobile: user.mobile,
