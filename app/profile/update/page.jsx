@@ -10,9 +10,7 @@ export default function Update() {
     return (
         <div className='min-h-screen'>
             <h1 className='pb-2 text-left'>Update Profile</h1>
-            <div className='p-2 grid justify-center align-middle'>
-                <ProfileUpdate />
-            </div>
+            <ProfileUpdate />
         </div>
     );
 }

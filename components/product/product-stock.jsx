@@ -41,7 +41,7 @@ export default function ProductStock({ stocks, slug }) {
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 py-2'>
                 <p className='md:text-right text-sm font-thin border-b border-slate-200 py-2'>Quantity</p>
-                <select className='p-2 text-center input-select appearance-none bg-no-repeat' onChange={(e) => setQuantity(e.target.value)}>
+                <select className='p-2 text-center appearance-none border-gray-200' onChange={(e) => setQuantity(e.target.value)}>
                     {stocks > 0
                         ? [...Array(stocks).keys()].map((x) => {
                               return (

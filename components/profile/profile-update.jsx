@@ -10,7 +10,7 @@ import Sprite from '../ui/sprite';
 export default function ProfileUpdate() {
     /** Return something. */
     return (
-        <>
+        <div className='p-2'>
             <div className='relative w-full h-16'>
                 <Link href='/profile' className='absolute top-0 right-0 p-2 text-right text-sm bg-slate-200 rounded shadow-sm'>
                     <Sprite id='chevron-back' /> Back
@@ -74,6 +74,6 @@ export default function ProfileUpdate() {
                     </div>
                 </div>
             </form>
-        </>
+        </div>
     );
 }

@@ -74,7 +74,7 @@ export default function CartItems({ stocks, slug }) {
                                     <div className='py-2 pr-2 grid grid-cols-6 w-full h-auto gap-2'>
                                         <p className='px-2 font-normal col-span-2 border-b border-white-200'>Quantity</p>
                                         <select
-                                            className='p-2 col-span-4 input-select appearance-none rounded bg-no-repeat border border-gray-300'
+                                            className='p-2 col-span-4 appearance-none rounded border border-gray-200'
                                             defaultValue={item.quantity}
                                             onChange={(e) => dispatch(addCart(item.slug, Number(e.target.value)))}>
                                             {item.stockcount > 0 ? (
@@ -95,7 +95,7 @@ export default function CartItems({ stocks, slug }) {
                                         <p className='col-span-4'> {calculateSubTotal({ price: item.price, discount: item.discount, quantity: item.quantity })}</p>
                                     </div>
                                     <div className='py-2 px-2 mb-4 grid grid-cols-6 w-full h-auto gap-2'>
-                                        <button type='button' className='col-span-6 button-delete' onClick={() => removeCartHandler(item.product)}>
+                                        <button type='button' className='col-span-6 text-red-500' onClick={() => removeCartHandler(item.product)}>
                                             <Sprite id='delete' />
                                             Delete
                                         </button>
@@ -114,7 +114,7 @@ export default function CartItems({ stocks, slug }) {
                                     </div>
                                     <div className='p-2'>
                                         <select
-                                            className='p-2 w-9/12 input-select appearance-none rounded bg-no-repeat border border-gray-300'
+                                            className='p-2 w-9/12 appearance-none rounded border border-gray-200'
                                             defaultValue={item.quantity}
                                             onChange={(e) => dispatch(addCart(item.slug, Number(e.target.value)))}>
                                             {item.stockcount > 0 ? (
@@ -136,9 +136,9 @@ export default function CartItems({ stocks, slug }) {
                                         </p>
                                     </div>
                                     <div className='p-2'>
-                                        <button type='button' className='p-2 button-delete' onClick={() => removeCartHandler(item.product)}>
+                                        <button type='button' className='p-2 text-red-600' onClick={() => removeCartHandler(item.product)}>
                                             <Sprite id='delete' />
-                                            <span className='font-thin'>Delete</span>
+                                            <span className='hidden font-thin lg:inline-block'>Delete</span>
                                         </button>
                                     </div>
                                 </div>
