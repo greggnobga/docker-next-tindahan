@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { calculateDiscount } from '../../../lib/calculate';
 
 /** Components. */
-import Rating from '../../../components/ui/rating';
+const Rating = dynamic(() => import('../../../components/ui/rating'), { ssr: false });
 const ProductStock = dynamic(() => import('../../../components/product/product-stock'), { ssr: false });
 const ProductRecommend = dynamic(() => import('../../../components/product/product-recommend'), { ssr: false });
 

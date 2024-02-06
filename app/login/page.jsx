@@ -5,14 +5,19 @@ import { useEffect } from 'react';
 
 /** Vendor. */
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 /** Action. */
 import { loginUser } from '../../redux/actions/user-actions';
+import { resetToast } from '../../redux/actions/toast-actions';
 
 /** Hook. */
 import useValidator from '../../hooks/use-validator';
+
+/** Component. */
+const Notifications = dynamic(() => import('../../components/ui/notifications'), { ssr: false });
 
 /** Default export. */
 export default function Login() {
@@ -74,6 +79,9 @@ export default function Login() {
     const userLogin = useSelector((state) => state.userLogin);
     const { logged } = userLogin;
 
+    const toast = useSelector((state) => state.toast);
+    const { status: responseStatus, message: responseMessage } = toast;
+
     /** Use router. */
     const router = useRouter();
 
@@ -83,13 +91,23 @@ export default function Login() {
         if (logged) {
             router.push('/profile');
         }
-    }, [dispatch, logged]);
+
+        /** Check if response has value. */
+        if (responseMessage) {
+            const timer = setTimeout(() => {
+                /** Reset message. */
+                dispatch(resetToast());
+            }, 5000);
+            /** Clear running timer. */
+            return () => clearTimeout(timer);
+        }
+    }, [dispatch, logged, responseMessage]);
 
     /** Return something. */
     return (
         <div className='min-h-screen'>
             <h1 className='pb-2 text-center'>Login</h1>
-
+            {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <form onSubmit={submitHandler} method='POST' className='bg-slate-200 p-2 rounded'>
                 <div className='grid gap-6 mb-6 md:grid-cols-2'>
                     <div>

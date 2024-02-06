@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 
 /* Vendor. */
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,7 +16,7 @@ import { resetToast } from '../../redux/actions/toast-actions';
 import useValidator from '../../hooks/use-validator';
 
 /** Component. */
-import Notifications from '../../components/ui/notifications';
+const Notifications = dynamic(() => import('../../components/ui/notifications'), { ssr: false });
 
 /** Default export. */
 export default function Support() {

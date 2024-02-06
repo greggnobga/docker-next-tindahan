@@ -2,8 +2,7 @@
 import dynamic from 'next/dynamic';
 
 /** Components. */
-import Hero from '../components/ui/hero';
-import Sprite from '../components/ui/sprite';
+const Hero = dynamic(() => import('../components/ui/hero'), { ssr: false });
 const ProductFlash = dynamic(() => import('../components/product/product-flash'), { ssr: false });
 const ProductJust = dynamic(() => import('../components/product/product-just'), { ssr: false });
 const ProductHot = dynamic(() => import('../components/product/product-hot'), { ssr: false });

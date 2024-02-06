@@ -26,6 +26,11 @@ export default async function middleware(request) {
         return NextResponse.redirect(`${process.env.HOST}/login`);
     }
 
+    if (request.nextUrl.pathname.startsWith('/profile/update') && !verified) {
+        /** Return to login page. */
+        return NextResponse.redirect(`${process.env.HOST}/login`);
+    }
+
     /** If in shipping page and not verfied redirect to login page. */
     if (request.nextUrl.pathname.startsWith('/shipping') && !verified) {
         /** Return to login page. */
@@ -46,5 +51,5 @@ export default async function middleware(request) {
 
 /** Export config. */
 export const config = {
-    matcher: ['/dashboard', '/login', '/shipping', '/profile'],
+    matcher: ['/dashboard', '/login', '/shipping', '/profile', '/profile/update'],
 };

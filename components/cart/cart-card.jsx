@@ -61,8 +61,8 @@ export default function CartItems({ stocks, slug }) {
                             className='inline-flex items-center gap-x-2 py-3 px-4 font-light  odd:bg-gray-100 bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg '>
                             {isMobile ? (
                                 <div className='flex flex-col flex-wrap flex-grow gap-2'>
-                                    <div className='grid w-full h-20'>
-                                        <img className='w-full h-full object-cover' src={item.image} alt={item.name} />
+                                    <div className='grid grid-cols-6 w-full h-24 gap-4'>
+                                        <img className='col-span-6 w-full h-full object-fill' src={item.image} alt={item.name} />
                                     </div>
                                     <div className='grid grid-cols-6 w-full h-auto gap-4'>
                                         <p className='p-2 font-normal col-span-2 border-b border-white-200'>Name</p>
@@ -104,8 +104,8 @@ export default function CartItems({ stocks, slug }) {
                                 </div>
                             ) : (
                                 <div className='flex flex-row flex-wrap flex-grow place-items-center'>
-                                    <p className='sm:w-1/12'>
-                                        <img className='object-contain w-16 h-16 text-center sm:text-left' src={item.image} alt={item.name} />
+                                    <p className='p-2 sm:w-1/12'>
+                                        <img className='w-full h-full object-fill' src={item.image} alt={item.name} />
                                     </p>
                                     <p className='font-normal text-center sm:text-left sm:w-3/12'>{item.name}</p>
                                     <p className='text-center sm:text-left sm:w-2/12'>{calculateDiscount({ price: item.price, discount: item.discount })}</p>
@@ -146,18 +146,13 @@ export default function CartItems({ stocks, slug }) {
             {cartItems.length > 0 ? (
                 <div className='flex flex-col flex-wrap justify-end'>
                     <p className='p-2 text-right font-light'>
-                        Subtotal (<span className='font-bold'>{cartItems.reduce((acc, item) => acc + item.quantity, 0)}</span>) items
+                        Subtotal (<span className='font-bold'>{Number(cartItems.reduce((acc, item) => acc + item.quantity, 0))}</span>) items
                     </p>
                     <p className='p-2 text-right font-thin'>
                         The amount due is{' '}
                         <span className='font-bold'>
                             &#x20B1;
-                            {Number(
-                                cartItems
-                                    .reduce((acc, item) => acc + item.quantity * (item.price - (item.price * item.discount) / 100), 0)
-                                    .toFixed(2)
-                                    .toLocaleString(),
-                            ).toLocaleString()}
+                            {Number(cartItems.reduce((acc, item) => acc + item.quantity * (item.price - (item.price * item.discount) / 100), 0).toFixed(2)).toLocaleString()}
                         </span>
                         ; shipping and taxes are not yet calculated.
                     </p>
