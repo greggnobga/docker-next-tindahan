@@ -1,5 +1,15 @@
 /** Constant. */
-import { USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAILURE, USER_SIGNUP_REQUEST, USER_SIGNUP_SUCCESS, USER_SIGNUP_FAILURE } from '../constants/user-constants';
+import {
+    USER_LOGIN_REQUEST,
+    USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAILURE,
+    USER_SIGNUP_REQUEST,
+    USER_SIGNUP_SUCCESS,
+    USER_SIGNUP_FAILURE,
+    USER_UPDATE_REQUEST,
+    USER_UPDATE_SUCCESS,
+    USER_UPDATE_FAILURE,
+} from '../constants/user-constants';
 
 import { TOAST_MESSAGE } from '../constants/toast-constants';
 
@@ -132,4 +142,59 @@ export const signupUser = (params) => async (dispatch, getState) => {
             payload: error.response && error.response.data.message ? error.response.data.message : error.message,
         });
     }
+};
+
+export const updateUser = (params) => async (dispatch, getState) => {
+    console.log(params);
+    // /** Initiate try catch block. */
+    // try {
+    //     /** Dispatch request. */
+    //     dispatch({ type: USER_UPDATE_REQUEST });
+
+    //     /** Make api request. */
+    //     const response = await fetch('/api/users', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(params),
+    //     });
+
+    //     /** Wait for the response. */
+    //     const data = await response.json();
+
+    //     if (data && data.status <= 300) {
+    //         /** Dispatch success. */
+    //         dispatch({
+    //             type: USER_UPDATE_SUCCESS,
+    //             payload: { ...data },
+    //         });
+
+    //         dispatch({
+    //             type: USER_LOGIN_SUCCESS,
+    //             payload: { ...data },
+    //         });
+
+    //         /** Dispatch toast. */
+    //         dispatch({
+    //             type: TOAST_MESSAGE,
+    //             payload: { message: data.message, status: data.status },
+    //         });
+
+    //         /** Save access token to local storage. */
+    //         localStorage.setItem('userLogin', JSON.stringify(data));
+    //     } else {
+    //         /** Dispatch toast. */
+    //         dispatch({
+    //             type: TOAST_MESSAGE,
+    //             payload: { message: data.message, status: data.status },
+    //         });
+    //     }
+    // } catch (error) {
+    //     /** Dispatch failure. */
+    //     dispatch({
+    //         type: USER_UPDATE_FAILURE,
+    //         payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    //     });
+    // }
 };

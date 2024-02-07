@@ -8,7 +8,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 /** Reducer. */
 import { toastReducer } from './reducers/toast-reducers';
 import { supportSendReducer } from './reducers/support-reducers';
-import { userSignupReducer, userLoginReducer } from './reducers/user-reducers';
+import { userSignupReducer, userLoginReducer, userUpdateReducer } from './reducers/user-reducers';
 import {
     productListReducer,
     productSearchReducer,
@@ -26,6 +26,7 @@ const reducer = combineReducers({
     supportSend: supportSendReducer,
     userSignup: userSignupReducer,
     userLogin: userLoginReducer,
+    userUpdate: userUpdateReducer,
     productList: productListReducer,
     productSearch: productSearchReducer,
     productFlash: productFlashReducer,
