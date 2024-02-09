@@ -3,13 +3,13 @@ import cookie from 'cookie';
 import { NextResponse } from 'next/server';
 
 /** Library. */
-import Database from '../../../lib/mongo';
-import { Sanitizer } from '../../../lib/sanitizer';
-import { bcryptHash } from '../../../lib/bcrypt';
-import { generateToken } from '../../../lib/token';
+import Database from '../../../../lib/mongo';
+import { Sanitizer } from '../../../../lib/sanitizer';
+import { bcryptHash } from '../../../../lib/bcrypt';
+import { generateToken } from '../../../../lib/token';
 
 /** Model. */
-import User from '../../../mongoose/models/user-model';
+import User from '../../../../mongoose/models/user-model';
 
 /** Connect MongonDB. */
 Database();
@@ -36,12 +36,12 @@ export async function POST(request) {
             /** Create slug. */
             const first = filtered.firstname ? filtered.firstname : 'firstname';
             const last = filtered.lastname ? filtered.lastname : 'lastname';
-            const slug = first.toLowerCase() + '-' + last.toLowerCase();
+            const slug = first.toLowerCase() + '-' + last.toLowerCase() + '-' + Math.random().toString().slice(2, 11);
 
             /** Add to database record. */
             try {
                 /** Prepare data. */
-                const result = new User({ ...filtered, password: password, slug: slug });
+                const result = new User({ ...filtered, password: password, slug: slug, admin: false });
 
                 /** Save user. */
                 await result.save();
@@ -49,9 +49,16 @@ export async function POST(request) {
                 /** Return user related data and set cookie in the jar. */
                 return NextResponse.json(
                     {
-                        ...filtered,
-                        slug: slug,
-                        message: filtered.firstname + ', your account has been successfully created.',
+                        id: result._id,
+                        firstname: result.firstname,
+                        lastname: result.lastname,
+                        image: result.image,
+                        slug: result.slug,
+                        email: result.email,
+                        mobile: result.mobile,
+                        gender: result.gender,
+                        admin: result.admin,
+                        message: result.firstname + ', your account has been successfully created.',
                         status: 200,
                         logged: true,
                     },

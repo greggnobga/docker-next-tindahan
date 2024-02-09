@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 /** Vendor. */
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -18,8 +19,9 @@ import useValidator from '../../hooks/use-validator';
 /** Library. */
 import { ucFirst } from '../../lib/typography';
 
-/** Components. */
-import Sprite from '../ui/sprite';
+/** Component. */
+const Sprite = dynamic(() => import('../ui/sprite'), { ssr: false });
+const Notifications = dynamic(() => import('../ui/notifications'), { ssr: false });
 
 /** Default export. */
 export default function ProfileUpdate() {
@@ -61,6 +63,15 @@ export default function ProfileUpdate() {
     } = useValidator((value) => value.trim() !== '' && value.match(/^[ A-Za-z0-9!@#$%^&*()_+]*$/));
 
     const {
+        value: oldpassword,
+        hasError: oldpasswordHasError,
+        isValid: oldpasswordIsValid,
+        valueChangeHandler: oldpasswordChangeHandler,
+        inputBlurHandler: oldpasswordBlurHandler,
+        resetHandler: oldpasswordInputReset,
+    } = useValidator((value) => value.trim() !== '' && value.match(/^[ A-Za-z0-9!@#$%^&*()_+]*$/));
+
+    const {
         value: password,
         hasError: passwordHasError,
         isValid: passwordIsValid,
@@ -83,6 +94,7 @@ export default function ProfileUpdate() {
     const lastnameInputClasses = lastnameHasError ? 'input-error' : 'input-success';
     const mobileInputClasses = mobileHasError ? 'input-error' : 'input-success';
     const genderInputClasses = genderHasError ? 'input-error' : 'input-success';
+    const oldpasswordInputClasses = oldpasswordHasError ? 'input-error' : 'input-success';
     const passwordInputClasses = passwordHasError ? 'input-error' : 'input-success';
     const confirmpasswordInputClasses = confirmpasswordHasError ? 'input-error' : 'input-success';
 
@@ -94,11 +106,12 @@ export default function ProfileUpdate() {
 
     /** Check if password match and length. */
     const [passwordMatched, setPasswordMatched] = useState(false);
+    const [oldpasswordLength, setoldpasswordLength] = useState(false);
     const [passwordLength, setpasswordLength] = useState(false);
 
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
-    const { id, logged, firstname: first_name, lastname: last_name, mobile: mobile_number, gender: gen_der } = userLogin;
+    const { id, logged, email, admin, firstname: first_name, lastname: last_name, mobile: mobile_number, gender: gen_der } = userLogin;
 
     const toast = useSelector((state) => state.toast);
     const { status: responseStatus, message: responseMessage } = toast;
@@ -112,6 +125,12 @@ export default function ProfileUpdate() {
     /** Use effect. */
     useEffect(() => {
         /** Check if password length is greater than 10. */
+        if (oldpassword.length != 0 && oldpassword.length < 10) {
+            setoldpasswordLength(true);
+        } else {
+            setoldpasswordLength(false);
+        }
+
         if (password.length != 0 && password.length < 10) {
             setpasswordLength(true);
         } else {
@@ -139,7 +158,7 @@ export default function ProfileUpdate() {
             /** Clear running timer. */
             return () => clearTimeout(timer);
         }
-    }, [dispatch, logged, responseMessage, password, confirmpassword]);
+    }, [dispatch, logged, responseMessage, oldpassword, password, confirmpassword]);
 
     /** Submit hanndler. */
     function submitHandler(e) {
@@ -151,22 +170,24 @@ export default function ProfileUpdate() {
         lastnameBlurHandler(true);
         mobileBlurHandler(true);
         genderBlurHandler(true);
+        oldpasswordBlurHandler(true);
         passwordBlurHandler(true);
         confirmpasswordBlurHandler(true);
 
         /** Check if there is invalid input. */
-        if (!firstnameIsValid && !lastnameIsValid && !mobileIsValid && !genderIsValid && !confirmpasswordIsValid && !passwordIsValid) {
+        if (!firstnameIsValid && !lastnameIsValid && !mobileIsValid && !genderIsValid && !oldpasswordIsValid && !passwordIsValid && !confirmpasswordIsValid) {
             return;
         }
 
         /** Dispatch action. */
-        dispatch(updateUser({ id, firstname, lastname, mobile, gender, password }));
+        dispatch(updateUser({ id, firstname, lastname, email, mobile, gender, oldpassword, password, admin }));
 
         /** Reset input. */
         firstnameInputReset();
         lastnameInputReset();
         mobileInputReset();
         genderInputReset();
+        oldpasswordInputReset();
         passwordInputReset();
         confirmpasswordInputReset();
     }
@@ -179,7 +200,7 @@ export default function ProfileUpdate() {
                     <Sprite id='chevron-back' /> Back
                 </Link>
             </div>
-
+            {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <form onSubmit={submitHandler} method='POST' className='bg-slate-200 p-4 rounded'>
                 <div className='grid grid-cols-12 gap-6 mb-6'>
                     <div className='col-span-12 md:col-span-6 lg:col-span-4'>
@@ -255,21 +276,43 @@ export default function ProfileUpdate() {
                             id='gender'
                             name='gender'
                             type='text'
-                            value={gender}
+                            value={gender ? gender : gen_der}
                             onChange={genderChangeHandler}
                             onBlur={genderBlurHandler}
                             autoComplete='off'
                             placeholder=''
                             required>
-                            <option defaultValue>{gender ? gender : ucFirst(gen_der)}</option>
+                            <option defaultValue>{ucFirst(gen_der)}</option>
                             <option value='Male'>Male</option>
                             <option value='Female'>Female</option>
                         </select>
                         {genderHasError ? <p className='input-message'>Please enter a valid last gender.</p> : ''}
                     </div>
                     <div className='col-span-12 md:col-span-6 lg:col-span-4'>
+                        <label htmlFor='oldpassword' className='block mb-2 text-sm font-light text-gray-900'>
+                            Old Password
+                        </label>
+                        <input
+                            className={oldpasswordInputClasses}
+                            id='oldpassword'
+                            name='oldpassword'
+                            type='password'
+                            value={oldpassword}
+                            onChange={oldpasswordChangeHandler}
+                            onBlur={oldpasswordBlurHandler}
+                            autoComplete='off'
+                            placeholder=''
+                            required
+                        />
+                        {oldpasswordHasError ? (
+                            <p className='input-message'>Please enter a valid password.</p>
+                        ) : (
+                            oldpasswordLength && <p className='input-message'>Password must be 10 characters or more.</p>
+                        )}
+                    </div>
+                    <div className='col-span-12 md:col-span-6 lg:col-span-4'>
                         <label htmlFor='password' className='block mb-2 text-sm font-light text-gray-900'>
-                            Password
+                            New Password
                         </label>
                         <input
                             className={passwordInputClasses}
@@ -291,7 +334,7 @@ export default function ProfileUpdate() {
                     </div>
                     <div className='col-span-12 md:col-span-6 lg:col-span-4'>
                         <label htmlFor='confirmpassword' className='block mb-2 text-sm font-light text-gray-900'>
-                            Confirm Password
+                            Confirm New Password
                         </label>
                         <input
                             className={confirmpasswordInputClasses}

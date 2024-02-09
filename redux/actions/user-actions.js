@@ -20,7 +20,7 @@ export const loginUser = (params) => async (dispatch, getState) => {
         dispatch({ type: USER_LOGIN_REQUEST });
 
         /** Make api request. */
-        const response = await fetch('/api/login', {
+        const response = await fetch('/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ export const loginUser = (params) => async (dispatch, getState) => {
 
 export const logoutUser = (params) => async (dispatch, getState) => {
     /** Make api request. */
-    const response = await fetch('/api/logout', {
+    const response = await fetch('/api/users/logout', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ export const signupUser = (params) => async (dispatch, getState) => {
         dispatch({ type: USER_SIGNUP_REQUEST });
 
         /** Make api request. */
-        const response = await fetch('/api/signup', {
+        const response = await fetch('/api/users/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -145,56 +145,55 @@ export const signupUser = (params) => async (dispatch, getState) => {
 };
 
 export const updateUser = (params) => async (dispatch, getState) => {
-    console.log(params);
-    // /** Initiate try catch block. */
-    // try {
-    //     /** Dispatch request. */
-    //     dispatch({ type: USER_UPDATE_REQUEST });
+    /** Initiate try catch block. */
+    try {
+        /** Dispatch request. */
+        dispatch({ type: USER_UPDATE_REQUEST });
 
-    //     /** Make api request. */
-    //     const response = await fetch('/api/users', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(params),
-    //     });
+        /** Make api request. */
+        const response = await fetch('/api/users/update', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(params),
+        });
 
-    //     /** Wait for the response. */
-    //     const data = await response.json();
+        /** Wait for the response. */
+        const data = await response.json();
 
-    //     if (data && data.status <= 300) {
-    //         /** Dispatch success. */
-    //         dispatch({
-    //             type: USER_UPDATE_SUCCESS,
-    //             payload: { ...data },
-    //         });
+        if (data && data.status <= 300) {
+            /** Dispatch success. */
+            dispatch({
+                type: USER_UPDATE_SUCCESS,
+                payload: { ...data },
+            });
 
-    //         dispatch({
-    //             type: USER_LOGIN_SUCCESS,
-    //             payload: { ...data },
-    //         });
+            dispatch({
+                type: USER_LOGIN_SUCCESS,
+                payload: { ...data },
+            });
 
-    //         /** Dispatch toast. */
-    //         dispatch({
-    //             type: TOAST_MESSAGE,
-    //             payload: { message: data.message, status: data.status },
-    //         });
+            /** Dispatch toast. */
+            dispatch({
+                type: TOAST_MESSAGE,
+                payload: { message: data.message, status: data.status },
+            });
 
-    //         /** Save access token to local storage. */
-    //         localStorage.setItem('userLogin', JSON.stringify(data));
-    //     } else {
-    //         /** Dispatch toast. */
-    //         dispatch({
-    //             type: TOAST_MESSAGE,
-    //             payload: { message: data.message, status: data.status },
-    //         });
-    //     }
-    // } catch (error) {
-    //     /** Dispatch failure. */
-    //     dispatch({
-    //         type: USER_UPDATE_FAILURE,
-    //         payload: error.response && error.response.data.message ? error.response.data.message : error.message,
-    //     });
-    // }
+            /** Save access token to local storage. */
+            localStorage.setItem('userLogin', JSON.stringify(data));
+        } else {
+            /** Dispatch toast. */
+            dispatch({
+                type: TOAST_MESSAGE,
+                payload: { message: data.message, status: data.status },
+            });
+        }
+    } catch (error) {
+        /** Dispatch failure. */
+        dispatch({
+            type: USER_UPDATE_FAILURE,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+        });
+    }
 };

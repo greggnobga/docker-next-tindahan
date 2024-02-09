@@ -59,7 +59,7 @@ export default function ProfileInformation() {
             </div>
             <div className='p-2 grid md:grid-cols-6'>
                 <p className='md:col-span-2 p-1 hidden font-light md:block'>Gender</p>
-                <p className='md:col-span-4 p-1 text-center sm:text-left'>{ucFirst(gender ? gender : 'gender')}</p>
+                <p className='md:col-span-4 p-1 text-center sm:text-left'>{ucFirst(gender)}</p>
             </div>
         </>
     );

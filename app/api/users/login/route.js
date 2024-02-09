@@ -3,16 +3,17 @@ import cookie from 'cookie';
 import { NextResponse } from 'next/server';
 
 /** Library. */
-import Database from '../../../lib/mongo';
-import { bcryptCompare } from '../../../lib/bcrypt';
-import { generateToken } from '../../../lib/token';
+import Database from '../../../../lib/mongo';
+import { bcryptCompare } from '../../../../lib/bcrypt';
+import { generateToken } from '../../../../lib/token';
 
 /** Model. */
-import User from '../../../mongoose/models/user-model';
+import User from '../../../../mongoose/models/user-model';
 
 /** Connect MongonDB. */
 Database();
 
+/** GET. */
 export async function POST(request) {
     /** Await the post data. */
     const { email, password } = await request.json();

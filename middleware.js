@@ -37,12 +37,12 @@ export default async function middleware(request) {
         return NextResponse.redirect(`${process.env.HOST}/login`);
     }
 
-    /** If in login page and already verified redirect to dashboard or profile. */
+    /** If in login page and already verified redirect to profile. */
     if (request.nextUrl.pathname.startsWith('/login') && verified) {
         return NextResponse.redirect(`${process.env.HOST}/profile`);
     }
 
-    /** If in dashboard page and not verfied redirect to login page. */
+    /** If in dashboard page and verfied but not admin redirect to login page. */
     if (request.nextUrl.pathname.startsWith('/dashboard') && verified && !verified.admin) {
         /** Return to profile page. */
         return NextResponse.redirect(`${process.env.HOST}/profile`);
