@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 
 /** Components. */
-const ProductSlug = dynamic(() => import('../../../components/product/product-slug'), { ssr: false });
+const Slug = dynamic(() => import('../../../components/product/product-slug'), { ssr: false });
 
 /** Get project details for server side rendering. */
 export async function getDetails({ slug }) {
@@ -22,5 +22,5 @@ export default async function ProductSlug({ params }) {
     const details = await getDetails({ slug });
 
     /** Return something. */
-    return <ProductSlug details={details} />;
+    return <Slug details={details} />;
 }
