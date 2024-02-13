@@ -34,8 +34,8 @@ export default function ProfileInformation() {
     return (
         <>
             <div className='relative w-full h-16'>
-                <Link href='/profile/update' className='absolute top-0 right-0 p-2 text-right text-sm bg-slate-200 rounded shadow-sm'>
-                    Edit Profile <Sprite id='chevron-forward' />
+                <Link href='/profile/update' className='absolute top-0 right-0 p-1 text-right text-xs bg-slate-200 rounded shadow-sm'>
+                    <span className='mt-2 pl-2 inline-block'>Edit Profile</span> <Sprite id='chevron-forward' />
                 </Link>
             </div>
             <div className='p-2 grid place-items-center cursor-pointer'>

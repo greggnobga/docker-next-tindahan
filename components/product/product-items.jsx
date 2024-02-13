@@ -51,7 +51,7 @@ export default function ProductItems() {
                 )}
             </div>
             <div className='w-full'>
-                <Paginate pages={pages} handler={paginationHandler} page={page} type='products' />
+                <Paginate pages={pages} handler={paginationHandler} page={page} type='product' />
             </div>
         </>
     );

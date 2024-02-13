@@ -20,7 +20,7 @@ import useValidator from '../../hooks/use-validator';
 const Notifications = dynamic(() => import('../../components/ui/notifications'), { ssr: false });
 
 /** Default export. */
-export default function Login() {
+export default function LoginPage() {
     /** Map html element to validate hook. */
     const {
         value: email,
@@ -77,7 +77,7 @@ export default function Login() {
 
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
-    const { logged } = userLogin;
+    const { logged, pathname } = userLogin;
 
     const toast = useSelector((state) => state.toast);
     const { status: responseStatus, message: responseMessage } = toast;
@@ -87,7 +87,7 @@ export default function Login() {
 
     /** Use effect. */
     useEffect(() => {
-        /** Check if token is set. */
+        /** Check if user is logged. */
         if (logged) {
             router.push('/profile');
         }
@@ -101,7 +101,7 @@ export default function Login() {
             /** Clear running timer. */
             return () => clearTimeout(timer);
         }
-    }, [dispatch, logged, responseMessage]);
+    }, [dispatch, pathname, logged, responseMessage]);
 
     /** Return something. */
     return (

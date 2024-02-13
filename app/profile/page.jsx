@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 const ProfileInformation = dynamic(() => import('../../components/profile/profile-information'), { ssr: false });
 
 /** Default export. */
-export default function Profile() {
+export default function ProfilePage() {
     /** Return something. */
     return (
         <div className='min-h-screen'>

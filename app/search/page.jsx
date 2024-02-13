@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 const ProductSearch = dynamic(() => import('../../components/product/product-search'), { ssr: false });
 
 /** Default export. */
-export default function Search() {
+export default function SearchPage() {
     return (
         <section className='min-h-screen'>
             <h1 className='pb-2'>Search Result</h1>

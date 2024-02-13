@@ -163,7 +163,7 @@ export default function ProfileUpdate() {
     /** Submit hanndler. */
     function submitHandler(e) {
         /** Prevent browser default behaviour */
-        event.preventDefault();
+        e.preventDefault();
 
         /** Change blur state. */
         firstnameBlurHandler(true);
@@ -196,8 +196,8 @@ export default function ProfileUpdate() {
     return (
         <div className='p-2'>
             <div className='relative w-full h-16'>
-                <Link href='/profile' className='absolute top-0 right-0 p-2 text-right text-sm bg-slate-200 rounded shadow-sm'>
-                    <Sprite id='chevron-back' /> Back
+                <Link href='/profile' className='absolute top-0 right-0 text-right p-1 text-xs bg-slate-200 rounded shadow-sm'>
+                    <Sprite id='chevron-back' /> <span className='mt-2 pr-2 inline-block'>Back</span>
                 </Link>
             </div>
             {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}

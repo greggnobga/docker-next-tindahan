@@ -1,6 +1,7 @@
 'use client';
 
 /** Vendor. */
+import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 
 /** Hooks. */
@@ -16,7 +17,7 @@ import { addCart, removeCart } from '../../redux/actions/cart-actions';
 import Sprite from '../ui/sprite';
 import Loader from '../ui/loader';
 
-export default function CartItems({ stocks, slug }) {
+export default function Cart({ stocks, slug }) {
     /** Use selector.  */
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
@@ -102,7 +103,7 @@ export default function CartItems({ stocks, slug }) {
                                     </div>
                                 </>
                             ) : (
-                                <div className='grid grid-cols-6 gap-2'>
+                                <div className='grid grid-cols-6 gap-2 place-items-center'>
                                     <div className='p-2'>
                                         <img className='text-left h-16 object-contain' src={item.image} alt={item.name} />
                                     </div>
@@ -150,19 +151,23 @@ export default function CartItems({ stocks, slug }) {
             {cartItems.length > 0 ? (
                 <div className='flex flex-col flex-wrap justify-end'>
                     <p className='p-2 text-right font-light'>
-                        Subtotal (<span className='font-bold'>{Number(cartItems.reduce((acc, item) => acc + item.quantity, 0))}</span>) items
+                        Subtotal (
+                        <span className='font-bold'>{Number(cartItems.reduce((acc, item) => acc + item.quantity, 0)).toLocaleString('en-US', { minimumFractionDigits: 0 })}</span>)
+                        items
                     </p>
                     <p className='p-2 text-right font-thin'>
                         The amount due is{' '}
                         <span className='font-bold'>
                             &#x20B1;
-                            {Number(cartItems.reduce((acc, item) => acc + item.quantity * (item.price - (item.price * item.discount) / 100), 0).toFixed(2)).toLocaleString()}
+                            {Number(cartItems.reduce((acc, item) => acc + item.quantity * (item.price - (item.price * item.discount) / 100), 0)).toLocaleString('en-US', {
+                                minimumFractionDigits: 2,
+                            })}
                         </span>
                         ; shipping and taxes are not yet calculated.
                     </p>
-                    <button type='button' className='mt-2 button-primary'>
+                    <Link href='/shipping' className='mt-2 button-primary'>
                         Proceed To Checkout
-                    </button>
+                    </Link>
                 </div>
             ) : (
                 <p className='p-2 text-center text-lg font-light'>

@@ -50,8 +50,8 @@ export default function Nav() {
             </li>
             <li className='flex flex-row place-items-center mr-4 text-slate-200'>
                 <div className='mx-2 mt-1'>
-                    <Link className='text-gray-200' href='/products'>
-                        <Sprite id='products' width='w-7' height='h-7' />
+                    <Link className='text-gray-200' href='/product'>
+                        <Sprite id='product' width='w-7' height='h-7' />
                     </Link>
                 </div>
                 <div className='relative cursor-pointer'>

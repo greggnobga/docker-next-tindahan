@@ -14,13 +14,13 @@ export default async function middleware(request) {
         return;
     }
 
-    /** If in profile page and not verfied redirect to login page. */
+    /** If in profile page and not verified redirect to login page. */
     if (request.nextUrl.pathname.startsWith('/dashboard') && !verified) {
         /** Return to login page. */
         return NextResponse.redirect(`${process.env.HOST}/login`);
     }
 
-    /** If in profile page and not verfied redirect to login page. */
+    /** If in profile page and not verified redirect to login page. */
     if (request.nextUrl.pathname.startsWith('/profile') && !verified) {
         /** Return to login page. */
         return NextResponse.redirect(`${process.env.HOST}/login`);
@@ -31,18 +31,19 @@ export default async function middleware(request) {
         return NextResponse.redirect(`${process.env.HOST}/login`);
     }
 
-    /** If in shipping page and not verfied redirect to login page. */
+    /** If in shipping page and not verified redirect to login page. */
     if (request.nextUrl.pathname.startsWith('/shipping') && !verified) {
         /** Return to login page. */
-        return NextResponse.redirect(`${process.env.HOST}/login`);
+        return NextResponse.redirect(`${process.env.HOST}/login?redirect=shipping`);
     }
 
     /** If in login page and already verified redirect to profile. */
     if (request.nextUrl.pathname.startsWith('/login') && verified) {
+        /** Return to profile page. */
         return NextResponse.redirect(`${process.env.HOST}/profile`);
     }
 
-    /** If in dashboard page and verfied but not admin redirect to login page. */
+    /** If in dashboard page and verified but not admin redirect to login page. */
     if (request.nextUrl.pathname.startsWith('/dashboard') && verified && !verified.admin) {
         /** Return to profile page. */
         return NextResponse.redirect(`${process.env.HOST}/profile`);

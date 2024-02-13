@@ -9,7 +9,7 @@ const ProductHot = dynamic(() => import('../components/product/product-hot'), { 
 const ProductOur = dynamic(() => import('../components/product/product-our'), { ssr: false });
 
 /** Default export. */
-export default function Home() {
+export default function HomePage() {
     /** Return something. */
     return (
         <>

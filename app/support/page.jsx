@@ -19,7 +19,7 @@ import useValidator from '../../hooks/use-validator';
 const Notifications = dynamic(() => import('../../components/ui/notifications'), { ssr: false });
 
 /** Default export. */
-export default function Support() {
+export default function SupportPage() {
     /** Map html element to validate hook. */
     const {
         value: fullname,
