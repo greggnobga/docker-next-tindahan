@@ -1,7 +1,7 @@
 /** Next. */
 import Link from 'next/link';
 
-/** Components. */
+/** Component. */
 import Sprite from './sprite';
 
 export default function Footer() {

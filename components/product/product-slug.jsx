@@ -1,15 +1,12 @@
 'use client';
 
-/** Vendor. */
-import dynamic from 'next/dynamic';
-
 /** Library. */
 import { calculateDiscount } from '../../lib/calculate';
 
 /** Components. */
-const Rating = dynamic(() => import('../ui/rating'), { ssr: false });
-const ProductStock = dynamic(() => import('../product/product-stock'), { ssr: false });
-const ProductRecommend = dynamic(() => import('../product/product-recommend'), { ssr: false });
+import Rating from '../ui/rating';
+import ProductStock from '../product/product-stock';
+import ProductRecommend from '../product/product-recommend';
 
 /** Export default. */
 export default function ProductSlug({ details }) {

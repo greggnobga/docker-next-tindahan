@@ -2,6 +2,7 @@
 
 /** Vendor. */
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
 /** Hooks. */
@@ -19,6 +20,9 @@ import Loader from '../ui/loader';
 
 export default function Cart({ stocks, slug }) {
     /** Use selector.  */
+    const userLogin = useSelector((state) => state.userLogin);
+    const { logged } = userLogin;
+
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
 
@@ -32,6 +36,19 @@ export default function Cart({ stocks, slug }) {
     /** Remove cart handler. */
     const removeCartHandler = (product) => {
         dispatch(removeCart(product));
+    };
+
+    /** Use router. */
+    const router = useRouter();
+
+    /** Checkout handler. */
+    const checkoutHandler = () => {
+        /** Router push to shipping page if user is logged. */
+        if (logged) {
+            router.push('/shipping');
+        } else {
+            router.push('/login');
+        }
     };
 
     /** Return something. */
@@ -165,9 +182,9 @@ export default function Cart({ stocks, slug }) {
                         </span>
                         ; shipping and taxes are not yet calculated.
                     </p>
-                    <Link href='/shipping' className='mt-2 button-primary'>
+                    <button type='button' className='mt-2 button-primary' onClick={() => checkoutHandler()}>
                         Proceed To Checkout
-                    </Link>
+                    </button>
                 </div>
             ) : (
                 <p className='p-2 text-center text-lg font-light'>

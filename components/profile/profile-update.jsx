@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 
 /** Vendor. */
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,8 +19,8 @@ import useValidator from '../../hooks/use-validator';
 import { ucFirst } from '../../lib/typography';
 
 /** Component. */
-const Sprite = dynamic(() => import('../ui/sprite'), { ssr: false });
-const Notifications = dynamic(() => import('../ui/notifications'), { ssr: false });
+import Sprite from '../ui/sprite';
+import Notifications from '../ui/notifications';
 
 /** Default export. */
 export default function ProfileUpdate() {
@@ -214,6 +213,7 @@ export default function ProfileUpdate() {
                             type='text'
                             value={firstname ? firstname : first_name}
                             onChange={firstnameChangeHandler}
+                            onClick={firstnameChangeHandler}
                             onBlur={firstnameBlurHandler}
                             autoComplete='off'
                             placeholder=''
@@ -232,6 +232,7 @@ export default function ProfileUpdate() {
                             type='text'
                             value={lastname ? lastname : last_name}
                             onChange={lastnameChangeHandler}
+                            onClick={lastnameChangeHandler}
                             onBlur={lastnameBlurHandler}
                             autoComplete='off'
                             placeholder=''
@@ -259,6 +260,7 @@ export default function ProfileUpdate() {
                             maxLength='12'
                             value={mobile ? mobile : mobile_number}
                             onChange={mobileChangeHandler}
+                            onClick={mobileChangeHandler}
                             onBlur={mobileBlurHandler}
                             autoComplete='off'
                             placeholder=''
@@ -278,6 +280,7 @@ export default function ProfileUpdate() {
                             type='text'
                             value={gender ? gender : gen_der}
                             onChange={genderChangeHandler}
+                            onClick={genderChangeHandler}
                             onBlur={genderBlurHandler}
                             autoComplete='off'
                             placeholder=''

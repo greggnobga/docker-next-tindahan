@@ -8,31 +8,22 @@ import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 /** Default export. */
-export default function DashboardPage() {
+export default function Container() {
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
-    const { logged, admin } = userLogin;
+    const { logged } = userLogin;
 
     /** Use router. */
     const router = useRouter();
 
     /** Use effect. */
     useEffect(() => {
-        /** Check if logged. */
+        /** Check if token is set. */
         if (!logged) {
             router.push('/login');
         }
-
-        /** Check if admin. */
-        if (!admin) {
-            router.push('/profile');
-        }
-    }, [logged, admin]);
+    }, [logged]);
 
     /** Return something. */
-    return (
-        <div className='min-h-screen'>
-            <h1 className='pb-2 text-center'>Dashboard</h1>
-        </div>
-    );
+    return <p className='p-2 text-center text-lg font-light'>Set Payment here....</p>;
 }

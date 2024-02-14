@@ -34,7 +34,7 @@ export default async function middleware(request) {
     /** If in shipping page and not verified redirect to login page. */
     if (request.nextUrl.pathname.startsWith('/shipping') && !verified) {
         /** Return to login page. */
-        return NextResponse.redirect(`${process.env.HOST}/login?redirect=shipping`);
+        return NextResponse.redirect(`${process.env.HOST}/login`);
     }
 
     /** If in login page and already verified redirect to profile. */

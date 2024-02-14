@@ -1,7 +1,7 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE } from '../constants/cart-constants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE, CART_SAVE_SHIPPING_ADDRESS } from '../constants/cart-constants';
 
 /** Add cart item. */
-export function cartReducer(state = { cartItems: [] }, action) {
+export function cartReducer(state = { cartItems: [], shippingAddress: {} }, action) {
     switch (action.type) {
         case CART_ADD_ITEM:
             /** Asign payload to variable. */
@@ -19,11 +19,16 @@ export function cartReducer(state = { cartItems: [] }, action) {
             } else {
                 return { ...state, cartItems: [...state.cartItems, item] };
             }
+
         case CART_REMOVE_ITEM:
             return {
                 ...state,
                 cartItems: state.cartItems.filter((x) => x.product !== action.payload.product),
             };
+
+        case CART_SAVE_SHIPPING_ADDRESS:
+            return { ...state, shippingAddress: action.payload };
+
         case CART_FAILURE:
             return { error: action.payload };
 
