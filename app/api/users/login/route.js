@@ -16,7 +16,7 @@ Database();
 /** GET. */
 export async function POST(request) {
     /** Await the post data. */
-    const { email, password } = await request.json();
+    const { email, password, search } = await request.json();
 
     /** Find user in database. */
     const user = await User.findOne({ email });
@@ -43,6 +43,7 @@ export async function POST(request) {
                     message: user.firstname + ', we are glad you are back and hope you will have a good time with us.',
                     status: 200,
                     logged: true,
+                    redirect: search,
                 },
                 {
                     headers: {

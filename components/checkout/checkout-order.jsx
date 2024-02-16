@@ -7,17 +7,14 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
-/** Component. */
-import Shipping from '../checkout/checkout-shipping';
-
 /** Default export. */
-export default function Container() {
+export default function Order() {
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
     const { logged } = userLogin;
 
     const cart = useSelector((state) => state.cart);
-    const { cartItems } = cart;
+    const { shippingAddress, paymentMethod } = cart;
 
     /** Use router. */
     const router = useRouter();
@@ -28,18 +25,13 @@ export default function Container() {
         if (!logged) {
             router.push('/login?redirect=shipping');
         }
-    }, [logged]);
+
+        /** Go back to shipping page if not set yet. */
+        if (!shippingAddress.address || !paymentMethod.payment) {
+            router.push('/shipping');
+        }
+    }, [logged, shippingAddress, paymentMethod]);
 
     /** Return something. */
-    return (
-        <>
-            {cartItems && cartItems.length > 0 ? (
-                <Shipping />
-            ) : (
-                <p className='p-2 text-center text-lg font-light'>
-                    Your cart is <span className='text-red-500 font-normal'>Empty!</span>
-                </p>
-            )}
-        </>
-    );
+    return <p className='p-2 text-center text-lg font-light'>Order details here....</p>;
 }

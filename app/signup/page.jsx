@@ -269,7 +269,7 @@ export default function SignupPage() {
                         </label>
                         <select
                             id='gender'
-                            className={`input-select appearance-none bg-no-repeat ${genderInputClasses}`}
+                            className={genderInputClasses}
                             id='gender'
                             name='gender'
                             type='text'
@@ -283,7 +283,7 @@ export default function SignupPage() {
                             <option value='Male'>Male</option>
                             <option value='Female'>Female</option>
                         </select>
-                        {genderHasError ? <p className='input-message'>Please enter a valid user name.</p> : ''}
+                        {genderHasError ? <p className='input-message'>Please enter a valid gender.</p> : ''}
                     </div>
                     <div>
                         <label htmlFor='password' className='block mb-2 text-sm font-light text-gray-900'>

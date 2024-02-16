@@ -1,8 +1,9 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE, CART_SAVE_SHIPPING_ADDRESS } from '../constants/cart-constants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD } from '../constants/cart-constants';
 
 /** Add cart item. */
-export function cartReducer(state = { cartItems: [], shippingAddress: {} }, action) {
+export function cartReducer(state = { cartItems: [], shippingAddress: {}, paymentMethod: {} }, action) {
     switch (action.type) {
+        /** Add cart item. */
         case CART_ADD_ITEM:
             /** Asign payload to variable. */
             const item = action.payload;
@@ -20,18 +21,26 @@ export function cartReducer(state = { cartItems: [], shippingAddress: {} }, acti
                 return { ...state, cartItems: [...state.cartItems, item] };
             }
 
+        /** Remove cart item. */
         case CART_REMOVE_ITEM:
             return {
                 ...state,
                 cartItems: state.cartItems.filter((x) => x.product !== action.payload.product),
             };
 
+        /** Save shipping address. */
         case CART_SAVE_SHIPPING_ADDRESS:
             return { ...state, shippingAddress: action.payload };
 
+        /** Save payment address. */
+        case CART_SAVE_PAYMENT_METHOD:
+            return { ...state, paymentMethod: action.payload };
+
+        /** Cart failure. */
         case CART_FAILURE:
             return { error: action.payload };
 
+        /** Default return. */
         default:
             return state;
     }

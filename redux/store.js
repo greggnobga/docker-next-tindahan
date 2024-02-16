@@ -46,6 +46,7 @@ let productOurFromStorage;
 let productRecommendedFromStorage;
 let cartItemsFromStorage;
 let shippingAddressFromStorage;
+let paymentMethodFromStorage;
 
 /** Only run when window is set. */
 if (typeof window !== 'undefined') {
@@ -58,6 +59,7 @@ if (typeof window !== 'undefined') {
     productRecommendedFromStorage = localStorage.getItem('productRecommended') ? JSON.parse(localStorage.getItem('productRecommended')) : {};
     cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
     shippingAddressFromStorage = localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : {};
+    paymentMethodFromStorage = localStorage.getItem('paymentMethod') ? JSON.parse(localStorage.getItem('paymentMethod')) : {};
 }
 
 /** Define initial state. */
@@ -68,7 +70,7 @@ const initialState = {
     productHot: productHotFromStorage,
     productOur: productOurFromStorage,
     productRecommended: productRecommendedFromStorage,
-    cart: { cartItems: cartItemsFromStorage, shippingAddress: shippingAddressFromStorage },
+    cart: { cartItems: cartItemsFromStorage, shippingAddress: shippingAddressFromStorage, paymentMethod: paymentMethodFromStorage },
 };
 
 /** Middleware. */

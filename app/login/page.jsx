@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 /** Vendor. */
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
 /** Action. */
@@ -50,6 +50,10 @@ export default function LoginPage() {
         formIsValid = true;
     }
 
+    /** Use search params */
+    const searchParams = useSearchParams();
+    const search = searchParams.get('redirect');
+
     /** Use dispatch. */
     const dispatch = useDispatch();
 
@@ -68,7 +72,7 @@ export default function LoginPage() {
         }
 
         /** Dispatch action. */
-        dispatch(loginUser({ email, password }));
+        dispatch(loginUser({ email, password, search }));
 
         /** Reset input. */
         emailInputReset();
@@ -77,7 +81,7 @@ export default function LoginPage() {
 
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
-    const { logged, pathname } = userLogin;
+    const { logged, redirect } = userLogin;
 
     const toast = useSelector((state) => state.toast);
     const { status: responseStatus, message: responseMessage } = toast;
@@ -87,8 +91,13 @@ export default function LoginPage() {
 
     /** Use effect. */
     useEffect(() => {
-        /** Check if user is logged. */
-        if (logged) {
+        /** Check if user is logged and does have redirect value. */
+        if (logged && redirect) {
+            router.push(`/${redirect}`);
+        }
+
+        /** Check if user is logged and does not have redirect value. */
+        if (logged && !redirect) {
             router.push('/profile');
         }
 
@@ -101,7 +110,7 @@ export default function LoginPage() {
             /** Clear running timer. */
             return () => clearTimeout(timer);
         }
-    }, [dispatch, pathname, logged, responseMessage]);
+    }, [dispatch, logged, redirect, responseMessage]);
 
     /** Return something. */
     return (

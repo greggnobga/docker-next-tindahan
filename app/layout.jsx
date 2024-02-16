@@ -14,8 +14,8 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 
 /** Metadata. */
 export const metadata = {
-    title: 'Tindahan - From Farm To Market: Empowering Local Farmers',
-    description: 'Shop for low and affordable prices.',
+    title: 'Tindahan - Local Produce And Products At A Reasonable Price.',
+    description: 'Fresh from local farms and snipe sale products from trusted suppliers to guarantee the lowest price you can find on the market.',
     referrer: 'no-referrer',
 };
 

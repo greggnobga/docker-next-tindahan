@@ -78,7 +78,7 @@ export default function Shipping() {
     useEffect(() => {
         /** Check if token is set. */
         if (!logged) {
-            router.push('/login');
+            router.push('/login?redirect=shipping');
         }
     }, [logged]);
 

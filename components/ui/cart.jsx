@@ -21,7 +21,7 @@ import Loader from '../ui/loader';
 export default function Cart({ stocks, slug }) {
     /** Use selector.  */
     const userLogin = useSelector((state) => state.userLogin);
-    const { logged } = userLogin;
+    const { logged, redirect } = userLogin;
 
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
@@ -44,10 +44,10 @@ export default function Cart({ stocks, slug }) {
     /** Checkout handler. */
     const checkoutHandler = () => {
         /** Router push to shipping page if user is logged. */
-        if (logged) {
-            router.push('/shipping');
+        if (logged && redirect) {
+            router.push(`/${redirect}`);
         } else {
-            router.push('/login');
+            router.push('/login?redirect=shipping');
         }
     };
 
