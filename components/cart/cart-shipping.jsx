@@ -111,7 +111,7 @@ export default function Shipping() {
         countryInputReset();
 
         /** Router push. */
-        router.push('/payment');
+        router.push('/cart/payment');
     }
 
     /** Return something. */

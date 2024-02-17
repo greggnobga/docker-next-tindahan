@@ -93,7 +93,7 @@ export default function LoginPage() {
     useEffect(() => {
         /** Check if user is logged and does have redirect value. */
         if (logged && redirect) {
-            router.push(`/${redirect}`);
+            router.push(`/cart/${redirect}`);
         }
 
         /** Check if user is logged and does not have redirect value. */

@@ -20,7 +20,7 @@ export default function Shipping() {
     const { id, logged } = userLogin;
 
     const cart = useSelector((state) => state.cart);
-    const { shippingAddress } = cart;
+    const { shippingAddress, paymentMethod } = cart;
 
     /** Map html element to validate hook. */
     const {
@@ -80,7 +80,7 @@ export default function Shipping() {
         paymentInputReset();
 
         /** Router push. */
-        router.push('/order');
+        router.push('/cart/order');
     }
 
     /** Return something. */
@@ -94,17 +94,18 @@ export default function Shipping() {
                         </label>
                         <select
                             id='payment'
-                            className={paymentInputClasses}
+                            className={`uppercase appearance-none ${paymentInputClasses}`}
                             id='payment'
                             name='payment'
                             type='text'
-                            value={payment}
+                            value={payment ? payment : paymentMethod.payment}
                             onChange={paymentChangeHandler}
+                            onClick={paymentChangeHandler}
                             onBlur={paymentBlurHandler}
                             autoComplete='off'
                             placeholder=''
                             required>
-                            <option defaultValue>Choose your payment method</option>
+                            <option defaultValue>Choose Payment Method</option>
                             <option value='gcash'>GCASH</option>
                             <option value='maya'>MAYA</option>
                         </select>

@@ -2,8 +2,8 @@
 import dynamic from 'next/dynamic';
 
 /** Component. */
-const Container = dynamic(() => import('../../components/checkout/checkout-container'), { ssr: false });
-const Steps = dynamic(() => import('../../components/checkout/checkout-steps'), { ssr: false });
+const Start = dynamic(() => import('../../../components/cart/cart-start'), { ssr: false });
+const Steps = dynamic(() => import('../../../components/cart/cart-steps'), { ssr: false });
 
 /** Default export. */
 export default function ShippingPage() {
@@ -11,7 +11,7 @@ export default function ShippingPage() {
     return (
         <div className='min-h-screen'>
             <Steps login shipping />
-            <Container />
+            <Start />
         </div>
     );
 }

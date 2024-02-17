@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 
 /** Components. */
-const Cart = dynamic(() => import('../../components/ui/cart'), { ssr: false });
+const Cart = dynamic(() => import('../../components/cart/cart-container'), { ssr: false });
 
 /** Default export. */
 export default function CartPage() {

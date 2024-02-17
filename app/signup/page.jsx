@@ -269,7 +269,7 @@ export default function SignupPage() {
                         </label>
                         <select
                             id='gender'
-                            className={genderInputClasses}
+                            className={`appearance-none ${genderInputClasses}`}
                             id='gender'
                             name='gender'
                             type='text'

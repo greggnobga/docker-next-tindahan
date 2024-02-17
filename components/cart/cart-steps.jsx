@@ -30,7 +30,7 @@ export default function Steps({ login, shipping, payment, order }) {
         <div className='p-2 w-full'>
             <div className='grid grid-cols-4'>
                 {login ? (
-                    <Link className='p-1 sm:p-2 text-center text-xs sm:text-sm font-light text-orange-500 rounded bg-slate-200' href='/login'>
+                    <Link className='p-1 sm:p-2 text-center text-xs sm:text-sm font-light text-orange-500' href='/login'>
                         Login
                     </Link>
                 ) : (
@@ -38,7 +38,7 @@ export default function Steps({ login, shipping, payment, order }) {
                 )}
 
                 {shipping ? (
-                    <Link className='p-1 sm:p-2 text-center text-xs sm:text-sm font-light text-orange-500 rounded bg-slate-200' href='/shipping'>
+                    <Link className='p-1 sm:p-2 text-center text-xs sm:text-sm font-light text-orange-500' href='/cart/shipping'>
                         Shipping
                     </Link>
                 ) : (
@@ -46,7 +46,7 @@ export default function Steps({ login, shipping, payment, order }) {
                 )}
 
                 {payment ? (
-                    <Link className='p-1 sm:p-2 text-center text-xs sm:text-sm font-light text-orange-500 rounded bg-slate-200' href='/payment'>
+                    <Link className='p-1 sm:p-2 text-center text-xs sm:text-sm font-light text-orange-500' href='/cart/payment'>
                         Payment
                     </Link>
                 ) : (
@@ -54,7 +54,7 @@ export default function Steps({ login, shipping, payment, order }) {
                 )}
 
                 {order ? (
-                    <Link className='p-1 sm:p-2 text-center text-xs sm:text-sm font-light text-orange-500 rounded bg-slate-200' href='/order'>
+                    <Link className='p-1 sm:p-2 text-center text-xs sm:text-sm font-light text-orange-500' href='/cart/order'>
                         Order
                     </Link>
                 ) : (

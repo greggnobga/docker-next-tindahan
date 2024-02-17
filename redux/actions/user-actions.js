@@ -82,6 +82,9 @@ export const logoutUser = (params) => async (dispatch, getState) => {
     localStorage.removeItem('productHot');
     localStorage.removeItem('productOur');
     localStorage.removeItem('productRecommended');
+    localStorage.removeItem('cartItems');
+    localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
 
     /** Dispatch request. */
     dispatch({ type: USER_LOGIN_REQUEST });

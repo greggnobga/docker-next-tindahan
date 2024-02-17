@@ -2,8 +2,8 @@
 import dynamic from 'next/dynamic';
 
 /** Component. */
-const Order = dynamic(() => import('../../components/checkout/checkout-order'), { ssr: false });
-const Steps = dynamic(() => import('../../components/checkout/checkout-steps'), { ssr: false });
+const Order = dynamic(() => import('../../../components/cart/cart-order'), { ssr: false });
+const Steps = dynamic(() => import('../../../components/cart/cart-steps'), { ssr: false });
 
 /** Default export. */
 export default function OrderPage() {

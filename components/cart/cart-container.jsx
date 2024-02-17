@@ -45,7 +45,7 @@ export default function Cart({ stocks, slug }) {
     const checkoutHandler = () => {
         /** Router push to shipping page if user is logged. */
         if (logged && redirect) {
-            router.push(`/${redirect}`);
+            router.push(`/cart/${redirect}`);
         } else {
             router.push('/login?redirect=shipping');
         }
@@ -188,7 +188,7 @@ export default function Cart({ stocks, slug }) {
                 </div>
             ) : (
                 <p className='p-2 text-center text-lg font-light'>
-                    Your cart is <span className='text-red-500 font-normal'>Empty!</span>
+                    Your cart is <span className='text-red-500 font-normal'>Empty.</span>
                 </p>
             )}
         </>
