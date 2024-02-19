@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD } from '../constants/cart-constants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE, CART_RESET, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD } from '../constants/cart-constants';
 
 /** Add cart item. */
 export function cartReducer(state = { cartItems: [], shippingAddress: {}, paymentMethod: {} }, action) {
@@ -39,6 +39,11 @@ export function cartReducer(state = { cartItems: [], shippingAddress: {}, paymen
         /** Cart failure. */
         case CART_FAILURE:
             return { error: action.payload };
+
+        /** Cart reset. */
+        case CART_RESET: {
+            return { cartItems: [], shippingAddress: {}, paymentMethod: {}, itemsPrice: null, shippingPrice: null, taxPrice: null, totalPrice: null };
+        }
 
         /** Default return. */
         default:

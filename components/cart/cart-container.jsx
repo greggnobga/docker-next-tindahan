@@ -43,10 +43,18 @@ export default function Cart({ stocks, slug }) {
 
     /** Checkout handler. */
     const checkoutHandler = () => {
-        /** Router push to shipping page if user is logged. */
+        /** Router push to desired page if user is logged and has redirect value. */
         if (logged && redirect) {
             router.push(`/cart/${redirect}`);
-        } else {
+        }
+
+        /** Router push to shipping page if user is logged and does not have redirect value. */
+        if (logged && !redirect) {
+            router.push('/cart/shipping');
+        }
+
+        /** Router push to login page if user is not logged. */
+        if (!logged) {
             router.push('/login?redirect=shipping');
         }
     };
@@ -58,8 +66,8 @@ export default function Cart({ stocks, slug }) {
                 {isMobile ? (
                     ''
                 ) : cartItems.length != 0 ? (
-                    <li className='odd:bg-gray-100 bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg'>
-                        <div className='grid grid-cols-6 gap-2'>
+                    <li className='odd:bg-gray-100 bg-white border border-gray-200 text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg \'>
+                        <div className='grid grid-cols-6 gap-2 place-items-center'>
                             <p className='p-2'>Image</p>
                             <p className='p-2'>Name</p>
                             <p className='p-2'>Price</p>
@@ -132,7 +140,7 @@ export default function Cart({ stocks, slug }) {
                                     </div>
                                     <div className='p-2'>
                                         <select
-                                            className='p-2 w-9/12 appearance-none rounded border border-gray-200'
+                                            className='p-2 w-12 text-center appearance-none rounded border border-gray-200'
                                             defaultValue={item.quantity}
                                             onChange={(e) => dispatch(addCart(item.slug, Number(e.target.value)))}>
                                             {item.stockcount > 0 ? (

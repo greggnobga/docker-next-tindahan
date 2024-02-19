@@ -31,12 +31,12 @@ export async function PUT(request) {
         const data = await request.json();
 
         /** If no id or email set in the request return error message. */
-        if (!data.id || !data.email || !data.oldpassword || !data.password) {
+        if (!data.userid || !data.email || !data.oldpassword || !data.password) {
             return NextResponse.json({ message: 'The request is missing some critical information!', status: 302, logged: false });
         }
 
         /** Find user in database. */
-        const user = await User.findOne({ _id: data.id, email: data.email });
+        const user = await User.findOne({ _id: data.userid, email: data.email });
 
         /** If the query return empty return error message. */
         if (!user) {
@@ -82,7 +82,7 @@ export async function PUT(request) {
                 /** Return user related data and set cookie in the jar. */
                 return NextResponse.json(
                     {
-                        id: updated._id,
+                        userid: updated._id,
                         firstname: updated.firstname,
                         lastname: updated.lastname,
                         image: updated.image,

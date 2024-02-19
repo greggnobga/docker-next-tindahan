@@ -17,7 +17,7 @@ export async function GET(request) {
     /** Fetch all messages record. */
     try {
         /** Check for existing record. */
-        const messages = await Support.find({}).select('_id _order fullname email message').limit(25).sort({ createdAt: -1 }).exec();
+        const messages = await Support.find({}).select('_id order fullname email message').limit(25).sort({ createdAt: -1 }).exec();
 
         /** Prevent user from sending multiple message. */
         if (messages) {

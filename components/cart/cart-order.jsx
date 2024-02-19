@@ -6,7 +6,10 @@ import { useEffect } from 'react';
 /** Vendor. */
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+/** Action. */
+import { placeOrder } from '../../redux/actions/cart-actions';
 
 /** Library. */
 import { calculateDiscount, calculateSubTotal } from '../../lib/calculate';
@@ -15,7 +18,7 @@ import { calculateDiscount, calculateSubTotal } from '../../lib/calculate';
 export default function Order() {
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
-    const { logged } = userLogin;
+    const { userid, logged } = userLogin;
 
     const cart = useSelector((state) => state.cart);
     const { shippingAddress, paymentMethod, cartItems } = cart;
@@ -27,7 +30,7 @@ export default function Order() {
 
     cart.taxPrice = Number(0.12 * Number(cart.itemsPrice)).toFixed(2);
 
-    cart.totalPrice = Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice);
+    cart.totalPrice = Number(Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2);
 
     /** Use router. */
     const router = useRouter();
@@ -45,9 +48,16 @@ export default function Order() {
         }
     }, [logged, shippingAddress, paymentMethod]);
 
+    /** Use dispatch. */
+    const dispatch = useDispatch();
+
     /** Order handler. */
-    const orderHandler = (total) => {
-        console.log('Order placed.', total);
+    const orderHandler = (order) => {
+        /** Dispatch action. */
+        dispatch(placeOrder(order));
+
+        /** Route push. */
+        router.push('/profile');
     };
 
     /** Return something. */
@@ -148,7 +158,21 @@ export default function Order() {
                         </p>
                     </div>
                     <div className='grid grid-cols-1 sm:grid-cols-2 p-4'>
-                        <button type='button' className='button-primary col-span-2' disabled={cartItems === 0} onClick={() => orderHandler(cart.totalPrice)}>
+                        <button
+                            type='button'
+                            className='button-primary col-span-2'
+                            disabled={cartItems === 0}
+                            onClick={() =>
+                                orderHandler({
+                                    userid: userid,
+                                    orderitems: cartItems,
+                                    shippingaddress: shippingAddress,
+                                    paymentmethod: paymentMethod,
+                                    taxprice: cart.taxPrice,
+                                    shippingprice: cart.shippingPrice,
+                                    totalprice: cart.totalPrice,
+                                })
+                            }>
                             Place Order
                         </button>
                     </div>

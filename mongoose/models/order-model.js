@@ -9,7 +9,7 @@ const orderSchema = mongoose.Schema(
             ref: 'User',
             required: true,
         },
-        orderitmes: [
+        orderitems: [
             {
                 name: {
                     type: String,
@@ -27,10 +27,14 @@ const orderSchema = mongoose.Schema(
                     type: Number,
                     required: true,
                 },
-                product: {
-                    type: mongoose.Schema.Types.ObjectId,
+                discount: {
+                    type: Number,
                     required: true,
+                },
+                _product: {
+                    type: mongoose.Schema.Types.ObjectId,
                     ref: 'Product',
+                    required: true,
                 },
             },
         ],
@@ -49,7 +53,6 @@ const orderSchema = mongoose.Schema(
             status: { type: String },
             update_time: { type: String },
             email_address: { type: String },
-            id: { type: String },
         },
         taxprice: {
             type: Number,

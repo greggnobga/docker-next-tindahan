@@ -110,7 +110,7 @@ export default function ProfileUpdate() {
 
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
-    const { id, logged, email, admin, firstname: first_name, lastname: last_name, mobile: mobile_number, gender: gen_der } = userLogin;
+    const { userid, logged, email, admin, firstname: first_name, lastname: last_name, mobile: mobile_number, gender: gen_der } = userLogin;
 
     const toast = useSelector((state) => state.toast);
     const { status: responseStatus, message: responseMessage } = toast;
@@ -179,7 +179,7 @@ export default function ProfileUpdate() {
         }
 
         /** Dispatch action. */
-        dispatch(updateUser({ id, firstname, lastname, email, mobile, gender, oldpassword, password, admin }));
+        dispatch(updateUser({ userid, firstname, lastname, email, mobile, gender, oldpassword, password, admin }));
 
         /** Reset input. */
         firstnameInputReset();

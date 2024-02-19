@@ -31,7 +31,7 @@ export async function POST(request) {
             /** Return user related data and set cookie in the jar. */
             return NextResponse.json(
                 {
-                    id: user._id,
+                    userid: user._id,
                     firstname: user.firstname,
                     lastname: user.lastname,
                     image: user.image,

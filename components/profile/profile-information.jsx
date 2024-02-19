@@ -8,16 +8,26 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 
+/** Action. */
+import { resetToast } from '../../redux/actions/toast-actions';
+
 /** Library. */
 import { ucFirst } from '../../lib/typography';
 
 /** Components. */
 import Sprite from '../ui/sprite';
+import Notifications from '../ui/notifications';
 
 export default function ProfileInformation() {
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
     const { logged, image, firstname, lastname, email, mobile, gender } = userLogin;
+
+    const toast = useSelector((state) => state.toast);
+    const { status: responseStatus, message: responseMessage } = toast;
+
+    /** Use dispatch. */
+    const dispatch = useDispatch();
 
     /** Use router. */
     const router = useRouter();
@@ -28,11 +38,22 @@ export default function ProfileInformation() {
         if (!logged) {
             router.push('/');
         }
-    }, [router, logged]);
+
+        /** Check if response has value. */
+        if (responseMessage) {
+            const timer = setTimeout(() => {
+                /** Reset message. */
+                dispatch(resetToast());
+            }, 5000);
+            /** Clear running timer. */
+            return () => clearTimeout(timer);
+        }
+    }, [router, logged, responseMessage]);
 
     /** Return something. */
     return (
         <>
+            {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <div className='relative w-full h-16'>
                 <Link href='/profile/update' className='absolute top-0 right-0 p-1 text-right text-xs bg-slate-200 rounded shadow-sm'>
                     <span className='mt-2 pl-2 inline-block'>Edit Profile</span> <Sprite id='chevron-forward' />

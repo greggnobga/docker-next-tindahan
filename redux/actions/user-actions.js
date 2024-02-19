@@ -13,6 +13,8 @@ import {
 
 import { TOAST_MESSAGE } from '../constants/toast-constants';
 
+import { CART_RESET } from '../constants/cart-constants';
+
 export const loginUser = (params) => async (dispatch, getState) => {
     /** Initiate try catch block. */
     try {
@@ -88,6 +90,7 @@ export const logoutUser = (params) => async (dispatch, getState) => {
 
     /** Dispatch request. */
     dispatch({ type: USER_LOGIN_REQUEST });
+    dispatch({ type: CART_RESET });
 
     /** Dispatch message reset. */
     dispatch({ type: TOAST_MESSAGE, payload: { message: data.message, status: data.status } });
