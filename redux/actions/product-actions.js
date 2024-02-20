@@ -23,7 +23,7 @@ import {
 } from '../constants/product-constants';
 
 /** Product list action.*/
-export const listProduct = (pageNumber) => async (dispatch, getState) => {
+export const listProduct = (pageNumber) => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -52,7 +52,7 @@ export const listProduct = (pageNumber) => async (dispatch, getState) => {
 };
 
 /** Product search action. */
-export const searchProduct = (keyword, pageNumber) => async (dispatch, getState) => {
+export const searchProduct = (keyword, pageNumber) => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -79,7 +79,7 @@ export const searchProduct = (keyword, pageNumber) => async (dispatch, getState)
 };
 
 /** Product flash action. */
-export const flashProduct = () => async (dispatch, getState) => {
+export const flashProduct = () => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -112,7 +112,7 @@ export const flashProduct = () => async (dispatch, getState) => {
 };
 
 /** Product just for you action. */
-export const justProduct = () => async (dispatch, getState) => {
+export const justProduct = () => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -145,7 +145,7 @@ export const justProduct = () => async (dispatch, getState) => {
 };
 
 /** Product hot deals action. */
-export const hotProduct = () => async (dispatch, getState) => {
+export const hotProduct = () => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -178,7 +178,7 @@ export const hotProduct = () => async (dispatch, getState) => {
 };
 
 /** Product our picks action. */
-export const ourProduct = () => async (dispatch, getState) => {
+export const ourProduct = () => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -211,7 +211,7 @@ export const ourProduct = () => async (dispatch, getState) => {
 };
 
 /** Product recommendation action. */
-export const recommendedProduct = () => async (dispatch, getState) => {
+export const recommendedProduct = () => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */

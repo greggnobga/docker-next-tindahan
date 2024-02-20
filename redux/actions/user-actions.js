@@ -15,7 +15,7 @@ import { TOAST_MESSAGE } from '../constants/toast-constants';
 
 import { CART_RESET } from '../constants/cart-constants';
 
-export const loginUser = (params) => async (dispatch, getState) => {
+export const loginUser = (params) => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -64,7 +64,7 @@ export const loginUser = (params) => async (dispatch, getState) => {
     }
 };
 
-export const logoutUser = (params) => async (dispatch, getState) => {
+export const logoutUser = (params) => async (dispatch) => {
     /** Make api request. */
     const response = await fetch('/api/users/logout', {
         method: 'POST',
@@ -96,7 +96,7 @@ export const logoutUser = (params) => async (dispatch, getState) => {
     dispatch({ type: TOAST_MESSAGE, payload: { message: data.message, status: data.status } });
 };
 
-export const signupUser = (params) => async (dispatch, getState) => {
+export const signupUser = (params) => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */
@@ -150,7 +150,7 @@ export const signupUser = (params) => async (dispatch, getState) => {
     }
 };
 
-export const updateUser = (params) => async (dispatch, getState) => {
+export const updateUser = (params) => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */

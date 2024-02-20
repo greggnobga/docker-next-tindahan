@@ -1,0 +1,6 @@
+export const ORDER = 'ORDER';
+export const ORDER_RESET = 'ORDER_RESET';
+
+export const ORDER_LIST_REQUEST = 'ORDER_LIST_REQUEST';
+export const ORDER_LIST_SUCCESS = 'ORDER_LIST_SUCCESS';
+export const ORDER_LIST_FAILURE = 'ORDER_LIST_FAILURE';

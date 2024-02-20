@@ -20,6 +20,12 @@ export default async function middleware(request) {
         return NextResponse.redirect(`${process.env.HOST}/login`);
     }
 
+    /** If in orders page and not verified redirect to home page. */
+    if (request.nextUrl.pathname.startsWith('/orders') && !verified) {
+        /** Return to login page. */
+        return NextResponse.redirect(`${process.env.HOST}/`);
+    }
+
     /** If in profile page and not verified redirect to login page. */
     if (request.nextUrl.pathname.startsWith('/profile') && !verified) {
         /** Return to login page. */
@@ -37,8 +43,14 @@ export default async function middleware(request) {
         return NextResponse.redirect(`${process.env.HOST}/login?redirect=shipping`);
     }
 
-    /** If in login page and already verified redirect to profile. */
+    /** If in login page and already verified redirect to profile page. */
     if (request.nextUrl.pathname.startsWith('/login') && verified) {
+        /** Return to profile page. */
+        return NextResponse.redirect(`${process.env.HOST}/profile`);
+    }
+
+    /** If in orders page and verified redirect to profile page. */
+    if (request.nextUrl.pathname.startsWith('/orders') && verified) {
         /** Return to profile page. */
         return NextResponse.redirect(`${process.env.HOST}/profile`);
     }
@@ -52,5 +64,5 @@ export default async function middleware(request) {
 
 /** Export config. */
 export const config = {
-    matcher: ['/dashboard', '/login', '/shipping', '/profile', '/profile/update'],
+    matcher: ['/dashboard', '/login', '/shipping', '/orders', '/profile', '/profile/update'],
 };

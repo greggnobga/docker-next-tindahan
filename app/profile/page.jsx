@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 
 /** Components. */
 const ProfileInformation = dynamic(() => import('../../components/profile/profile-information'), { ssr: false });
+const Orders = dynamic(() => import('../../components/order/order-list'), { ssr: false });
 
 /** Default export. */
 export default function ProfilePage() {
@@ -14,7 +15,9 @@ export default function ProfilePage() {
                 <div className='p-2 sm:col-span-4 border border-slate-50 bg-slate-50 rounded shadow-inner'>
                     <ProfileInformation />
                 </div>
-                <div className='p-2 sm:col-span-8 border border-slate-50 bg-slate-50 rounded shadow-inner'>My orders...</div>
+                <div className='p-2 sm:col-span-8 border border-slate-50 bg-slate-50 rounded shadow-inner'>
+                    <Orders />
+                </div>
             </div>
         </div>
     );

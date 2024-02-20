@@ -123,6 +123,16 @@ export default function ProfileUpdate() {
 
     /** Use effect. */
     useEffect(() => {
+        /** Check if response has value. */
+        if (responseMessage) {
+            const timer = setTimeout(() => {
+                /** Reset message. */
+                dispatch(resetToast());
+            }, 5000);
+            /** Clear running timer. */
+            return () => clearTimeout(timer);
+        }
+
         /** Check if password length is greater than 10. */
         if (oldpassword.length != 0 && oldpassword.length < 10) {
             setoldpasswordLength(true);
@@ -146,16 +156,6 @@ export default function ProfileUpdate() {
         /** Check if token is set. */
         if (!logged) {
             router.push('/login');
-        }
-
-        /** Check if response has value. */
-        if (responseMessage) {
-            const timer = setTimeout(() => {
-                /** Reset message. */
-                dispatch(resetToast());
-            }, 5000);
-            /** Clear running timer. */
-            return () => clearTimeout(timer);
         }
     }, [dispatch, logged, responseMessage, oldpassword, password, confirmpassword]);
 

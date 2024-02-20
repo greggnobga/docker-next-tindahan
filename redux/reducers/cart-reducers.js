@@ -42,7 +42,7 @@ export function cartReducer(state = { cartItems: [], shippingAddress: {}, paymen
 
         /** Cart reset. */
         case CART_RESET: {
-            return { cartItems: [], shippingAddress: {}, paymentMethod: {}, itemsPrice: null, shippingPrice: null, taxPrice: null, totalPrice: null };
+            return { ...state, cartItems: [], itemsPrice: null, shippingPrice: null, taxPrice: null, totalPrice: null };
         }
 
         /** Default return. */

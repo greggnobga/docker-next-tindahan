@@ -55,7 +55,7 @@ export default function ProductStock({ stocks, slug }) {
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 py-2'>
                 <p className=' pt-2 md:text-right text-sm font-thin border-b border-slate-200 py-2'></p>
-                <button type='button' className='button-primary' disabled={stocks === 0} onClick={() => addCartHandler(slug, quantity)}>
+                <button type='button' className='button-primary' disabled={stocks === 0} onClick={() => addCartHandler(slug, Number(quantity))}>
                     Add To Cart
                 </button>
             </div>

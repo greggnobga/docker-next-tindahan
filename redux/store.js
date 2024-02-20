@@ -6,6 +6,7 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 /** Reducer. */
+import { cartReducer } from './reducers/cart-reducers';
 import { toastReducer } from './reducers/toast-reducers';
 import { supportSendReducer } from './reducers/support-reducers';
 import { userSignupReducer, userLoginReducer, userUpdateReducer } from './reducers/user-reducers';
@@ -18,10 +19,11 @@ import {
     productOurReducer,
     productRecommendedReducer,
 } from './reducers/product-reducers';
-import { cartReducer } from './reducers/cart-reducers';
+import { orderReducer, orderListReducer } from './reducers/order-reducers';
 
 /** Combine reducer. */
 const reducer = combineReducers({
+    cart: cartReducer,
     toast: toastReducer,
     supportSend: supportSendReducer,
     userSignup: userSignupReducer,
@@ -34,43 +36,44 @@ const reducer = combineReducers({
     productHot: productHotReducer,
     productOur: productOurReducer,
     productRecommended: productRecommendedReducer,
-    cart: cartReducer,
+    order: orderReducer,
+    orderList: orderListReducer,
 });
 
 /** Define variables. */
+let cartItemsFromStorage;
 let userLoginFromStorage;
 let productFlashFromStorage;
 let productJustFromStorage;
 let productHotFromStorage;
 let productOurFromStorage;
 let productRecommendedFromStorage;
-let cartItemsFromStorage;
 let shippingAddressFromStorage;
 let paymentMethodFromStorage;
 
 /** Only run when window is set. */
 if (typeof window !== 'undefined') {
     /** Get state from local storage. */
+    cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
     userLoginFromStorage = localStorage.getItem('userLogin') ? JSON.parse(localStorage.getItem('userLogin')) : {};
     productFlashFromStorage = localStorage.getItem('productFlash') ? JSON.parse(localStorage.getItem('productFlash')) : {};
     productJustFromStorage = localStorage.getItem('productJust') ? JSON.parse(localStorage.getItem('productJust')) : {};
     productHotFromStorage = localStorage.getItem('productHot') ? JSON.parse(localStorage.getItem('productHot')) : {};
     productOurFromStorage = localStorage.getItem('productOur') ? JSON.parse(localStorage.getItem('productOur')) : {};
     productRecommendedFromStorage = localStorage.getItem('productRecommended') ? JSON.parse(localStorage.getItem('productRecommended')) : {};
-    cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
     shippingAddressFromStorage = localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : {};
     paymentMethodFromStorage = localStorage.getItem('paymentMethod') ? JSON.parse(localStorage.getItem('paymentMethod')) : {};
 }
 
 /** Define initial state. */
 const initialState = {
+    cart: { cartItems: cartItemsFromStorage, shippingAddress: shippingAddressFromStorage, paymentMethod: paymentMethodFromStorage },
     userLogin: userLoginFromStorage,
     productFlash: productFlashFromStorage,
     productJust: productJustFromStorage,
     productHot: productHotFromStorage,
     productOur: productOurFromStorage,
     productRecommended: productRecommendedFromStorage,
-    cart: { cartItems: cartItemsFromStorage, shippingAddress: shippingAddressFromStorage, paymentMethod: paymentMethodFromStorage },
 };
 
 /** Middleware. */

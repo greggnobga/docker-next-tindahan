@@ -2,7 +2,7 @@ import { SUPPORT_REQUEST, SUPPORT_SUCCESS, SUPPORT_FAILURE } from '../constants/
 
 import { TOAST_MESSAGE } from '../constants/toast-constants';
 
-export const sendSupport = (params) => async (dispatch, getState) => {
+export const sendSupport = (params) => async (dispatch) => {
     /** Initiate try catch block. */
     try {
         /** Dispatch request. */

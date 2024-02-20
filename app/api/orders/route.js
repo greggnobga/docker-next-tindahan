@@ -26,12 +26,24 @@ export async function GET(request) {
     if (verified) {
         /** Try to save the order. */
         try {
-            /** Fetch all orders. */
-            const orders = await Order.find({ _user: verified.id });
+            /** Pagination. */
+            const pageSize = 5;
+            const pageNumber = Number(request.nextUrl.searchParams.get(['page']) || 1);
+
+            /** Count existing products. */
+            const count = await Order.countDocuments({});
+
+            /** Fetch existing record. */
+            const orders = await Order.find({ _user: verified.id })
+                .select('_id _user ispaid isdelivered orderitems.name orderitems.slug createdAt')
+                .limit(pageSize)
+                .sort({ createdAt: -1 })
+                .skip(pageSize * (pageNumber - 1))
+                .exec();
 
             if (orders) {
-                /** Return error message. */
-                return NextResponse.json({ orders: orders, message: 'Order was successfully fetched.', status: 200 });
+                /** Return paginated product list. */
+                return NextResponse.json({ orders, page: pageNumber, pages: Math.ceil(count / pageSize), size: pageSize });
             } else {
                 /** Return error message. */
                 return NextResponse.json({ message: 'No order so far!', status: 200 });
@@ -73,6 +85,7 @@ export async function POST(request) {
                 orderitems: data.orderitems.map((item) => {
                     return {
                         name: item.name,
+                        slug: item.slug,
                         quantity: item.quantity,
                         image: item.image,
                         price: item.price,
@@ -96,8 +109,6 @@ export async function POST(request) {
             const lastOrder = await Order.findOne({
                 _user: verified.id,
                 totalprice: data.totalprice,
-                shippingprice: data.shippingprice,
-                taxprice: data.taxprice,
             });
 
             if (!lastOrder) {
@@ -105,10 +116,10 @@ export async function POST(request) {
                 const newOrder = await order.save();
 
                 /** Return success message. */
-                return NextResponse.json({ message: 'Order was successfully placed.', status: 200 });
+                return NextResponse.json({ orderid: newOrder._id, success: true, message: 'Order was successfully placed.', status: 200 });
             } else {
                 /** Return warning message. */
-                return NextResponse.json({ message: 'Kindly check your last order; data seems the same.', status: 403 });
+                return NextResponse.json({ success: false, message: 'Kindly check your last order; data seems the same.', status: 403 });
             }
         } catch (error) {
             /** Return error message. */

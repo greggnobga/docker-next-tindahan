@@ -10,9 +10,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 /** Action. */
 import { placeOrder } from '../../redux/actions/cart-actions';
+import { resetToast } from '../../redux/actions/toast-actions';
 
 /** Library. */
 import { calculateDiscount, calculateSubTotal } from '../../lib/calculate';
+
+/** Component. */
+import Notifications from '../ui/notifications';
 
 /** Default export. */
 export default function Order() {
@@ -22,6 +26,12 @@ export default function Order() {
 
     const cart = useSelector((state) => state.cart);
     const { shippingAddress, paymentMethod, cartItems } = cart;
+
+    const order = useSelector((state) => state.order);
+    const { orderid } = order;
+
+    const toast = useSelector((state) => state.toast);
+    const { status: responseStatus, message: responseMessage } = toast;
 
     /** Calclulate  prices. */
     cart.itemsPrice = cartItems.reduce((acc, item) => acc + item.quantity * (item.price - (item.price * item.discount) / 100), 0).toFixed(2);
@@ -37,7 +47,22 @@ export default function Order() {
 
     /** Use effect. */
     useEffect(() => {
-        /** Check if token is set. */
+        /** Check if response has value. */
+        if (responseMessage) {
+            const timer = setTimeout(() => {
+                /** Reset message. */
+                dispatch(resetToast());
+            }, 5000);
+            /** Clear running timer. */
+            return () => clearTimeout(timer);
+        }
+
+        /** Check logged. */
+        if (orderid) {
+            router.push(`/orders/${orderid}`);
+        }
+
+        /** Check logged. */
         if (!logged) {
             router.push('/login?redirect=shipping');
         }
@@ -46,7 +71,7 @@ export default function Order() {
         if (!shippingAddress.address || !paymentMethod.payment) {
             router.push('/cart/shipping');
         }
-    }, [logged, shippingAddress, paymentMethod]);
+    }, [logged, orderid, responseMessage, shippingAddress, paymentMethod]);
 
     /** Use dispatch. */
     const dispatch = useDispatch();
@@ -55,14 +80,12 @@ export default function Order() {
     const orderHandler = (order) => {
         /** Dispatch action. */
         dispatch(placeOrder(order));
-
-        /** Route push. */
-        router.push('/profile');
     };
 
     /** Return something. */
     return (
         <div className='p-2 w-full'>
+            {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <div className='grid grid-cols-1 sm:grid-cols-4 bg-slate-200 rounded'>
                 <div className='col-span-1 sm:col-span-2 p-2'>
                     <h1 className='font-thin text-sm border-b border-slate-300 border-opacity-70 pb-2'>Shipping Address</h1>

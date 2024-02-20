@@ -31,7 +31,7 @@ export async function GET(request) {
 
         /** Check if products successfully fetched and return appropriate response. */
         if (products) {
-            /** Return message list. */
+            /** Return paginated product list. */
             return NextResponse.json({ products, page: pageNumber, pages: Math.ceil(count / pageSize) });
         } else {
             /** Return warning message. */
