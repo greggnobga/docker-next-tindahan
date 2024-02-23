@@ -14,19 +14,9 @@ export default function Paginate({ page, pages, handler, type, keyword }) {
     /** Return something. */
     return (
         <nav className='pt-4 flex justify-center items-center gap-x-1'>
-            <button
-                type='button'
-                className='min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none'
-                onClick={() => {
-                    page != 0 ? handler(page - 1) : '';
-                }}>
-                <span className='flex-shrink-0 w-3.5 h-3.5'>
-                    <Sprite id='chevron-back' />
-                </span>
-                <span aria-hidden='true' className='sr-only'>
-                    Previous
-                </span>
-            </button>
+            <span className='min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-300  focus:outline-none  disabled:opacity-50 disabled:pointer-events-none'>
+                <Sprite id='chevron-back' />
+            </span>
             <div className='flex items-center gap-x-1'>
                 {[...Array(pages).keys()].map((x) => {
                     return (
@@ -45,19 +35,10 @@ export default function Paginate({ page, pages, handler, type, keyword }) {
                     );
                 })}
             </div>
-            <button
-                type='button'
-                className='min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none'
-                onClick={() => {
-                    page < pages ? handler(page + 1) : '';
-                }}>
-                <span aria-hidden='true' className='sr-only'>
-                    Next
-                </span>
-                <span className='flex-shrink-0 w-3.5 h-3.5'>
-                    <Sprite id='chevron-forward' />
-                </span>
-            </button>
+
+            <span className='min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-300 focus:outline-none  disabled:opacity-50 disabled:pointer-events-none'>
+                <Sprite id='chevron-forward' />
+            </span>
         </nav>
     );
 }

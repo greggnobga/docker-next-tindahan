@@ -15,7 +15,7 @@ import { listOrder } from '../../redux/actions/order-actions';
 import Paginate from '../ui/paginate';
 
 /** Default export. */
-export default function Orders() {
+export default function OrderList() {
     /** Use selector. */
     const userLogin = useSelector((state) => state.userLogin);
     const { logged } = userLogin;
@@ -36,7 +36,7 @@ export default function Orders() {
 
         /** Check logged. */
         if (!logged) {
-            router.push('/login?redirect=shipping');
+            router.push('/');
         }
     }, [logged]);
 

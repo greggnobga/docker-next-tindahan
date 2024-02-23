@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 /** Action. */
 import { saveShippingAddress } from '../../redux/actions/cart-actions';
+import { resetToast } from '../../redux/actions/toast-actions';
 
 /** Hook. */
 import useValidator from '../../hooks/use-validator';
@@ -21,6 +22,9 @@ export default function Shipping() {
 
     const cart = useSelector((state) => state.cart);
     const { shippingAddress } = cart;
+
+    const toast = useSelector((state) => state.toast);
+    const { status: responseStatus, message: responseMessage } = toast;
 
     /** Map html element to validate hook. */
     const {
@@ -76,6 +80,16 @@ export default function Shipping() {
 
     /** Use effect. */
     useEffect(() => {
+        /** Check if response has value. */
+        if (responseMessage) {
+            const timer = setTimeout(() => {
+                /** Reset message. */
+                dispatch(resetToast());
+            }, 5000);
+            /** Clear running timer. */
+            return () => clearTimeout(timer);
+        }
+
         /** Check if token is set. */
         if (!logged) {
             router.push('/login?redirect=shipping');

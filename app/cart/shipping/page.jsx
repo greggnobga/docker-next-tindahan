@@ -9,9 +9,9 @@ const Steps = dynamic(() => import('../../../components/cart/cart-steps'), { ssr
 export default function ShippingPage() {
     /** Return something. */
     return (
-        <div className='min-h-screen'>
+        <section className='min-h-screen'>
             <Steps login shipping />
             <Start />
-        </div>
+        </section>
     );
 }

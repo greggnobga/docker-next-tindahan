@@ -114,7 +114,7 @@ export default function LoginPage() {
 
     /** Return something. */
     return (
-        <div className='min-h-screen'>
+        <section className='min-h-screen'>
             <h1 className='pb-2 text-center'>Login</h1>
             {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <form onSubmit={submitHandler} method='POST' className='bg-slate-200 p-2 rounded'>
@@ -167,6 +167,6 @@ export default function LoginPage() {
                     </button>
                 </div>
             </form>
-        </div>
+        </section>
     );
 }

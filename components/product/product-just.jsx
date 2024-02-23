@@ -14,7 +14,7 @@ import { justProduct } from '../../redux/actions/product-actions';
 import Loader from '../ui/loader';
 import ProductCard from './product-card';
 
-export default function ProductJust() {
+export default function Just() {
     /** Use selector. */
     const productJust = useSelector((state) => state.productJust);
     const { products } = productJust;

@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 
 /** Components. */
-const Slug = dynamic(() => import('../../../components/product/product-slug'), { ssr: false });
+const ProductSlug = dynamic(() => import('../../../components/product/product-slug'), { ssr: false });
 
 /** Get project details for server side rendering. */
 export async function getDetails({ slug }) {
@@ -14,7 +14,7 @@ export async function getDetails({ slug }) {
 }
 
 /** Default export. */
-export default async function ProductSlug({ params }) {
+export default async function ProductDetailsPage({ params }) {
     /** Gert parametr value. */
     const { slug } = await params;
 
@@ -22,5 +22,9 @@ export default async function ProductSlug({ params }) {
     const details = await getDetails({ slug });
 
     /** Return something. */
-    return <Slug details={details} />;
+    return (
+        <section className='min-h-screen p-2 flex flex-col sm:flex-row flex-wrap gap-4'>
+            <ProductSlug details={details} />
+        </section>
+    );
 }

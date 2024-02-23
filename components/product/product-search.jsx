@@ -15,7 +15,7 @@ import Loader from '../ui/loader';
 import Paginate from '../ui/paginate';
 import ProductCard from './product-card';
 
-export default function ProductSearch() {
+export default function Search() {
     /** Use search params. */
     const searchParams = useSearchParams();
     const keyword = searchParams.get('term');

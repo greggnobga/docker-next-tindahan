@@ -8,7 +8,7 @@ import { calculateDiscount } from '../../lib/calculate';
 import Rating from '../ui/rating';
 
 /** Export default. */
-export default function ProductCard({ item }) {
+export default function Card({ item }) {
     /** Return something. */
     return (
         <div className='flex-grow w-full h-fit sm:w-3/12 md:w-2/12'>

@@ -14,7 +14,7 @@ import Loader from '../ui/loader';
 import Paginate from '../ui/paginate';
 import ProductCard from './product-card';
 
-export default function ProductItems() {
+export default function Container() {
     /** Use selector. */
     const productList = useSelector((state) => state.productList);
     const { products, pages, page } = productList;

@@ -1,8 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE, CART_RESET, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD } from '../constants/cart-constants';
-
-import { TOAST_MESSAGE } from '../constants/toast-constants';
-
-import { ORDER } from '../constants/order-constants';
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_FAILURE, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD } from '../constants/cart-constants';
 
 /** Add cart action.*/
 export const addCart = (slug, quantity) => async (dispatch, getState) => {
@@ -90,46 +86,6 @@ export const savePaymentMethod = (data) => async (dispatch) => {
 
         /** Store in local storage. */
         localStorage.setItem('paymentMethod', JSON.stringify(data));
-    } catch (error) {
-        /** Dispatch failure. */
-        dispatch({
-            type: CART_FAILURE,
-            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
-        });
-    }
-};
-
-/** Add cart action.*/
-export const placeOrder = (params) => async (dispatch) => {
-    /** Initiate try catch block. */
-    try {
-        /** Get product details. */
-        const details = await fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(params),
-        });
-        /** Wait for the response. */
-        const data = await details.json();
-
-        /** Dispatch toast. */
-        dispatch({
-            type: TOAST_MESSAGE,
-            payload: { message: data.message, status: data.status },
-        });
-
-        if (data.success) {
-            /** Dispatch reset. */
-            dispatch({ type: CART_RESET });
-
-            /** Dispatch reset. */
-            dispatch({ type: ORDER, payload: { orderid: data.orderid } });
-
-            /** Remove state in local storage. */
-            localStorage.removeItem('cartItems');
-        }
     } catch (error) {
         /** Dispatch failure. */
         dispatch({

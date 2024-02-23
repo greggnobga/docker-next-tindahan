@@ -14,7 +14,7 @@ import { recommendedProduct } from '../../redux/actions/product-actions';
 import Loader from '../ui/loader';
 import ProductCard from './product-card';
 
-export default function ProductRecommend() {
+export default function Recommend() {
     /** Use selector. */
     const productRecommended = useSelector((state) => state.productRecommended);
     const { products } = productRecommended;

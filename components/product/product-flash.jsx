@@ -14,7 +14,7 @@ import { flashProduct } from '../../redux/actions/product-actions';
 import Loader from '../ui/loader';
 import ProductCard from './product-card';
 
-export default function ProductFlash() {
+export default function Flash() {
     /** Use selector. */
     const productFlash = useSelector((state) => state.productFlash);
     const { products } = productFlash;

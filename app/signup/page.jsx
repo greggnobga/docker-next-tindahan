@@ -183,7 +183,7 @@ export default function SignupPage() {
 
     /** Return something. */
     return (
-        <div className='min-h-screen'>
+        <section className='min-h-screen'>
             <h1 className='pb-2 text-center'>Signup</h1>
             {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <form onSubmit={submitHandler} method='POST' className='bg-slate-200 p-2 rounded'>
@@ -348,6 +348,6 @@ export default function SignupPage() {
                     </div>
                 </div>
             </form>
-        </div>
+        </section>
     );
 }

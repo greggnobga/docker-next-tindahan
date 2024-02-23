@@ -9,10 +9,10 @@ import ProductStock from '../product/product-stock';
 import ProductRecommend from '../product/product-recommend';
 
 /** Export default. */
-export default function ProductSlug({ details }) {
+export default function Slug({ details }) {
     /** Return something. */
     return (
-        <section className='min-h-screen p-2 flex flex-col sm:flex-row flex-wrap gap-4'>
+        <>
             <div className='w-full h-full sm:w-2/12 flex-grow'>
                 <img className='w-full h-full object-fill' src={details.image} alt='Placeholder' />
             </div>
@@ -36,6 +36,6 @@ export default function ProductSlug({ details }) {
                 <ProductStock stocks={details.stockcount} slug={details.slug} />
             </div>
             <ProductRecommend />
-        </section>
+        </>
     );
 }

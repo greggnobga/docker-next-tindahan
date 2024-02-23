@@ -35,7 +35,7 @@ export async function GET(request) {
 
             /** Fetch existing record. */
             const orders = await Order.find({ _user: verified.id })
-                .select('_id _user ispaid isdelivered orderitems.name orderitems.slug createdAt')
+                .select('_id _user ispaid isdelivered createdAt orderitems._product')
                 .limit(pageSize)
                 .sort({ createdAt: -1 })
                 .skip(pageSize * (pageNumber - 1))
@@ -50,7 +50,7 @@ export async function GET(request) {
             }
         } catch (error) {
             /** Return error message. */
-            return NextResponse.json({ error: error, message: 'Unable to fetched your orders.!', status: 500 });
+            return NextResponse.json({ error: error, message: 'Unable to fetched your orders!', status: 500 });
         }
     }
 }
@@ -116,10 +116,10 @@ export async function POST(request) {
                 const newOrder = await order.save();
 
                 /** Return success message. */
-                return NextResponse.json({ orderid: newOrder._id, success: true, message: 'Order was successfully placed.', status: 200 });
+                return NextResponse.json({ order: newOrder, message: 'Order was successfully placed.', status: 200 });
             } else {
                 /** Return warning message. */
-                return NextResponse.json({ success: false, message: 'Kindly check your last order; data seems the same.', status: 403 });
+                return NextResponse.json({ message: 'Please check your last order; the info appears to be the same.', status: 403 });
             }
         } catch (error) {
             /** Return error message. */

@@ -13,7 +13,7 @@ import { addCart } from '../../redux/actions/cart-actions';
 /** Components. */
 import Sprite from '../ui/sprite';
 
-export default function ProductStock({ stocks, slug }) {
+export default function Stock({ stocks, slug }) {
     /** Use state. */
     const [quantity, setQuantity] = useState(1);
 

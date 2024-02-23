@@ -14,7 +14,7 @@ import { hotProduct } from '../../redux/actions/product-actions';
 import Loader from '../ui/loader';
 import ProductCard from './product-card';
 
-export default function ProductHot() {
+export default function Hot() {
     /** Use selector. */
     const productHot = useSelector((state) => state.productHot);
     const { products } = productHot;

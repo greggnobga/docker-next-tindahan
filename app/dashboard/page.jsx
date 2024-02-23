@@ -31,8 +31,8 @@ export default function DashboardPage() {
 
     /** Return something. */
     return (
-        <div className='min-h-screen'>
+        <section className='min-h-screen'>
             <h1 className='pb-2 text-center'>Dashboard</h1>
-        </div>
+        </section>
     );
 }
