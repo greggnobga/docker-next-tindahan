@@ -36,7 +36,7 @@ export async function POST(request) {
             /** Create slug. */
             const first = filtered.firstname ? filtered.firstname : 'firstname';
             const last = filtered.lastname ? filtered.lastname : 'lastname';
-            const slug = first.toLowerCase() + '-' + last.toLowerCase() + '-' + Math.random().toString().slice(2, 11);
+            const slug = first.replace(/\s+/g, '-').toLowerCase() + '-' + last.replace(/\s+/g, '-').toLowerCase() + '-' + Math.random().toString().slice(2, 11);
 
             /** Add to database record. */
             try {

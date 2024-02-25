@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { listOrder } from '../../redux/actions/order-actions';
 
 /** Component.  */
+import Sprite from '../ui/sprite';
 import Paginate from '../ui/paginate';
 
 /** Default export. */
@@ -42,7 +43,6 @@ export default function OrderList() {
 
     /** Pagination handler. */
     const paginationHandler = (x) => {
-        console.log(x);
         /** Dispatch action when pagination has been clicked. */
         dispatch(listOrder(x));
     };
@@ -82,11 +82,27 @@ export default function OrderList() {
                             </p>
                             <p className='p-1 relative sm:col-span-1 font-light text-sm'>
                                 <span className='absolute block top-0 right-0 text-[.50rem] sm:hidden'>Paid</span>
-                                {item.ispaid ? 'Yes' : 'No'}
+                                {item.ispaid ? (
+                                    <span className='text-green-500'>
+                                        <Sprite id='alert-checkmark' />
+                                    </span>
+                                ) : (
+                                    <span className='text-red-500'>
+                                        <Sprite id='alert-circle' />
+                                    </span>
+                                )}
                             </p>
                             <p className='p-1 relative sm:col-span-1 font-light text-sm'>
                                 <span className='absolute block top-0 right-0 text-[.50rem] sm:hidden'>Delivered</span>
-                                {item.isdelivered ? 'Yes' : 'No'}
+                                {item.isdelivered ? (
+                                    <span className='text-green-500'>
+                                        <Sprite id='alert-checkmark' />
+                                    </span>
+                                ) : (
+                                    <span className='text-red-500'>
+                                        <Sprite id='alert-circle' />
+                                    </span>
+                                )}
                             </p>
                             <p className='p-1 relative sm:col-span-2 font-light text-sm text-center'>
                                 <span className='absolute block top-0 right-0 text-[.50rem] sm:hidden'>Date</span>

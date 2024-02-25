@@ -27,7 +27,7 @@ export default function OrderDetails({ order }) {
     const { success } = orderCreate;
 
     const orderDetails = useSelector((state) => state.orderDetails);
-    const { _user, shipping, payment, items, totalprice, shippingprice, taxprice, paid, delivered } = orderDetails;
+    const { _user, shipping, payment, items, totalprice, shippingprice, taxprice, paid, delivered, paidat, deliveredat } = orderDetails;
 
     const toast = useSelector((state) => state.toast);
     const { status: responseStatus, message: responseMessage } = toast;
@@ -72,6 +72,12 @@ export default function OrderDetails({ order }) {
         }
     }, [logged, order, success, responseMessage]);
 
+    /** Payment handler. */
+    const paymentHandler = () => {
+        /** Push to payment page. */
+        router.push(`/orders/payment?method=${payment}&order=${order}`);
+    };
+
     /** Return something. */
     return (
         <div className='p-2 w-full'>
@@ -87,18 +93,26 @@ export default function OrderDetails({ order }) {
                         {shipping ? shipping.address + ', ' : ''} {shipping ? shipping.city + ', ' : ''} {shipping ? shipping.postal + ', ' : ''}
                         {shipping ? shipping.country : ''}
                     </p>
-                    <p className='py-2 text-sm font-normal'>
-                        <span className='uppercase'>{delivered ? 'Yes' : 'Not Delivered'}</span>
-                    </p>
+                    <div className='py-2 text-sm font-normal'>
+                        <span className='font-light'>
+                            {delivered ? (
+                                <div className='alert-info'>Delivered on {deliveredat ? deliveredat.substring(0, 10) : '00-00-0000'}</div>
+                            ) : (
+                                <div className='alert-danger'>Not Delivered</div>
+                            )}
+                        </span>
+                    </div>
                 </div>
                 <div className='col-span-1 sm:col-span-2 p-2'>
                     <h1 className='font-thin text-sm border-b border-slate-300 border-opacity-70 pb-2'>Payment</h1>
                     <p className='py-2 text-sm font-normal'>
                         <span className='uppercase'>{payment ? payment : ''}</span>
                     </p>
-                    <p className='py-2 text-sm font-normal'>
-                        <span className='uppercase'>{paid ? 'Yes' : 'Not Paid'}</span>
-                    </p>
+                    <div className='py-2 text-sm font-normal'>
+                        <span className='font-light'>
+                            {paid ? <div className='alert-info'>Paid on {paidat ? paidat.substring(0, 10) : '00-00-0000'}</div> : <div className='alert-danger'>Not Paid</div>}
+                        </span>
+                    </div>
                 </div>
                 <div className='col-span-1 sm:col-span-4 p-2'>
                     <h1 className='font-thin text-sm border-b border-slate-300 border-opacity-70 pb-2'>{items && items.length > 1 ? 'Items' : 'Item'}</h1>
@@ -185,6 +199,11 @@ export default function OrderDetails({ order }) {
                             </span>
                         </p>
                     </div>
+                </div>
+                <div className='col-span-1 sm:col-span-4 p-2'>
+                    <button type='button' className='button-primary' onClick={() => paymentHandler()}>
+                        Pay Now
+                    </button>
                 </div>
             </div>
         </div>

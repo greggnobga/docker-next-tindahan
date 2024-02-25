@@ -45,6 +45,8 @@ export async function GET(request, { params }) {
                     totalprice: details.totalprice,
                     paid: details.ispaid,
                     delivered: details.isdelivered,
+                    paidat: details.paidat,
+                    deliveredat: details.deliveredat,
                 });
             } else {
                 /** Return error message. */

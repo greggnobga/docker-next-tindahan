@@ -52,11 +52,17 @@ const orderSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        paymentresult: {
-            id: { type: String },
-            status: { type: String },
-            update_time: { type: String },
-            email_address: { type: String },
+        paymentreference: {
+            type: String,
+            required: false,
+        },
+        paymentscreenshot: {
+            type: String,
+            required: false,
+        },
+        paymenttransaction: {
+            type: String,
+            required: false,
         },
         taxprice: {
             type: Number,

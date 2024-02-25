@@ -56,7 +56,10 @@ export default function ProfileInformation() {
             {responseMessage ? <Notifications message={responseMessage} status={responseStatus} /> : ''}
             <div className='relative w-full h-16'>
                 <Link href='/profile/update' className='absolute top-0 right-0 p-1 text-right text-xs bg-slate-200 rounded shadow-sm'>
-                    <span className='mt-2 pl-2 inline-block'>Edit Profile</span> <Sprite id='chevron-forward' />
+                    <span className='mt-2 pl-2 inline-block'>Edit Profile</span>
+                    <span className='relative -top-[.1rem]'>
+                        <Sprite id='chevron-forward' />
+                    </span>
                 </Link>
             </div>
             <div className='p-2 grid place-items-center cursor-pointer'>

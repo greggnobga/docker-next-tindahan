@@ -108,6 +108,7 @@ export default function Shipping() {
                             <option defaultValue>Choose Payment Method</option>
                             <option value='gcash'>GCASH</option>
                             <option value='maya'>MAYA</option>
+                            <option value='crypto'>CRYPTO</option>
                         </select>
                         {paymentHasError ? <p className='input-message'>Please enter a valid payment method.</p> : ''}
                     </div>
