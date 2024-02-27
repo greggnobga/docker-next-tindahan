@@ -6,6 +6,10 @@ import {
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAILURE,
+    ORDER_REFERENCE_REQUEST,
+    ORDER_REFERENCE_SUCCESS,
+    ORDER_REFERENCE_FAILURE,
+    ORDER_REFERENCE_RESET,
     ORDER_LIST_REQUEST,
     ORDER_LIST_SUCCESS,
     ORDER_LIST_FAILURE,
@@ -15,7 +19,7 @@ import {
 export function orderCreateReducer(state = {}, action) {
     switch (action.type) {
         case ORDER_CREATE_REQUEST:
-            return { loading: false };
+            return { loading: true, success: false };
         case ORDER_CREATE_SUCCESS:
             return { loading: false, success: true, order: action.payload };
         case ORDER_CREATE_FAILURE:
@@ -36,6 +40,22 @@ export function orderDetailsReducer(state = {}, action) {
             return { loading: false, ...action.payload };
         case ORDER_DETAILS_FAILURE:
             return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+/** Order create reducer. */
+export function orderReferenceReducer(state = {}, action) {
+    switch (action.type) {
+        case ORDER_REFERENCE_REQUEST:
+            return { loading: true, success: false };
+        case ORDER_REFERENCE_SUCCESS:
+            return { loading: false, success: true, ...action.payload };
+        case ORDER_REFERENCE_FAILURE:
+            return { loading: false, success: false, error: action.payload };
+        case ORDER_REFERENCE_RESET:
+            return { loading: false, success: false };
         default:
             return state;
     }

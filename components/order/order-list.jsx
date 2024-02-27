@@ -111,10 +111,7 @@ export default function OrderList() {
                         </div>
                     );
                 })}
-
-            <div className='w-full'>
-                <Paginate pages={pages} handler={paginationHandler} page={page} type='profile' />
-            </div>
+            <div className='w-full'>{orders && orders.length > 0 ? <Paginate pages={pages} handler={paginationHandler} page={page} type='profile' /> : ''}</div>
         </div>
     );
 }

@@ -247,7 +247,7 @@ export default function ProfileUpdate() {
                         <label htmlFor='image' className='block mb-2 text-sm font-light text-gray-900'>
                             Image
                         </label>
-                        <input type='file' className='input-success' />
+                        <input id='image' type='file' className='input-success' />
                     </div>
                     <div className='col-span-12 md:col-span-6 lg:col-span-4'>
                         <label htmlFor='mobile' className='block mb-2 text-sm font-light text-gray-900'>

@@ -7,6 +7,10 @@ import {
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAILURE,
     ORDER_LIST_REQUEST,
+    ORDER_REFERENCE_SUCCESS,
+    ORDER_REFERENCE_FAILURE,
+    ORDER_REFERENCE_REQUEST,
+    ORDER_REFERENCE_RESET,
     ORDER_LIST_SUCCESS,
     ORDER_LIST_FAILURE,
 } from '../constants/order-constants';
@@ -21,7 +25,6 @@ export const createOrder = (params) => async (dispatch) => {
     try {
         /** Dispatch request. */
         dispatch({ type: ORDER_CREATE_REQUEST });
-
         /** Make api request. */
         const response = await fetch('/api/orders', {
             method: 'POST',
@@ -30,26 +33,21 @@ export const createOrder = (params) => async (dispatch) => {
             },
             body: JSON.stringify(params),
         });
-
         /** Wait for the response. */
         const data = await response.json();
-
         if (data) {
             /** Dispatch success. */
             dispatch({
                 type: ORDER_CREATE_SUCCESS,
                 payload: data.order,
             });
-
             dispatch({
                 type: TOAST_MESSAGE,
                 payload: { message: data.message, status: data.status },
             });
-
             dispatch({
                 type: CART_RESET,
             });
-
             /** Remove state in local storage. */
             localStorage.removeItem('cartItems');
         }
@@ -92,11 +90,47 @@ export const detailsOrder = (order) => async (dispatch) => {
                 type: ORDER_DETAILS_SUCCESS,
                 payload: { ...data },
             });
+
+            dispatch({
+                type: ORDER_REFERENCE_RESET,
+            });
         }
     } catch (error) {
         /** Dispatch failure. */
         dispatch({
             type: ORDER_DETAILS_FAILURE,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+        });
+    }
+};
+
+/** Update order to paid action. */
+export const referenceOrder = (params) => async (dispatch) => {
+    /** Initiate try catch block. */
+    try {
+        /** Dispatch request. */
+        dispatch({ type: ORDER_REFERENCE_REQUEST });
+        /** Make api request. */
+        const response = await fetch(`/api/orders/payment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(params),
+        });
+        /** Wait for the response. */
+        const data = await response.json();
+        if (data) {
+            /** Dispatch success. */
+            dispatch({
+                type: ORDER_REFERENCE_SUCCESS,
+                payload: { ...data },
+            });
+        }
+    } catch (error) {
+        /** Dispatch failure. */
+        dispatch({
+            type: ORDER_REFERENCE_FAILURE,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message,
         });
     }

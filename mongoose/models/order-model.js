@@ -60,10 +60,6 @@ const orderSchema = mongoose.Schema(
             type: String,
             required: false,
         },
-        paymenttransaction: {
-            type: String,
-            required: false,
-        },
         taxprice: {
             type: Number,
             required: true,

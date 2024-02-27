@@ -27,7 +27,7 @@ export async function GET(request) {
         /** Try to save the order. */
         try {
             /** Pagination. */
-            const pageSize = 5;
+            const pageSize = 2;
             const pageNumber = Number(request.nextUrl.searchParams.get(['page']) || 1);
 
             /** Count existing products. */
@@ -74,7 +74,7 @@ export async function POST(request) {
         /** Check if id from decoded token and data userid are matched. */
         if (verified.id !== data.userid) {
             /** Return error message. */
-            return NextResponse.json({ message: 'The IDs do not match; please send us a message so that we can investigate further.', status: 403 });
+            return NextResponse.json({ message: 'The userid do not match; please send us a message so that we can investigate further.', status: 403 });
         }
 
         /** Try to save the order. */

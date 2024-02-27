@@ -19,7 +19,7 @@ import {
     productOurReducer,
     productRecommendedReducer,
 } from './reducers/product-reducers';
-import { orderCreateReducer, orderDetailsReducer, orderListReducer } from './reducers/order-reducers';
+import { orderCreateReducer, orderDetailsReducer, orderReferenceReducer, orderListReducer } from './reducers/order-reducers';
 
 /** Combine reducer. */
 const reducer = combineReducers({
@@ -38,6 +38,7 @@ const reducer = combineReducers({
     productRecommended: productRecommendedReducer,
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
+    orderReference: orderReferenceReducer,
     orderList: orderListReducer,
 });
 

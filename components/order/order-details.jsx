@@ -15,6 +15,7 @@ import { detailsOrder, resetOrder } from '../../redux/actions/order-actions';
 import { calculateDiscount, calculateSubTotal } from '../../lib/calculate';
 
 /** Component. */
+import Sprite from '../ui/sprite';
 import Notifications from '../ui/notifications';
 
 /** Default export. */
@@ -27,7 +28,7 @@ export default function OrderDetails({ order }) {
     const { success } = orderCreate;
 
     const orderDetails = useSelector((state) => state.orderDetails);
-    const { _user, shipping, payment, items, totalprice, shippingprice, taxprice, paid, delivered, paidat, deliveredat } = orderDetails;
+    const { _user, shipping, payment, items, totalprice, shippingprice, taxprice, paid, delivered, paidat, deliveredat, reference } = orderDetails;
 
     const toast = useSelector((state) => state.toast);
     const { status: responseStatus, message: responseMessage } = toast;
@@ -96,9 +97,19 @@ export default function OrderDetails({ order }) {
                     <div className='py-2 text-sm font-normal'>
                         <span className='font-light'>
                             {delivered ? (
-                                <div className='alert-info'>Delivered on {deliveredat ? deliveredat.substring(0, 10) : '00-00-0000'}</div>
+                                <div className='alert-info'>
+                                    <span className='text-green-500'>
+                                        <Sprite id='alert-checkmark' />
+                                    </span>
+                                    Delivered on {deliveredat ? deliveredat.substring(0, 10) : '00-00-0000'}
+                                </div>
                             ) : (
-                                <div className='alert-danger'>Not Delivered</div>
+                                <div className='alert-danger'>
+                                    <span className='text-red-500'>
+                                        <Sprite id='alert-circle' />
+                                    </span>
+                                    Not Delivered
+                                </div>
                             )}
                         </span>
                     </div>
@@ -110,7 +121,21 @@ export default function OrderDetails({ order }) {
                     </p>
                     <div className='py-2 text-sm font-normal'>
                         <span className='font-light'>
-                            {paid ? <div className='alert-info'>Paid on {paidat ? paidat.substring(0, 10) : '00-00-0000'}</div> : <div className='alert-danger'>Not Paid</div>}
+                            {paid ? (
+                                <div className='alert-info'>
+                                    <span className='text-green-500'>
+                                        <Sprite id='alert-checkmark' />
+                                    </span>
+                                    Paid on {paidat ? paidat.substring(0, 10) : '00-00-0000'} with ref #: {reference ? reference : ''}
+                                </div>
+                            ) : (
+                                <div className='alert-danger'>
+                                    <span className='text-red-500'>
+                                        <Sprite id='alert-circle' />
+                                    </span>
+                                    Not Paid
+                                </div>
+                            )}
                         </span>
                     </div>
                 </div>
@@ -201,7 +226,7 @@ export default function OrderDetails({ order }) {
                     </div>
                 </div>
                 <div className='col-span-1 sm:col-span-4 p-2'>
-                    <button type='button' className='button-primary' onClick={() => paymentHandler()}>
+                    <button type='button' className='button-primary' disabled={paid} onClick={() => paymentHandler()}>
                         Pay Now
                     </button>
                 </div>

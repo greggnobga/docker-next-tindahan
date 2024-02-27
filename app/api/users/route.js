@@ -23,22 +23,28 @@ export async function GET(request) {
 
     /** Watcher verdict. */
     if (verified) {
-        /** Fetch all messages record. */
-        try {
-            /** Check for existing record. */
-            const users = await User.find({}).select('_id firstname lastname image slug email mobile gender admin').limit(25).sort({ createdAt: -1 }).exec();
+        /** Check if user is an admin. */
+        if (verified.admin) {
+            /** Fetch all messages record. */
+            try {
+                /** Check for existing record. */
+                const users = await User.find({}).select('_id firstname lastname image slug email mobile gender admin').limit(25).sort({ createdAt: -1 }).exec();
 
-            /** Check if user is not empty and return appropriate data. */
-            if (users) {
-                /** Return user list. */
-                return NextResponse.json(users);
-            } else {
-                /** Return warning message. */
-                return NextResponse.json({ message: 'No users so far.', status: 200 });
+                /** Check if user is not empty and return appropriate data. */
+                if (users) {
+                    /** Return user list. */
+                    return NextResponse.json(users);
+                } else {
+                    /** Return warning message. */
+                    return NextResponse.json({ message: 'No users so far.', status: 200 });
+                }
+            } catch (error) {
+                /** Return error message. */
+                return NextResponse.json({ message: 'Unable to fetched users.', status: 500 });
             }
-        } catch (error) {
+        } else {
             /** Return error message. */
-            return NextResponse.json({ message: 'Unable to fetched users!', status: 500 });
+            return NextResponse.json({ message: 'Not authorized as an admin.', status: 401 });
         }
     }
 }

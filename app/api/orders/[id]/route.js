@@ -47,6 +47,7 @@ export async function GET(request, { params }) {
                     delivered: details.isdelivered,
                     paidat: details.paidat,
                     deliveredat: details.deliveredat,
+                    reference: details.paymentreference,
                 });
             } else {
                 /** Return error message. */
