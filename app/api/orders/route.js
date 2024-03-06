@@ -27,14 +27,14 @@ export async function GET(request) {
         /** Try to save the order. */
         try {
             /** Pagination. */
-            const pageSize = 2;
+            const pageSize = 10;
             const pageNumber = Number(request.nextUrl.searchParams.get(['page']) || 1);
 
             /** Count existing products. */
             const count = await Order.countDocuments({});
 
             /** Fetch existing record. */
-            const orders = await Order.find({ _user: verified.id })
+            const orders = await Order.find(verified.admin ? {} : { _user: verified.id })
                 .select('_id _user ispaid isdelivered createdAt orderitems._product')
                 .limit(pageSize)
                 .sort({ createdAt: -1 })

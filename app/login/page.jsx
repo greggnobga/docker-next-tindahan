@@ -60,7 +60,7 @@ export default function LoginPage() {
     /** Submit hanndler. */
     function submitHandler(e) {
         /** Prevent browser default behaviour */
-        event.preventDefault();
+        e.preventDefault();
 
         /** Change blur state. */
         emailBlurHandler(true);

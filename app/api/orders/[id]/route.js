@@ -30,7 +30,7 @@ export async function GET(request, { params }) {
             const { id } = await params;
 
             /** Fetch all orders. */
-            const details = await Order.findOne({ _user: verified.id, _id: id }).populate('_user', 'firstname lastname mobile email');
+            const details = await Order.findOne(verified.admin ? { _id: id } : { _user: verified.id, _id: id }).populate('_user', 'firstname lastname mobile email');
 
             if (details) {
                 /** Return error message. */

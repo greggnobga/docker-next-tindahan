@@ -42,9 +42,7 @@ export default function OrderDetails({ order }) {
     /** Use effect. */
     useEffect(() => {
         /** Dispatch order details. */
-        if (order) {
-            dispatch(detailsOrder(order));
-        }
+        dispatch(detailsOrder(order));
 
         /** Check if response has value. */
         if (responseMessage) {
@@ -71,7 +69,7 @@ export default function OrderDetails({ order }) {
             /** Push to login page. */
             router.push('/');
         }
-    }, [logged, order, success, responseMessage]);
+    }, [logged, success, responseMessage]);
 
     /** Payment handler. */
     const paymentHandler = () => {

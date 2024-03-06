@@ -26,9 +26,9 @@ export default function Card({ item }) {
                         <p className='pb-2 text-xs font-thin text-slate-700 mr-1'>
                             {Number(item.price).toLocaleString('en-US', { minimumFractionDigits: 2 })} <span className='uppercase'>( old price )</span>
                         </p>
-                        <p className='pb-2 text-xs font-light'>
+                        <div className='pb-2 text-xs font-light'>
                             <Rating value={item.rating} text={`${item.reviewcount} ${item.reviewcount > 1 ? 'reviews' : 'review'}`} />
-                        </p>
+                        </div>
                         <p className='pt-2 text-xs font-thin text-right'>
                             <span className='uppercase'>Stock on hand ( {item.stockcount} )</span>
                         </p>
