@@ -5,6 +5,8 @@ import ProductJust from '../components/product/product-just';
 import ProductHot from '../components/product/product-hot';
 import ProductOur from '../components/product/product-our';
 
+export const dynamic = 'force-dynamic';
+
 /** Default export. */
 export default function HomePage() {
     /** Return something. */
