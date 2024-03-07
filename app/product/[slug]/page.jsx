@@ -1,9 +1,10 @@
+/** Library. */
+import { calculateDiscount } from '../../../lib/calculate';
+
 // /** Components. */
 import Rating from '../../../components/ui/rating';
 import ProductStock from '../../../components/product/product-stock';
-
-/** Library. */
-import { calculateDiscount } from '../../../lib/calculate';
+import ProductRecommend from '../../../components/product/product-recommend';
 
 /** Get project details for server side rendering. */
 export async function getDetails({ slug }) {
@@ -26,15 +27,12 @@ export async function generateMetadata({ params: { slug } }) {
 }
 
 /** Default export. */
-export default async function ProductDetailsPage({ params }) {
-    /** Gert parametr value. */
-    const { slug } = await params;
-
+export default async function ProductDetailsPage({ params: { slug } }) {
     /** Featch project details. */
     const details = await getDetails({ slug });
 
     /** Calculate discount. */
-    const discount = await calculateDiscount({ price: details.price, discount: details.discount });
+    const discount = calculateDiscount({ price: details.price, discount: details.discount });
 
     /** Format old price. */
     const oldprice = details?.price ? Number(details.price).toLocaleString('en-US', { minimumFractionDigits: 2 }) : '0.00';
@@ -63,6 +61,7 @@ export default async function ProductDetailsPage({ params }) {
                 </div>
                 <ProductStock stocks={details.stockcount} slug={details.slug} />
             </div>
+            <ProductRecommend />
         </section>
     );
 }

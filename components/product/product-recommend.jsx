@@ -1,49 +1,34 @@
-'use client';
-
-/** React. */
-import { useEffect } from 'react';
-
-/** Vendor. */
-import { useSearchParams } from 'next/navigation';
-import { useSelector, useDispatch } from 'react-redux';
-
-/** Action. */
-import { recommendedProduct } from '../../redux/actions/product-actions';
-
 /** Component.  */
-import Loader from '../ui/loader';
 import ProductCard from './product-card';
 
-export default function Recommend() {
-    /** Use selector. */
-    const productRecommended = useSelector((state) => state.productRecommended);
-    const { products } = productRecommended;
+/** Get project details for server side rendering. */
+export async function getProducts() {
+    /** Get data from api. */
+    const products = await fetch(`${process.env.HOST}/api/product/deals`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ deals: 'Recommendation' }),
+    }).then((data) => data.json());
 
-    /** Use dispatch. */
-    const dispatch = useDispatch();
+    /** Return something. */
+    return products ? products : {};
+}
 
-    /** Use effect. */
-    useEffect(() => {
-        /** Fetch just products. */
-        if (!products) {
-            dispatch(recommendedProduct());
-        }
-    }, [dispatch]);
+export default async function RecommendedProducts() {
+    /** Get flash deals . */
+    const { products } = await getProducts();
 
     /** Return something. */
     return (
         <div className='pt-2 w-full'>
-            <h1 className='pb-2'>Recommendation</h1>
+            <h1 className='pb-2'>Product Browsed By Others</h1>
             <div className='flex flex-col flex-wrap sm:flex-row gap-2 place-items-center'>
-                {products ? (
+                {products &&
                     products.map((product, id) => {
                         return <ProductCard key={id} item={product} />;
-                    })
-                ) : (
-                    <div className='w-full text-center'>
-                        <Loader />
-                    </div>
-                )}
+                    })}
             </div>
         </div>
     );

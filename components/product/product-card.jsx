@@ -9,6 +9,9 @@ import Rating from '../ui/rating';
 
 /** Export default. */
 export default function Card({ item }) {
+    /** Calculate discounted price. */
+    const discount = calculateDiscount({ price: item.price, discount: item.discount });
+
     /** Return something. */
     return (
         <div className='flex-grow w-full h-fit sm:w-3/12 md:w-2/12'>
@@ -20,7 +23,7 @@ export default function Card({ item }) {
                     <div className='p-2 md:p-4'>
                         <p className='pb-2 text-sm font-light text-amber-600'>{item.name}</p>
                         <p className='pb-2 text-sm font-medium'>
-                            <span className='text-lg pr-2'>&#x20B1;{calculateDiscount({ price: item.price, discount: item.discount })}</span>
+                            <span className='text-lg pr-2'>&#x20B1; {discount}</span>
                             <span className='text-xs font-thin text-red-900'>-{item.discount}%</span>
                         </p>
                         <p className='pb-2 text-xs font-thin text-slate-700 mr-1'>

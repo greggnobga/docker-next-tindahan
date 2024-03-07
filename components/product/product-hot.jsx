@@ -1,49 +1,34 @@
-'use client';
-
-/** React. */
-import { useEffect } from 'react';
-
-/** Vendor. */
-import { useSearchParams } from 'next/navigation';
-import { useSelector, useDispatch } from 'react-redux';
-
-/** Action. */
-import { hotProduct } from '../../redux/actions/product-actions';
-
 /** Component.  */
-import Loader from '../ui/loader';
 import ProductCard from './product-card';
 
-export default function Hot() {
-    /** Use selector. */
-    const productHot = useSelector((state) => state.productHot);
-    const { products } = productHot;
+/** Get project details for server side rendering. */
+export async function getProducts() {
+    /** Get data from api. */
+    const products = await fetch(`${process.env.HOST}/api/product/deals`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ deals: 'Hot Deals' }),
+    }).then((data) => data.json());
 
-    /** Use dispatch. */
-    const dispatch = useDispatch();
+    /** Return something. */
+    return products ? products : {};
+}
 
-    /** Use effect. */
-    useEffect(() => {
-        /** Fetch hot products. */
-        if (!products) {
-            dispatch(hotProduct());
-        }
-    }, [dispatch]);
+export default async function HotProducts() {
+    /** Get flash deals . */
+    const { products } = await getProducts();
 
     /** Return something. */
     return (
         <div className='pt-2 w-full'>
             <h1 className='pb-2'>Hot Deals</h1>
             <div className='flex flex-col flex-wrap sm:flex-row gap-2 place-items-center'>
-                {products ? (
+                {products &&
                     products.map((product, id) => {
                         return <ProductCard key={id} item={product} />;
-                    })
-                ) : (
-                    <div className='w-full text-center'>
-                        <Loader />
-                    </div>
-                )}
+                    })}
             </div>
         </div>
     );

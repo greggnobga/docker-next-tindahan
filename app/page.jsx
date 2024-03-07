@@ -1,12 +1,9 @@
-/** Vendor. */
-import dynamic from 'next/dynamic';
-
 /** Components. */
-const Hero = dynamic(() => import('../components/ui/hero'), { ssr: false });
-const ProductFlash = dynamic(() => import('../components/product/product-flash'), { ssr: false });
-const ProductJust = dynamic(() => import('../components/product/product-just'), { ssr: false });
-const ProductHot = dynamic(() => import('../components/product/product-hot'), { ssr: false });
-const ProductOur = dynamic(() => import('../components/product/product-our'), { ssr: false });
+import Hero from '../components/ui/hero';
+import ProductFlash from '../components/product/product-flash';
+import ProductJust from '../components/product/product-just';
+import ProductHot from '../components/product/product-hot';
+import ProductOur from '../components/product/product-our';
 
 /** Default export. */
 export default function HomePage() {
